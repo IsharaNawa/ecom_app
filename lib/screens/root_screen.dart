@@ -40,6 +40,8 @@ class _RootScreenState extends State<RootScreen> {
       ),
       bottomNavigationBar: NavigationBar(
         backgroundColor: Theme.of(context).colorScheme.surface,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        indicatorColor: Colors.transparent,
         selectedIndex: _currentScreen,
         onDestinationSelected: (index) {
           setState(() {
