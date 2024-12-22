@@ -1,6 +1,5 @@
 import 'package:ecom_app/constants/theme_data.dart';
 import 'package:ecom_app/providers/theme_provider.dart';
-import 'package:ecom_app/screens/home_screen.dart';
 import 'package:ecom_app/screens/root_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
