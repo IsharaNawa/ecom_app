@@ -1,4 +1,6 @@
 import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/widgets/app_title.dart';
+import 'package:ecom_app/widgets/profile_screen_general_section.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
             HugeIcons.strokeRoundedShoppingBag02,
           ),
         ),
-        title: const Text("Profile Screen"),
+        title: const AppTitle(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -83,41 +85,7 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 20, top: 20, right: 20),
-              child: Text(
-                "General",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            const ListTile(
-              leading: Icon(HugeIcons.strokeRoundedShoppingBag01),
-              title: Text("All orders"),
-              trailing: Icon(Icons.arrow_right),
-            ),
-            const ListTile(
-              leading: Icon(HugeIcons.strokeRoundedHeartAdd),
-              title: Text("Wishlist"),
-              trailing: Icon(Icons.arrow_right),
-            ),
-            const ListTile(
-              leading: Icon(HugeIcons.strokeRoundedClock02),
-              title: Text("Viewed Recently"),
-              trailing: Icon(Icons.arrow_right),
-            ),
-            const ListTile(
-              leading: Icon(HugeIcons.strokeRoundedLocation03),
-              title: Text("Address"),
-              trailing: Icon(Icons.arrow_right),
-            ),
-            const Divider(
-              indent: 10,
-              endIndent: 10,
-              thickness: 0.8,
-            ),
+            const ProfileScreenGeneralSection(),
             const Padding(
               padding: EdgeInsets.only(left: 20, top: 20, right: 20),
               child: Text(
@@ -165,7 +133,6 @@ class ProfileScreen extends StatelessWidget {
               title: Text("Privacy Policy"),
               trailing: Icon(Icons.arrow_right),
             ),
-            // const Spacer(), // Pushes the TextButton to the bottom
             Row(
               children: [
                 const Spacer(),
@@ -179,9 +146,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            )
           ],
         ),
       ),

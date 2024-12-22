@@ -19,6 +19,16 @@ class Styles {
                 color: Colors.white,
               ),
             ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40), // Rounded corners
+                ),
+              ),
+            ),
           )
         : ThemeData(
             colorScheme: ColorScheme.fromSeed(
@@ -40,6 +50,16 @@ class Styles {
               ),
               bodyMedium: GoogleFonts.ubuntu(
                 color: Colors.black,
+              ),
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40), // Rounded corners
+                ),
               ),
             ),
           );
