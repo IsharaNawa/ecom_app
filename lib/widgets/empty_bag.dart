@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class EmptyBag extends StatelessWidget {
-  EmptyBag({
+  const EmptyBag({
     super.key,
     required this.mainImage,
     required this.mainTitle,
@@ -12,10 +11,10 @@ class EmptyBag extends StatelessWidget {
     required this.buttonFunction,
   });
 
-  Widget mainImage;
-  String mainTitle;
-  String subTitle;
-  String buttonText;
+  final Widget mainImage;
+  final String mainTitle;
+  final String subTitle;
+  final String buttonText;
   final void Function() buttonFunction;
 
   @override
