@@ -26,7 +26,7 @@ class _RootScreenState extends State<RootScreen> {
       CartScreen(),
       ProfileScreen(),
     ];
-    _currentScreen = 0;
+    _currentScreen = 3;
     _pageController = PageController(initialPage: _currentScreen);
   }
 
@@ -39,7 +39,6 @@ class _RootScreenState extends State<RootScreen> {
         children: _screens,
       ),
       bottomNavigationBar: NavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         indicatorColor: Colors.transparent,
         selectedIndex: _currentScreen,

@@ -1,15 +1,47 @@
 import 'package:ecom_app/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Styles {
   static ThemeData themeData(
       {required bool isDarkTheme, required BuildContext context}) {
     return isDarkTheme
-        ? ThemeData.dark()
+        ? ThemeData.dark().copyWith(
+            navigationBarTheme: const NavigationBarThemeData(
+              backgroundColor: Colors.black,
+              elevation: 0,
+            ),
+            textTheme: GoogleFonts.ubuntuTextTheme().copyWith(
+              titleSmall: GoogleFonts.ubuntu(
+                color: Colors.white,
+              ),
+              bodyMedium: GoogleFonts.ubuntu(
+                color: Colors.white,
+              ),
+            ),
+          )
         : ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 4, 4, 4),
+            ),
             scaffoldBackgroundColor: AppColors.lightScaffoldColor,
             useMaterial3: true,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: AppColors.lightScaffoldColor,
+              elevation: 0,
+            ),
+            navigationBarTheme: const NavigationBarThemeData(
+              backgroundColor: AppColors.lightScaffoldColor,
+              elevation: 0,
+            ),
+            textTheme: GoogleFonts.ubuntuTextTheme().copyWith(
+              titleSmall: GoogleFonts.ubuntu(
+                color: Colors.black,
+              ),
+              bodyMedium: GoogleFonts.ubuntu(
+                color: Colors.black,
+              ),
+            ),
           );
   }
 }
