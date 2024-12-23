@@ -58,7 +58,7 @@ class _CartScreenState extends State<CartScreen> {
                 return const CartWidget();
               },
             ),
-            bottomSheet: BottomCartWidget(),
+            bottomSheet: const BottomCartWidget(),
           );
   }
 }

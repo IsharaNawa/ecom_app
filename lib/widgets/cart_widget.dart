@@ -1,4 +1,5 @@
 import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/widgets/quantity_bottom_sheet.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -84,7 +85,14 @@ class CartWidget extends StatelessWidget {
                       style: GoogleFonts.lato(),
                     ),
                     TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () async {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return const QuantityBottomSheet();
+                          },
+                        );
+                      },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.black,
                       ),
