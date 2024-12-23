@@ -60,7 +60,10 @@ class _RootScreenState extends State<RootScreen> {
             selectedIcon: Icon(HugeIcons.strokeRoundedSearchAdd),
           ),
           NavigationDestination(
-            icon: Icon(HugeIcons.strokeRoundedShoppingCart01),
+            icon: Badge(
+              label: Text("3"),
+              child: Icon(HugeIcons.strokeRoundedShoppingCart01),
+            ),
             label: "Cart",
             selectedIcon: Icon(HugeIcons.strokeRoundedShoppingCartCheckIn01),
           ),
