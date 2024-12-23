@@ -1,12 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hugeicons/hugeicons.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
   @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  late TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    _textEditingController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text("SearchScreen"),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          titleSpacing: 0,
+          leading: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+            child: Icon(
+              HugeIcons.strokeRoundedShoppingBag02,
+            ),
+          ),
+          title: const Text("Explore Products"),
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextField(
+                controller: _textEditingController,
+                autocorrect: false,
+                onSubmitted: (value) {
+                  print(_textEditingController.text);
+                },
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(HugeIcons.strokeRoundedSearch02),
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      _textEditingController.clear();
+                      FocusScope.of(context).unfocus();
+                    },
+                    child: const Icon(HugeIcons.strokeRoundedCancel01),
+                  ),
+                  suffixIconColor: Colors.red,
+                  label: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 8.0,
+                    ),
+                    child: Text(
+                      "Explore Products",
+                      style: GoogleFonts.lato(
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

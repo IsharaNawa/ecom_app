@@ -29,6 +29,42 @@ class Styles {
                 ),
               ),
             ),
+            inputDecorationTheme: InputDecorationTheme(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(
+                    30,
+                  ),
+                ),
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(
+                    30,
+                  ),
+                ),
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+            ),
           )
         : ThemeData(
             colorScheme: ColorScheme.fromSeed(
@@ -58,7 +94,43 @@ class Styles {
                 foregroundColor: Colors.white,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40), // Rounded corners
+                  borderRadius: BorderRadius.circular(40),
+                ),
+              ),
+            ),
+            inputDecorationTheme: InputDecorationTheme(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(
+                    30,
+                  ),
+                ),
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(
+                    30,
+                  ),
+                ),
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Theme.of(context).colorScheme.error,
                 ),
               ),
             ),
