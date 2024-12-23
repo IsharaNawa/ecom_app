@@ -1,3 +1,4 @@
+import 'package:ecom_app/widgets/bottom_cart_widget.dart';
 import 'package:ecom_app/widgets/cart_widget.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:flutter/material.dart';
@@ -52,10 +53,12 @@ class _CartScreenState extends State<CartScreen> {
               ],
             ),
             body: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const CartWidget();
-                }),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const CartWidget();
+              },
+            ),
+            bottomSheet: BottomCartWidget(),
           );
   }
 }

@@ -1,1 +1,1 @@
-1. Make Cart Items Responsive
+1. Make Cart Items Responsive : Edit Cart Widget Item.

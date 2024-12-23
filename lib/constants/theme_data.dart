@@ -32,7 +32,7 @@ class Styles {
           )
         : ThemeData(
             colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 4, 4, 4),
+              seedColor: Colors.greenAccent,
             ),
             scaffoldBackgroundColor: AppColors.lightScaffoldColor,
             useMaterial3: true,
