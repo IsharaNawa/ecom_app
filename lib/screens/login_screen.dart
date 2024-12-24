@@ -241,16 +241,19 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      const Row(
+                      Row(
                         children: [
                           Expanded(
                             child: Divider(
                               indent: 25,
                               endIndent: 10,
                               thickness: 0.5,
+                              color: themeProvider.getIsDarkTheme
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                           ),
-                          Text(
+                          const Text(
                             "OR",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -262,6 +265,9 @@ class LoginScreen extends StatelessWidget {
                               indent: 10,
                               endIndent: 25,
                               thickness: 0.5,
+                              color: themeProvider.getIsDarkTheme
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                           ),
                         ],
@@ -273,10 +279,13 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          side: const BorderSide(
+                          side: BorderSide(
                             width: 1.0,
+                            color: themeProvider.getIsDarkTheme
+                                ? Colors.white
+                                : Colors.black,
                           ),
                         ),
                         icon: Image.asset(
