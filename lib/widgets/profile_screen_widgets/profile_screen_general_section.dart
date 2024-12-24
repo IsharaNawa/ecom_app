@@ -8,11 +8,17 @@ class ProfileScreenGeneralSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Icon> leadingIcons = const [
+    List<dynamic> leadingIcons = const [
       Icon(HugeIcons.strokeRoundedShoppingBag01),
-      Icon(HugeIcons.strokeRoundedHeartAdd),
-      Icon(HugeIcons.strokeRoundedClock02),
-      Icon(HugeIcons.strokeRoundedLocation03)
+      Badge(
+        label: Text("3"),
+        child: Icon(HugeIcons.strokeRoundedHeartAdd),
+      ),
+      Badge(
+        label: Text("3"),
+        child: Icon(HugeIcons.strokeRoundedClock02),
+      ),
+      Icon(HugeIcons.strokeRoundedLocation03),
     ];
 
     List<String> titles = [
