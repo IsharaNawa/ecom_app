@@ -12,6 +12,19 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+
+    final OutlineInputBorder outlinedInputBorder = OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          10,
+        ),
+      ),
+      borderSide: BorderSide(
+        width: 1.5,
+        color: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
+      ),
+    );
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -47,58 +60,10 @@ class LoginScreen extends StatelessWidget {
                         child: TextFormField(
                           autocorrect: false,
                           decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  10,
-                                ),
-                              ),
-                              borderSide: BorderSide(
-                                width: 1.5,
-                                color: themeProvider.getIsDarkTheme
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  10,
-                                ),
-                              ),
-                              borderSide: BorderSide(
-                                width: 1.5,
-                                color: themeProvider.getIsDarkTheme
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  10,
-                                ),
-                              ),
-                              borderSide: BorderSide(
-                                width: 1.5,
-                                color: themeProvider.getIsDarkTheme
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  10,
-                                ),
-                              ),
-                              borderSide: BorderSide(
-                                width: 1.5,
-                                color: themeProvider.getIsDarkTheme
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
+                            enabledBorder: outlinedInputBorder,
+                            focusedBorder: outlinedInputBorder,
+                            errorBorder: outlinedInputBorder,
+                            focusedErrorBorder: outlinedInputBorder,
                             label: Padding(
                               padding: const EdgeInsets.only(
                                 left: 8.0,
@@ -126,58 +91,10 @@ class LoginScreen extends StatelessWidget {
                               onTap: () {},
                               child: const Icon(HugeIcons.strokeRoundedView),
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  10,
-                                ),
-                              ),
-                              borderSide: BorderSide(
-                                width: 1.5,
-                                color: themeProvider.getIsDarkTheme
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  10,
-                                ),
-                              ),
-                              borderSide: BorderSide(
-                                width: 1,
-                                color: themeProvider.getIsDarkTheme
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  10,
-                                ),
-                              ),
-                              borderSide: BorderSide(
-                                width: 1,
-                                color: themeProvider.getIsDarkTheme
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  10,
-                                ),
-                              ),
-                              borderSide: BorderSide(
-                                width: 1,
-                                color: themeProvider.getIsDarkTheme
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
+                            enabledBorder: outlinedInputBorder,
+                            focusedBorder: outlinedInputBorder,
+                            errorBorder: outlinedInputBorder,
+                            focusedErrorBorder: outlinedInputBorder,
                             label: Padding(
                               padding: const EdgeInsets.only(
                                 left: 8.0,

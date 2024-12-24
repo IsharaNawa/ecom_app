@@ -1,6 +1,6 @@
 import 'package:ecom_app/constants/theme_data.dart';
 import 'package:ecom_app/providers/theme_provider.dart';
-import 'package:ecom_app/screens/login_screen.dart';
+import 'package:ecom_app/screens/auth_screens/login_screen.dart';
 import 'package:ecom_app/screens/root_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -28,8 +27,8 @@ class MyApp extends StatelessWidget {
           title: 'ECom App',
           theme: Styles.themeData(
               isDarkTheme: themeProvider.getIsDarkTheme, context: context),
-          home: const RootScreen(),
-          // home: const LoginScreen(),
+          // home: const RootScreen(),
+          home: const LoginScreen(),
         );
       }),
     );
