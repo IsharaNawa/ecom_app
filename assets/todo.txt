@@ -1,1 +1,2 @@
 1. Make Cart Items Responsive : Edit Cart Widget Item.
+2 . bootm cart widget text Responsiveness

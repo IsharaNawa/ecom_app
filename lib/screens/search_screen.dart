@@ -1,3 +1,5 @@
+import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:ecom_app/widgets/product_grid_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -76,6 +78,18 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: DynamicHeightGridView(
+                builder: (context, index) {
+                  return const ProductGridWidget();
+                },
+                itemCount: 200,
+                crossAxisCount: 2,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+              ),
+            )
           ],
         ),
       ),
