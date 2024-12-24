@@ -1,13 +1,17 @@
+import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/screens/root_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -43,44 +47,56 @@ class LoginScreen extends StatelessWidget {
                         child: TextFormField(
                           autocorrect: false,
                           decoration: InputDecoration(
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(
                                   10,
                                 ),
                               ),
                               borderSide: BorderSide(
                                 width: 1.5,
+                                color: themeProvider.getIsDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                             ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(
                                   10,
                                 ),
                               ),
                               borderSide: BorderSide(
                                 width: 1.5,
+                                color: themeProvider.getIsDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                             ),
-                            errorBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(
                                   10,
                                 ),
                               ),
                               borderSide: BorderSide(
                                 width: 1.5,
+                                color: themeProvider.getIsDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                             ),
-                            focusedErrorBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(
                                   10,
                                 ),
                               ),
                               borderSide: BorderSide(
                                 width: 1.5,
+                                color: themeProvider.getIsDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                             ),
                             label: Padding(
@@ -110,34 +126,56 @@ class LoginScreen extends StatelessWidget {
                               onTap: () {},
                               child: const Icon(HugeIcons.strokeRoundedView),
                             ),
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(
                                   10,
                                 ),
                               ),
                               borderSide: BorderSide(
                                 width: 1.5,
+                                color: themeProvider.getIsDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                             ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                              ),
-                            ),
-                            errorBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(
-                                  0,
+                                  10,
                                 ),
                               ),
                               borderSide: BorderSide(
                                 width: 1,
+                                color: themeProvider.getIsDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                             ),
-                            focusedErrorBorder: const OutlineInputBorder(
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(
+                                  10,
+                                ),
+                              ),
                               borderSide: BorderSide(
                                 width: 1,
+                                color: themeProvider.getIsDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(
+                                  10,
+                                ),
+                              ),
+                              borderSide: BorderSide(
+                                width: 1,
+                                color: themeProvider.getIsDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                             ),
                             label: Padding(
@@ -155,8 +193,53 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Row(
+                        children: [
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20.0),
+                            child: TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                "Forgot Password?",
+                                style: GoogleFonts.oxygen(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       const SizedBox(
-                        height: 40,
+                        height: 30,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 60,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const RootScreen(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 20,
+                            ),
+                          ),
+                          child: Text(
+                            "Log In",
+                            style: GoogleFonts.lato(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
                       ),
                       const Row(
                         children: [
@@ -183,6 +266,49 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          side: const BorderSide(
+                            width: 1.0,
+                          ),
+                        ),
+                        icon: Image.asset(
+                          "assets/images/google_logo.png",
+                          height: 40,
+                          width: 40,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don't have an Account?",
+                            style: GoogleFonts.oxygen(
+                              fontSize: 18,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Sign up",
+                              style: GoogleFonts.oxygen(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 )

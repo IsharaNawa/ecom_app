@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
           title: 'ECom App',
           theme: Styles.themeData(
               isDarkTheme: themeProvider.getIsDarkTheme, context: context),
-          // home: const RootScreen(),
-          home: const LoginScreen(),
+          home: const RootScreen(),
+          // home: const LoginScreen(),
         );
       }),
     );
