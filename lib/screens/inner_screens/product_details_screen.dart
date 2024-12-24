@@ -22,7 +22,9 @@ class ProductDetailsScreens extends StatelessWidget {
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
-        title: const AppTitle(),
+        title: const AppTitle(
+          fontSize: 24.0,
+        ),
         actions: [
           IconButton(
             onPressed: () {},

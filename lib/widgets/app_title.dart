@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AppTitle extends StatelessWidget {
-  const AppTitle({super.key});
+  const AppTitle({super.key, required double fontSize}) : _fontSize = fontSize;
+
+  final double _fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +16,11 @@ class AppTitle extends StatelessWidget {
       baseColor: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
       highlightColor:
           themeProvider.getIsDarkTheme ? Colors.black45 : Colors.white,
-      child: const Text(
+      child: Text(
         "DealVerse",
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 24.0,
+          fontSize: _fontSize,
           fontWeight: FontWeight.bold,
         ),
       ),

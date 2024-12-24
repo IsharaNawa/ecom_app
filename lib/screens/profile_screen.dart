@@ -1,9 +1,9 @@
 import 'package:ecom_app/constants/app_functions.dart';
 import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/screens/login_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/profile_screen_widgets/profile_screen_general_section.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,9 @@ class ProfileScreen extends StatelessWidget {
             HugeIcons.strokeRoundedShoppingBag02,
           ),
         ),
-        title: const AppTitle(),
+        title: const AppTitle(
+          fontSize: 24.0,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -152,7 +154,13 @@ class ProfileScreen extends StatelessWidget {
                         action1Func: () {
                           Navigator.of(context).pop();
                         },
-                        action2Func: () {},
+                        action2Func: () async {
+                          await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
+                        },
                       );
                     },
                     label: const Text("Log Out"),

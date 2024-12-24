@@ -20,7 +20,9 @@ class HomeScreen extends StatelessWidget {
             HugeIcons.strokeRoundedShoppingBag02,
           ),
         ),
-        title: const AppTitle(),
+        title: const AppTitle(
+          fontSize: 24.0,
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
