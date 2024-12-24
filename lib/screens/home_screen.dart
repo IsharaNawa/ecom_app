@@ -1,6 +1,9 @@
-import 'package:card_swiper/card_swiper.dart';
 import 'package:ecom_app/widgets/app_title.dart';
+import 'package:ecom_app/widgets/home_screen_widgets/carousel_section.dart';
+import 'package:ecom_app/widgets/home_screen_widgets/category_section.dart';
+import 'package:ecom_app/widgets/home_screen_widgets/latest_arrival_item.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,11 +11,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    List<String> bannerList = [
-      "assets/images/banners/banner1.png",
-      "assets/images/banners/banner2.png",
-    ];
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
@@ -24,41 +22,58 @@ class HomeScreen extends StatelessWidget {
         ),
         title: const AppTitle(),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: size.height * 0.2,
-              child: Padding(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CarouselSection(),
+              Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Material(
-                  elevation: 5,
-                  borderRadius: BorderRadius.circular(20),
-                  shadowColor: Colors.black.withOpacity(0.9),
-                  child: Swiper(
-                    autoplay: true,
-                    curve: Curves.easeIn,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          bannerList[index],
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    },
-                    itemCount: bannerList.length,
-                    pagination: SwiperPagination(
-                      builder: DotSwiperPaginationBuilder(
-                        activeColor: Theme.of(context).colorScheme.primary,
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
-                    ),
+                child: Text(
+                  "Latest Arrivals",
+                  style: GoogleFonts.lato(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: 105,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 8.0,
+                    top: 4.0,
+                  ),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return const Row(
+                        children: [
+                          SizedBox(
+                            width: 8,
+                          ),
+                          LatestArrivalItem()
+                        ],
+                      );
+                    },
+                    itemCount: 20,
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, top: 25, bottom: 16),
+                child: Text(
+                  "Categories",
+                  style: GoogleFonts.lato(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              const CategorySection(),
+            ],
+          ),
         ),
       ),
     );

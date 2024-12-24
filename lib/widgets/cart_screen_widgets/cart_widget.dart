@@ -1,5 +1,5 @@
 import 'package:ecom_app/providers/theme_provider.dart';
-import 'package:ecom_app/widgets/quantity_bottom_sheet.dart';
+import 'package:ecom_app/widgets/cart_screen_widgets/quantity_bottom_sheet.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

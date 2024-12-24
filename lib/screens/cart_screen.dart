@@ -1,5 +1,5 @@
-import 'package:ecom_app/widgets/bottom_cart_widget.dart';
-import 'package:ecom_app/widgets/cart_widget.dart';
+import 'package:ecom_app/widgets/cart_screen_widgets/bottom_cart_widget.dart';
+import 'package:ecom_app/widgets/cart_screen_widgets/cart_widget.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';

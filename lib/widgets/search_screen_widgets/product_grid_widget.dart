@@ -1,3 +1,4 @@
+import 'package:ecom_app/screens/inner_screens/product_details_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,8 +17,14 @@ class _ProductGridWidgetState extends State<ProductGridWidget> {
     Size size = MediaQuery.of(context).size;
 
     return GestureDetector(
-      onTap: () {
-        print("navigate to product page");
+      onTap: () async {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return const ProductDetailsScreens();
+            },
+          ),
+        );
       },
       child: Column(
         children: [

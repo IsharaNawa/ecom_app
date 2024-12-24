@@ -1,5 +1,5 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
-import 'package:ecom_app/widgets/product_grid_widget.dart';
+import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';

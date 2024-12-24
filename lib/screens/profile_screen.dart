@@ -1,6 +1,6 @@
 import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/widgets/app_title.dart';
-import 'package:ecom_app/widgets/profile_screen_general_section.dart';
+import 'package:ecom_app/widgets/profile_screen_widgets/profile_screen_general_section.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
