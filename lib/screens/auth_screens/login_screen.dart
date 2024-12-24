@@ -130,7 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           decoration: InputDecoration(
                             suffixIcon: GestureDetector(
                               onTap: () {
-                                print("pressed");
                                 setState(() {
                                   _isPWVisible = !_isPWVisible;
                                 });
@@ -159,23 +158,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      Row(
-                        children: [
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
-                            child: TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                "Forgot Password?",
-                                style: GoogleFonts.oxygen(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Forgot Password?",
+                              style: GoogleFonts.oxygen(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
-                        ],
+                        ),
                       ),
                       const SizedBox(
                         height: 30,
