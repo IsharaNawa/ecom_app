@@ -26,7 +26,7 @@ class _RootScreenState extends State<RootScreen> {
       CartScreen(),
       ProfileScreen(),
     ];
-    _currentScreen = 1;
+    _currentScreen = 0;
     _pageController = PageController(initialPage: _currentScreen);
   }
 
