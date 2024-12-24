@@ -1,13 +1,23 @@
 import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/screens/root_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  String? _email;
+  String? _password;
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +63,26 @@ class LoginScreen extends StatelessWidget {
                   height: 50,
                 ),
                 Form(
+                  key: _formKey,
                   child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25.0),
                         child: TextFormField(
+                          validator: (value) {
+                            if (value == null) {
+                              return "Please enter a valid Email!";
+                            }
+
+                            if (!EmailValidator.validate(value)) {
+                              return "Please enter a valid Email!";
+                            }
+
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _email = value;
+                          },
                           autocorrect: false,
                           decoration: InputDecoration(
                             enabledBorder: outlinedInputBorder,
@@ -85,6 +110,20 @@ class LoginScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25.0),
                         child: TextFormField(
+                          validator: (value) {
+                            if (value == null) {
+                              return "Please enter a valid Password!";
+                            }
+
+                            if (value.length < 8) {
+                              return "Please enter a valid Password with 8 or more Characters!";
+                            }
+
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _password = value;
+                          },
                           autocorrect: false,
                           decoration: InputDecoration(
                             suffixIcon: GestureDetector(
@@ -135,6 +174,16 @@ class LoginScreen extends StatelessWidget {
                         width: MediaQuery.of(context).size.width - 60,
                         child: ElevatedButton(
                           onPressed: () async {
+                            if (!_formKey.currentState!.validate()) {
+                              return;
+                            }
+
+                            _formKey.currentState!.save();
+
+                            if (_email == null || _password == null) {
+                              return;
+                            }
+
                             await Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => const RootScreen(),
