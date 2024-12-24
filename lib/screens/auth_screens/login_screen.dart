@@ -18,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   String? _email;
   String? _password;
+  bool _isPWVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -125,10 +126,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             _password = value;
                           },
                           autocorrect: false,
+                          obscureText: !_isPWVisible,
                           decoration: InputDecoration(
                             suffixIcon: GestureDetector(
-                              onTap: () {},
-                              child: const Icon(HugeIcons.strokeRoundedView),
+                              onTap: () {
+                                print("pressed");
+                                setState(() {
+                                  _isPWVisible = !_isPWVisible;
+                                });
+                              },
+                              child: _isPWVisible
+                                  ? const Icon(HugeIcons.strokeRoundedView)
+                                  : const Icon(
+                                      HugeIcons.strokeRoundedViewOffSlash),
                             ),
                             enabledBorder: outlinedInputBorder,
                             focusedBorder: outlinedInputBorder,
@@ -175,6 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (!_formKey.currentState!.validate()) {
+                              FocusScope.of(context).unfocus();
                               return;
                             }
 
