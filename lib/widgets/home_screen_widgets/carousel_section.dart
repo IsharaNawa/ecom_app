@@ -6,8 +6,6 @@ class CarouselSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     List<String> bannerList = [
       "assets/images/banners/banner1.png",
       "assets/images/banners/banner2.png",

@@ -1,3 +1,5 @@
+import 'package:ecom_app/screens/inner_screens/viewed_recently.dart';
+import 'package:ecom_app/screens/inner_screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
@@ -20,6 +22,25 @@ class ProfileScreenGeneralSection extends StatelessWidget {
       "Address"
     ];
 
+    List<dynamic> buttonFunctions = [
+      () {},
+      () async {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const WishListScreen(),
+          ),
+        );
+      },
+      () async {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const ViewedRecentlyScreen(),
+          ),
+        );
+      },
+      () {},
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,10 +55,13 @@ class ProfileScreenGeneralSection extends StatelessWidget {
           ),
         ),
         ...leadingIcons.map(
-          (icon) => ListTile(
-            leading: icon,
-            title: Text(titles[leadingIcons.indexOf(icon)]),
-            trailing: const Icon(Icons.arrow_right),
+          (icon) => GestureDetector(
+            onTap: buttonFunctions[leadingIcons.indexOf(icon)],
+            child: ListTile(
+              leading: icon,
+              title: Text(titles[leadingIcons.indexOf(icon)]),
+              trailing: const Icon(Icons.arrow_right),
+            ),
           ),
         ),
         const Divider(

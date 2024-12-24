@@ -25,7 +25,7 @@ class _CartScreenState extends State<CartScreen> {
             ),
             mainTitle: "Nothing is in Your Cart!",
             subTitle:
-                "You have not placed an order yet. Please add items to your cart and checkout when you are ready.",
+                "You have not added any items to the cart. Please add items to your cart and checkout when you are ready.",
             buttonText: "Explore Products",
             buttonFunction: () {},
           ))
