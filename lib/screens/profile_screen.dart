@@ -1,6 +1,7 @@
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/screens/auth_screens/login_screen.dart';
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/profile_screen_widgets/profile_screen_general_section.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,7 @@ class ProfileScreen extends StatelessWidget {
                         context: context,
                         isWarning: true,
                         mainTitle: "Do you want to Log out?",
-                        icon: const Icon(HugeIcons.strokeRoundedLogout05),
+                        icon: Icon(IconManager.generalLogoutIcon),
                         action1Text: "No",
                         action2Text: "Yes",
                         action1Func: () {
@@ -164,7 +165,7 @@ class ProfileScreen extends StatelessWidget {
                       );
                     },
                     label: const Text("Log Out"),
-                    icon: const Icon(HugeIcons.strokeRoundedLogout05),
+                    icon: Icon(IconManager.generalLogoutIcon),
                   ),
                 ),
               ],

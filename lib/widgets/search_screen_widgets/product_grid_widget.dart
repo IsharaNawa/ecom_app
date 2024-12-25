@@ -1,4 +1,5 @@
 import 'package:ecom_app/screens/inner_screens/product_details_screen.dart';
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,8 +65,8 @@ class _ProductGridWidgetState extends State<ProductGridWidget> {
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(
-                    HugeIcons.strokeRoundedHeartAdd,
+                  icon: Icon(
+                    IconManager.wishListGeneralIcon,
                     size: 20,
                   ),
                 ),
@@ -94,8 +95,8 @@ class _ProductGridWidgetState extends State<ProductGridWidget> {
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(
-                    HugeIcons.strokeRoundedShoppingCart01,
+                  icon: Icon(
+                    IconManager.addToCartGeneralIcon,
                     size: 20,
                   ),
                 ),

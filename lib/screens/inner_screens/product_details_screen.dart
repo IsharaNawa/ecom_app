@@ -1,3 +1,4 @@
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class ProductDetailsScreens extends StatelessWidget {
           IconButton(
             onPressed: () {},
             icon: Icon(
-              HugeIcons.strokeRoundedHeartAdd,
+              IconManager.wishListGeneralIcon,
               size: 20,
               color: Theme.of(context).colorScheme.primary,
             ),

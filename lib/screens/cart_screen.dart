@@ -1,3 +1,4 @@
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/bottom_cart_widget.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/cart_widget.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
@@ -19,8 +20,8 @@ class _CartScreenState extends State<CartScreen> {
     return isCartEmpty
         ? Scaffold(
             body: EmptyBag(
-            mainImage: const Icon(
-              HugeIcons.strokeRoundedShoppingCartRemove01,
+            mainImage: Icon(
+              IconManager.emptyCartIcon,
               size: 200,
             ),
             mainTitle: "Nothing is in Your Cart!",

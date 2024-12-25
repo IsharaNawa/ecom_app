@@ -1,5 +1,6 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:ecom_app/model/category.dart';
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -13,64 +14,64 @@ class CategorySection extends StatelessWidget {
       Category(
         name: "Phones",
         id: "0",
-        categoryIcon: const Icon(
-          HugeIcons.strokeRoundedSmartPhone01,
+        categoryIcon: Icon(
+          IconManager.phoneCategory,
           size: 40,
         ),
       ),
       Category(
         name: "Laptops",
         id: "1",
-        categoryIcon: const Icon(
-          HugeIcons.strokeRoundedLaptop,
+        categoryIcon: Icon(
+          IconManager.laptopCategory,
           size: 40,
         ),
       ),
       Category(
         name: "Electronics",
         id: "2",
-        categoryIcon: const Icon(
-          HugeIcons.strokeRoundedPlug01,
+        categoryIcon: Icon(
+          IconManager.electronicsCategory,
           size: 40,
         ),
       ),
       Category(
         name: "Watches",
         id: "3",
-        categoryIcon: const Icon(
-          HugeIcons.strokeRoundedSmartWatch04,
+        categoryIcon: Icon(
+          IconManager.watchCategory,
           size: 40,
         ),
       ),
       Category(
         name: "Clothes",
         id: "4",
-        categoryIcon: const Icon(
-          HugeIcons.strokeRoundedClothes,
+        categoryIcon: Icon(
+          IconManager.clotheCategory,
           size: 40,
         ),
       ),
       Category(
         name: "Shoes",
         id: "5",
-        categoryIcon: const Icon(
-          HugeIcons.strokeRoundedRunningShoes,
+        categoryIcon: Icon(
+          IconManager.shoeCategory,
           size: 40,
         ),
       ),
       Category(
         name: "Books",
         id: "6",
-        categoryIcon: const Icon(
-          HugeIcons.strokeRoundedBook04,
+        categoryIcon: Icon(
+          IconManager.bookCategory,
           size: 40,
         ),
       ),
       Category(
         name: "Makeup",
         id: "7",
-        categoryIcon: const Icon(
-          HugeIcons.strokeRoundedAiBeautify,
+        categoryIcon: Icon(
+          IconManager.makeupCategory,
           size: 40,
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:ecom_app/screens/cart_screen.dart';
 import 'package:ecom_app/screens/home_screen.dart';
 import 'package:ecom_app/screens/profile_screen.dart';
 import 'package:ecom_app/screens/search_screen.dart';
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
@@ -48,7 +49,7 @@ class _RootScreenState extends State<RootScreen> {
           });
           _pageController.jumpToPage(_currentScreen);
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(
             icon: Icon(HugeIcons.strokeRoundedHome07),
             label: "Home",
@@ -62,7 +63,7 @@ class _RootScreenState extends State<RootScreen> {
           NavigationDestination(
             icon: Badge(
               label: Text("3"),
-              child: Icon(HugeIcons.strokeRoundedShoppingCart01),
+              child: Icon(IconManager.addToCartGeneralIcon),
             ),
             label: "Cart",
             selectedIcon: Icon(HugeIcons.strokeRoundedShoppingCartCheckIn01),

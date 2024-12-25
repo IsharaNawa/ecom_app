@@ -1,4 +1,5 @@
 import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/quantity_bottom_sheet.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class CartWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Column(
+                  Column(
                     children: [
                       Icon(
                         HugeIcons.strokeRoundedDelete04,
@@ -64,7 +65,7 @@ class CartWidget extends StatelessWidget {
                         height: 25,
                       ),
                       Icon(
-                        HugeIcons.strokeRoundedHeartAdd,
+                        IconManager.wishListGeneralIcon,
                         size: 18,
                       ),
                     ],

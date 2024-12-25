@@ -1,5 +1,6 @@
 import 'package:ecom_app/screens/inner_screens/viewed_recently.dart';
 import 'package:ecom_app/screens/inner_screens/wishlist_screen.dart';
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
@@ -8,13 +9,13 @@ class ProfileScreenGeneralSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> leadingIcons = const [
-      Icon(HugeIcons.strokeRoundedShoppingBag01),
+    List<dynamic> leadingIcons = [
+      const Icon(HugeIcons.strokeRoundedShoppingBag01),
       Badge(
-        label: Text("3"),
-        child: Icon(HugeIcons.strokeRoundedHeartAdd),
+        label: const Text("3"),
+        child: Icon(IconManager.wishListGeneralIcon),
       ),
-      Badge(
+      const Badge(
         label: Text("3"),
         child: Icon(HugeIcons.strokeRoundedClock02),
       ),
