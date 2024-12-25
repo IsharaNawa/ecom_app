@@ -1,4 +1,4 @@
-import 'package:ecom_app/constants/app_functions.dart';
+import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/screens/auth_screens/login_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
