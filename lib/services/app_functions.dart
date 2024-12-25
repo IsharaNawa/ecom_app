@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AppFunctions {
-  static Future<void> showErrorOrWarningDialog({
+  static Future<void> showErrorOrWarningOrImagePickerDialog({
     required BuildContext context,
     required bool isWarning,
     required String mainTitle,

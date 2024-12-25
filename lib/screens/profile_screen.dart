@@ -144,7 +144,7 @@ class ProfileScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 15.0),
                   child: TextButton.icon(
                     onPressed: () async {
-                      await AppFunctions.showErrorOrWarningDialog(
+                      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
                         context: context,
                         isWarning: true,
                         mainTitle: "Do you want to Log out?",

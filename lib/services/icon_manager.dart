@@ -33,6 +33,8 @@ class IconManager {
   static IconData generalLogoutIcon = HugeIcons.strokeRoundedLogout05;
   static IconData pwVisibleIcon = HugeIcons.strokeRoundedView;
   static IconData pwNotVisibleIcon = HugeIcons.strokeRoundedViewOffSlash;
+  static IconData showImagePickerDialogBoxIcon = HugeIcons.strokeRoundedImage02;
+  static IconData deletePickedImage = HugeIcons.strokeRoundedDelete02;
 
   //categories
   static IconData phoneCategoryIcon = HugeIcons.strokeRoundedSmartPhone01;
