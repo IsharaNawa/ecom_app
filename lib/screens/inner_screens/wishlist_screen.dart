@@ -3,7 +3,6 @@ import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class WishListScreen extends StatefulWidget {
   const WishListScreen({super.key});
@@ -34,8 +33,8 @@ class WishListScreenState extends State<WishListScreen> {
               ),
             ),
             body: EmptyBag(
-              mainImage: const Icon(
-                HugeIcons.strokeRoundedHeartRemove,
+              mainImage: Icon(
+                IconManager.emptyWishListIcon,
                 size: 200,
               ),
               mainTitle: "Nothing is in Your Wishlist!",
@@ -70,8 +69,7 @@ class WishListScreenState extends State<WishListScreen> {
                       isWishListEmpty = true;
                     });
                   },
-                  icon: const Icon(
-                      HugeIcons.strokeRoundedShoppingBasketCheckOut01),
+                  icon: Icon(IconManager.clearWishListIcon),
                   label: const Text("Clear Wishlist"),
                 )
               ],

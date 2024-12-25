@@ -14,7 +14,7 @@ class CategorySection extends StatelessWidget {
         name: "Phones",
         id: "0",
         categoryIcon: Icon(
-          IconManager.phoneCategory,
+          IconManager.phoneCategoryIcon,
           size: 40,
         ),
       ),
@@ -22,7 +22,7 @@ class CategorySection extends StatelessWidget {
         name: "Laptops",
         id: "1",
         categoryIcon: Icon(
-          IconManager.laptopCategory,
+          IconManager.laptopCategoryIcon,
           size: 40,
         ),
       ),
@@ -30,7 +30,7 @@ class CategorySection extends StatelessWidget {
         name: "Electronics",
         id: "2",
         categoryIcon: Icon(
-          IconManager.electronicsCategory,
+          IconManager.electronicsCategoryIcon,
           size: 40,
         ),
       ),
@@ -38,7 +38,7 @@ class CategorySection extends StatelessWidget {
         name: "Watches",
         id: "3",
         categoryIcon: Icon(
-          IconManager.watchCategory,
+          IconManager.watchCategoryIcon,
           size: 40,
         ),
       ),
@@ -46,7 +46,7 @@ class CategorySection extends StatelessWidget {
         name: "Clothes",
         id: "4",
         categoryIcon: Icon(
-          IconManager.clotheCategory,
+          IconManager.clotheCategoryIcon,
           size: 40,
         ),
       ),
@@ -54,7 +54,7 @@ class CategorySection extends StatelessWidget {
         name: "Shoes",
         id: "5",
         categoryIcon: Icon(
-          IconManager.shoeCategory,
+          IconManager.shoeCategoryIcon,
           size: 40,
         ),
       ),
@@ -62,7 +62,7 @@ class CategorySection extends StatelessWidget {
         name: "Books",
         id: "6",
         categoryIcon: Icon(
-          IconManager.bookCategory,
+          IconManager.bookCategoryIcon,
           size: 40,
         ),
       ),
@@ -70,7 +70,7 @@ class CategorySection extends StatelessWidget {
         name: "Makeup",
         id: "7",
         categoryIcon: Icon(
-          IconManager.makeupCategory,
+          IconManager.makeupCategoryIcon,
           size: 40,
         ),
       ),

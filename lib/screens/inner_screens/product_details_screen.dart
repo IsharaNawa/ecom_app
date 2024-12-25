@@ -3,7 +3,6 @@ import 'package:ecom_app/widgets/app_title.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class ProductDetailsScreens extends StatelessWidget {
   const ProductDetailsScreens({super.key});

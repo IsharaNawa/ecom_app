@@ -3,7 +3,6 @@ import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class ViewedRecentlyScreen extends StatefulWidget {
   const ViewedRecentlyScreen({super.key});
@@ -34,8 +33,8 @@ class ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
               ),
             ),
             body: EmptyBag(
-              mainImage: const Icon(
-                HugeIcons.strokeRoundedTimeQuarterPass,
+              mainImage: Icon(
+                IconManager.emptyRecentlyViewedIcon,
                 size: 200,
               ),
               mainTitle: "You haven't viewed any products yet!",
@@ -70,8 +69,7 @@ class ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
                       isRecentlyViewdListEmpty = true;
                     });
                   },
-                  icon: const Icon(
-                      HugeIcons.strokeRoundedShoppingBasketCheckOut01),
+                  icon: Icon(IconManager.clearRecentelyViewedList),
                   label: const Text("Clear Items"),
                 )
               ],

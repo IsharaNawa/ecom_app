@@ -4,7 +4,6 @@ import 'package:ecom_app/widgets/cart_screen_widgets/quantity_bottom_sheet.dart'
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 
 class CartWidget extends StatelessWidget {
@@ -58,10 +57,10 @@ class CartWidget extends StatelessWidget {
                   Column(
                     children: [
                       Icon(
-                        HugeIcons.strokeRoundedDelete04,
+                        IconManager.removeItemFromCartIcon,
                         size: 18,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
                       Icon(
@@ -103,8 +102,8 @@ class CartWidget extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      icon: const Icon(
-                        HugeIcons.strokeRoundedArrowDown01,
+                      icon: Icon(
+                        IconManager.openCartQuantityBottomSheetIcon,
                         color: Colors.white,
                       ),
                     )

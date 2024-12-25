@@ -8,6 +8,19 @@ class IconManager {
 
   // wishlist
   static IconData wishListGeneralIcon = HugeIcons.strokeRoundedHeartAdd;
+  static IconData emptyWishListIcon = HugeIcons.strokeRoundedHeartRemove;
+  //TODO : change the icon
+  static IconData clearWishListIcon =
+      HugeIcons.strokeRoundedShoppingBasketCheckOut01;
+
+  // recently viewed
+  static IconData recentlyViewedIcon = HugeIcons.strokeRoundedClock02;
+  static IconData emptyRecentlyViewedIcon =
+      HugeIcons.strokeRoundedTimeQuarterPass;
+
+  //TODO : change the icon
+  static IconData clearRecentelyViewedList =
+      HugeIcons.strokeRoundedShoppingBasketCheckOut01;
 
   // cart
   static IconData addToCartGeneralIcon = HugeIcons.strokeRoundedShoppingCart01;
@@ -16,6 +29,9 @@ class IconManager {
       HugeIcons.strokeRoundedShoppingBasketCheckOut01;
   static IconData cartActiveNavbarIcon =
       HugeIcons.strokeRoundedShoppingCartCheckIn01;
+  static IconData openCartQuantityBottomSheetIcon =
+      HugeIcons.strokeRoundedArrowDown01;
+  static IconData removeItemFromCartIcon = HugeIcons.strokeRoundedDelete04;
 
   // auth
   static IconData generalLogoutIcon = HugeIcons.strokeRoundedLogout05;
@@ -23,14 +39,14 @@ class IconManager {
   static IconData pwNotVisibleIcon = HugeIcons.strokeRoundedViewOffSlash;
 
   //categories
-  static IconData phoneCategory = HugeIcons.strokeRoundedSmartPhone01;
-  static IconData laptopCategory = HugeIcons.strokeRoundedLaptop;
-  static IconData electronicsCategory = HugeIcons.strokeRoundedPlug01;
-  static IconData watchCategory = HugeIcons.strokeRoundedSmartWatch04;
-  static IconData clotheCategory = HugeIcons.strokeRoundedClothes;
-  static IconData shoeCategory = HugeIcons.strokeRoundedRunningShoes;
-  static IconData bookCategory = HugeIcons.strokeRoundedBook04;
-  static IconData makeupCategory = HugeIcons.strokeRoundedAiBeautify;
+  static IconData phoneCategoryIcon = HugeIcons.strokeRoundedSmartPhone01;
+  static IconData laptopCategoryIcon = HugeIcons.strokeRoundedLaptop;
+  static IconData electronicsCategoryIcon = HugeIcons.strokeRoundedPlug01;
+  static IconData watchCategoryIcon = HugeIcons.strokeRoundedSmartWatch04;
+  static IconData clotheCategoryIcon = HugeIcons.strokeRoundedClothes;
+  static IconData shoeCategoryIcon = HugeIcons.strokeRoundedRunningShoes;
+  static IconData bookCategoryIcon = HugeIcons.strokeRoundedBook04;
+  static IconData makeupCategoryIcon = HugeIcons.strokeRoundedAiBeautify;
 
   // searching
   static IconData searhBarIcon = HugeIcons.strokeRoundedSearch02;
@@ -50,4 +66,6 @@ class IconManager {
 
   //other
   static IconData privacyPolicyIcon = HugeIcons.strokeRoundedPoliceBadge;
+  static IconData ordersIcon = HugeIcons.strokeRoundedShoppingBag01;
+  static IconData addressIcon = HugeIcons.strokeRoundedLocation03;
 }
