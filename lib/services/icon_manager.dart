@@ -9,18 +9,14 @@ class IconManager {
   // wishlist
   static IconData wishListGeneralIcon = HugeIcons.strokeRoundedHeartAdd;
   static IconData emptyWishListIcon = HugeIcons.strokeRoundedHeartRemove;
-  //TODO : change the icon
-  static IconData clearWishListIcon =
-      HugeIcons.strokeRoundedShoppingBasketCheckOut01;
+  static IconData clearWishListIcon = HugeIcons.strokeRoundedHeartbreak;
 
   // recently viewed
   static IconData recentlyViewedIcon = HugeIcons.strokeRoundedClock02;
   static IconData emptyRecentlyViewedIcon =
       HugeIcons.strokeRoundedTimeQuarterPass;
-
-  //TODO : change the icon
   static IconData clearRecentelyViewedList =
-      HugeIcons.strokeRoundedShoppingBasketCheckOut01;
+      HugeIcons.strokeRoundedRotateClockwise;
 
   // cart
   static IconData addToCartGeneralIcon = HugeIcons.strokeRoundedShoppingCart01;
