@@ -1,10 +1,10 @@
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/home_screen_widgets/carousel_section.dart';
 import 'package:ecom_app/widgets/home_screen_widgets/category_section.dart';
 import 'package:ecom_app/widgets/home_screen_widgets/latest_arrival_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,10 +14,10 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
-        leading: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
           child: Icon(
-            HugeIcons.strokeRoundedShoppingBag02,
+            IconManager.appBarIcon,
           ),
         ),
         title: const AppTitle(

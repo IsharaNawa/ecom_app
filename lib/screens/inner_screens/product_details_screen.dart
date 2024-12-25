@@ -19,7 +19,7 @@ class ProductDetailsScreens extends StatelessWidget {
             Navigator.canPop(context) ? Navigator.of(context).pop() : null;
           },
           icon: Icon(
-            HugeIcons.strokeRoundedArrowLeft01,
+            IconManager.backButtonIcon,
             color: Theme.of(context).colorScheme.primary,
           ),
         ),

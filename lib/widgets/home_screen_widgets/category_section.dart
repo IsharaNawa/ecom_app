@@ -3,7 +3,6 @@ import 'package:ecom_app/model/category.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class CategorySection extends StatelessWidget {
   const CategorySection({super.key});

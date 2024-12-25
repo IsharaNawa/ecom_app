@@ -3,7 +3,6 @@ import 'package:ecom_app/widgets/cart_screen_widgets/bottom_cart_widget.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/cart_widget.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -33,10 +32,11 @@ class _CartScreenState extends State<CartScreen> {
         : Scaffold(
             appBar: AppBar(
               titleSpacing: 0,
-              leading: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+              leading: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
                 child: Icon(
-                  HugeIcons.strokeRoundedShoppingBag02,
+                  IconManager.appBarIcon,
                 ),
               ),
               title: const Text("Your Cart(6)"),
@@ -47,8 +47,7 @@ class _CartScreenState extends State<CartScreen> {
                       isCartEmpty = true;
                     });
                   },
-                  icon: const Icon(
-                      HugeIcons.strokeRoundedShoppingBasketCheckOut01),
+                  icon: Icon(IconManager.clearCartIcon),
                   label: const Text("Clear Cart"),
                 )
               ],

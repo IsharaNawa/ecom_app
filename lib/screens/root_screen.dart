@@ -4,7 +4,6 @@ import 'package:ecom_app/screens/profile_screen.dart';
 import 'package:ecom_app/screens/search_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
@@ -51,27 +50,27 @@ class _RootScreenState extends State<RootScreen> {
         },
         destinations: [
           NavigationDestination(
-            icon: Icon(HugeIcons.strokeRoundedHome07),
+            icon: Icon(IconManager.homeNavBarIcon),
             label: "Home",
-            selectedIcon: Icon(HugeIcons.strokeRoundedHome01),
+            selectedIcon: Icon(IconManager.homeActiveNavBarIcon),
           ),
           NavigationDestination(
-            icon: Icon(HugeIcons.strokeRoundedSearch01),
+            icon: Icon(IconManager.searchNavbarIcon),
             label: "Search",
-            selectedIcon: Icon(HugeIcons.strokeRoundedSearchAdd),
+            selectedIcon: Icon(IconManager.searchActiveNavbarIcon),
           ),
           NavigationDestination(
             icon: Badge(
-              label: Text("3"),
+              label: const Text("3"),
               child: Icon(IconManager.addToCartGeneralIcon),
             ),
             label: "Cart",
-            selectedIcon: Icon(HugeIcons.strokeRoundedShoppingCartCheckIn01),
+            selectedIcon: Icon(IconManager.cartActiveNavbarIcon),
           ),
           NavigationDestination(
-            icon: Icon(HugeIcons.strokeRoundedUser),
+            icon: Icon(IconManager.profileNavBarIcon),
             label: "Profile",
-            selectedIcon: Icon(HugeIcons.strokeRoundedUserAdd01),
+            selectedIcon: Icon(IconManager.profileActiveNavBarIcon),
           ),
         ],
       ),

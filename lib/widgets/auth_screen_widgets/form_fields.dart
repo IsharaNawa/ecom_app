@@ -1,7 +1,7 @@
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 enum FormFieldType {
   email,
@@ -126,8 +126,8 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
             });
           },
           child: _isPWVisible
-              ? const Icon(HugeIcons.strokeRoundedView)
-              : const Icon(HugeIcons.strokeRoundedViewOffSlash),
+              ? Icon(IconManager.pwVisibleIcon)
+              : Icon(IconManager.pwNotVisibleIcon),
         ),
         enabledBorder: widget.outlinedInputBorder,
         focusedBorder: widget.outlinedInputBorder,

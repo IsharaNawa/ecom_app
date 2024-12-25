@@ -5,7 +5,6 @@ import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/profile_screen_widgets/profile_screen_general_section.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -17,10 +16,10 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
-        leading: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
           child: Icon(
-            HugeIcons.strokeRoundedShoppingBag02,
+            IconManager.appBarIcon,
           ),
         ),
         title: const AppTitle(
@@ -103,8 +102,8 @@ class ProfileScreen extends StatelessWidget {
             ),
             SwitchListTile(
               secondary: themeProvider.getIsDarkTheme
-                  ? const Icon(HugeIcons.strokeRoundedMoon02)
-                  : const Icon(HugeIcons.strokeRoundedSun03),
+                  ? Icon(IconManager.darkModeIcon)
+                  : Icon(IconManager.lightModeIcon),
               title: const Padding(
                 padding: EdgeInsets.only(left: 8.0),
                 child: Text("Dark Mode"),
@@ -133,10 +132,10 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const ListTile(
-              leading: Icon(HugeIcons.strokeRoundedPoliceBadge),
-              title: Text("Privacy Policy"),
-              trailing: Icon(Icons.arrow_right),
+            ListTile(
+              leading: Icon(IconManager.privacyPolicyIcon),
+              title: const Text("Privacy Policy"),
+              trailing: const Icon(Icons.arrow_right),
             ),
             Row(
               children: [

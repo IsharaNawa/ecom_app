@@ -1,8 +1,8 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -35,10 +35,10 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Scaffold(
         appBar: AppBar(
           titleSpacing: 0,
-          leading: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+          leading: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
             child: Icon(
-              HugeIcons.strokeRoundedShoppingBag02,
+              IconManager.appBarIcon,
             ),
           ),
           title: const Text("Explore Products"),
@@ -54,13 +54,13 @@ class _SearchScreenState extends State<SearchScreen> {
                   print(_textEditingController.text);
                 },
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(HugeIcons.strokeRoundedSearch02),
+                  prefixIcon: Icon(IconManager.searhBarIcon),
                   suffixIcon: GestureDetector(
                     onTap: () {
                       _textEditingController.clear();
                       FocusScope.of(context).unfocus();
                     },
-                    child: const Icon(HugeIcons.strokeRoundedCancel01),
+                    child: Icon(IconManager.clearSearchBarIcon),
                   ),
                   suffixIconColor: Colors.red,
                   label: Padding(
