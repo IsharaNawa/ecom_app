@@ -2,3 +2,4 @@
 2 . bootm cart widget text Responsiveness ==> done
 3 . Play swipe animation when text are overflowing.
 4 . Remove the cross in the search screen search bar. Make it black. Appear only when user is focused on the input.
+5. In the empty bag, place the back button below the explore products button. copy the back button from the forgot password screen.
