@@ -1,10 +1,8 @@
-import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/screens/auth_screens/login_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/form_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -19,7 +17,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkmodeOn = false;
 
     final OutlineInputBorder outlinedInputBorder = OutlineInputBorder(
       borderRadius: const BorderRadius.all(
@@ -29,7 +27,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       ),
       borderSide: BorderSide(
         width: 1.5,
-        color: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
+        color: isDarkmodeOn ? Colors.white : Colors.black,
       ),
     );
 

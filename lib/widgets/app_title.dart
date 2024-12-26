@@ -1,6 +1,5 @@
-import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'package:shimmer/shimmer.dart';
 
 class AppTitle extends StatelessWidget {
@@ -10,12 +9,11 @@ class AppTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkmodeOn = false;
     return Shimmer.fromColors(
       period: const Duration(seconds: 10),
-      baseColor: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
-      highlightColor:
-          themeProvider.getIsDarkTheme ? Colors.black45 : Colors.white,
+      baseColor: isDarkmodeOn ? Colors.white : Colors.black,
+      highlightColor: isDarkmodeOn ? Colors.black45 : Colors.white,
       child: Text(
         "DealVerse",
         textAlign: TextAlign.center,

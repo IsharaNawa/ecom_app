@@ -1,18 +1,17 @@
 import 'package:ecom_app/services/app_functions.dart';
-import 'package:ecom_app/providers/theme_provider.dart';
+
 import 'package:ecom_app/screens/auth_screens/login_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/profile_screen_widgets/profile_screen_general_section.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkmodeOn = false;
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
@@ -101,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             SwitchListTile(
-              secondary: themeProvider.getIsDarkTheme
+              secondary: isDarkmodeOn
                   ? Icon(IconManager.darkModeIcon)
                   : Icon(IconManager.lightModeIcon),
               title: const Padding(
@@ -112,9 +111,9 @@ class ProfileScreen extends StatelessWidget {
                 padding: EdgeInsets.only(left: 8.0),
                 child: Text("Turn on/off dark mode"),
               ),
-              value: themeProvider.getIsDarkTheme,
+              value: isDarkmodeOn,
               onChanged: (value) {
-                themeProvider.setDarkTheme(value);
+                //TODO
               },
             ),
             const Divider(

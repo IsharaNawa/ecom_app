@@ -1,4 +1,3 @@
-import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/screens/auth_screens/login_screen.dart';
 import 'package:ecom_app/screens/root_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
@@ -7,7 +6,6 @@ import 'package:ecom_app/widgets/auth_screen_widgets/profile_image_picker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -25,7 +23,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkmodeOn = false;
 
     final OutlineInputBorder outlinedInputBorder = OutlineInputBorder(
       borderRadius: const BorderRadius.all(
@@ -35,7 +33,7 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       borderSide: BorderSide(
         width: 1.5,
-        color: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
+        color: isDarkmodeOn ? Colors.white : Colors.black,
       ),
     );
 
@@ -84,9 +82,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Column(
                     children: [
                       ProfileImagePicker(
-                        borderColor: themeProvider.getIsDarkTheme
-                            ? Colors.white
-                            : Colors.black,
+                        borderColor: isDarkmodeOn ? Colors.white : Colors.black,
                       ),
                       const SizedBox(
                         height: 20,
@@ -208,9 +204,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               indent: 25,
                               endIndent: 10,
                               thickness: 0.5,
-                              color: themeProvider.getIsDarkTheme
-                                  ? Colors.white
-                                  : Colors.black,
+                              color: isDarkmodeOn ? Colors.white : Colors.black,
                             ),
                           ),
                           const Text(
@@ -225,9 +219,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               indent: 10,
                               endIndent: 25,
                               thickness: 0.5,
-                              color: themeProvider.getIsDarkTheme
-                                  ? Colors.white
-                                  : Colors.black,
+                              color: isDarkmodeOn ? Colors.white : Colors.black,
                             ),
                           ),
                         ],
@@ -249,9 +241,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                           side: BorderSide(
                             width: 1.0,
-                            color: themeProvider.getIsDarkTheme
-                                ? Colors.white
-                                : Colors.black,
+                            color: isDarkmodeOn ? Colors.white : Colors.black,
                           ),
                         ),
                         icon: Image.asset(

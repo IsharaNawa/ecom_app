@@ -1,4 +1,3 @@
-import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/screens/auth_screens/forgot_password_screen.dart';
 import 'package:ecom_app/screens/auth_screens/signup_screen.dart';
 import 'package:ecom_app/screens/root_screen.dart';
@@ -7,7 +6,6 @@ import 'package:ecom_app/widgets/auth_screen_widgets/form_fields.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkmodeOn = false;
 
     final OutlineInputBorder outlinedInputBorder = OutlineInputBorder(
       borderRadius: const BorderRadius.all(
@@ -33,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       borderSide: BorderSide(
         width: 1.5,
-        color: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
+        color: isDarkmodeOn ? Colors.white : Colors.black,
       ),
     );
 
@@ -170,9 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               indent: 25,
                               endIndent: 10,
                               thickness: 0.5,
-                              color: themeProvider.getIsDarkTheme
-                                  ? Colors.white
-                                  : Colors.black,
+                              color: isDarkmodeOn ? Colors.white : Colors.black,
                             ),
                           ),
                           const Text(
@@ -187,9 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               indent: 10,
                               endIndent: 25,
                               thickness: 0.5,
-                              color: themeProvider.getIsDarkTheme
-                                  ? Colors.white
-                                  : Colors.black,
+                              color: isDarkmodeOn ? Colors.white : Colors.black,
                             ),
                           ),
                         ],
@@ -211,9 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           side: BorderSide(
                             width: 1.0,
-                            color: themeProvider.getIsDarkTheme
-                                ? Colors.white
-                                : Colors.black,
+                            color: isDarkmodeOn ? Colors.white : Colors.black,
                           ),
                         ),
                         icon: Image.asset(

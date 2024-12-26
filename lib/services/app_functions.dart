@@ -1,7 +1,5 @@
-import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class AppFunctions {
   static Future<void> showErrorOrWarningOrImagePickerDialog({
@@ -17,7 +15,7 @@ class AppFunctions {
     await showDialog(
       context: context,
       builder: (context) {
-        final themeProvider = Provider.of<ThemeProvider>(context);
+        final isDarkmodeOn = false;
         return AlertDialog(
           icon: icon,
           title: Text(
@@ -26,7 +24,7 @@ class AppFunctions {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.lato(
-              color: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
+              color: isDarkmodeOn ? Colors.white : Colors.black,
               fontSize: 18,
             ),
           ),
