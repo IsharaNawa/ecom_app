@@ -1,4 +1,5 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
@@ -12,11 +13,9 @@ class WishListScreen extends StatefulWidget {
 }
 
 class WishListScreenState extends State<WishListScreen> {
-  bool isWishListEmpty = false;
-
   @override
   Widget build(BuildContext context) {
-    return isWishListEmpty
+    return Product.products.isEmpty
         ? Scaffold(
             appBar: AppBar(
               titleSpacing: 0,
@@ -66,7 +65,7 @@ class WishListScreenState extends State<WishListScreen> {
                 TextButton.icon(
                   onPressed: () {
                     setState(() {
-                      isWishListEmpty = true;
+                      //TODO
                     });
                   },
                   icon: Icon(IconManager.clearWishListIcon),
@@ -76,9 +75,10 @@ class WishListScreenState extends State<WishListScreen> {
             ),
             body: DynamicHeightGridView(
               builder: (context, index) {
-                return const ProductGridWidget();
+                //TODO
+                return ProductGridWidget(product: Product.products[index]);
               },
-              itemCount: 200,
+              itemCount: Product.products.length,
               crossAxisCount: 2,
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,

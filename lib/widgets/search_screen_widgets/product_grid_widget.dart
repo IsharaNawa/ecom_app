@@ -1,3 +1,4 @@
+import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/screens/inner_screens/product_details_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -5,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductGridWidget extends StatefulWidget {
-  const ProductGridWidget({super.key});
+  const ProductGridWidget({super.key, required this.product});
+
+  final Product product;
 
   @override
   State<ProductGridWidget> createState() => _ProductGridWidgetState();
@@ -35,8 +38,7 @@ class _ProductGridWidgetState extends State<ProductGridWidget> {
                 Radius.circular(20),
               ),
               child: FancyShimmerImage(
-                imageUrl:
-                    "https://cdn.pixabay.com/photo/2020/09/02/03/26/iphone-5537230_640.jpg",
+                imageUrl: widget.product.productImage,
                 width: double.infinity,
                 height: size.width * 0.43,
                 boxFit: BoxFit.cover,
@@ -52,7 +54,7 @@ class _ProductGridWidgetState extends State<ProductGridWidget> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Text(
-                      "Apple IPhone 16 Prodfdf ",
+                      widget.product.productTitle,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.lato(
@@ -82,7 +84,7 @@ class _ProductGridWidgetState extends State<ProductGridWidget> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Text(
-                      "\$200.00",
+                      "\$${widget.product.productPrice}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.lato(

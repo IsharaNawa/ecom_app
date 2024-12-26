@@ -1,4 +1,5 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
@@ -12,11 +13,9 @@ class ViewedRecentlyScreen extends StatefulWidget {
 }
 
 class ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
-  bool isRecentlyViewdListEmpty = false;
-
   @override
   Widget build(BuildContext context) {
-    return isRecentlyViewdListEmpty
+    return Product.products.isEmpty
         ? Scaffold(
             appBar: AppBar(
               titleSpacing: 0,
@@ -66,7 +65,7 @@ class ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
                 TextButton.icon(
                   onPressed: () {
                     setState(() {
-                      isRecentlyViewdListEmpty = true;
+                      //TODO
                     });
                   },
                   icon: Icon(IconManager.clearRecentelyViewedList),
@@ -76,9 +75,9 @@ class ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
             ),
             body: DynamicHeightGridView(
               builder: (context, index) {
-                return const ProductGridWidget();
+                return ProductGridWidget(product: Product.products[index]);
               },
-              itemCount: 200,
+              itemCount: Product.products.length,
               crossAxisCount: 2,
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,

@@ -1,17 +1,20 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/product_provider.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   late TextEditingController _textEditingController;
 
   @override
@@ -28,6 +31,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Product> products = ref.watch(productsProvider);
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -82,9 +87,11 @@ class _SearchScreenState extends State<SearchScreen> {
             Expanded(
               child: DynamicHeightGridView(
                 builder: (context, index) {
-                  return const ProductGridWidget();
+                  return ProductGridWidget(
+                    product: products[index],
+                  );
                 },
-                itemCount: 200,
+                itemCount: products.length,
                 crossAxisCount: 2,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
