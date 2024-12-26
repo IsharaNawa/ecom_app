@@ -155,7 +155,7 @@ class ProfileScreen extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         action2Func: () async {
-                          await Navigator.of(context).push(
+                          await Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => const LoginScreen(),
                             ),

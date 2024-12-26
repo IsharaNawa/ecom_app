@@ -178,7 +178,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               return;
                             }
 
-                            await Navigator.of(context).push(
+                            await Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder: (context) => const RootScreen(),
                               ),
@@ -237,7 +237,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       IconButton(
                         onPressed: () async {
-                          await Navigator.of(context).push(
+                          await Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => const RootScreen(),
                             ),
@@ -274,8 +274,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                           TextButton(
                             onPressed: () async {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const LoginScreen()));
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
                             },
                             child: Text(
                               "Log In.",
