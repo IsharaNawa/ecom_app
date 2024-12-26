@@ -1,3 +1,4 @@
+import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/screens/inner_screens/product_details_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -5,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LatestArrivalItem extends StatelessWidget {
-  const LatestArrivalItem({super.key});
+  const LatestArrivalItem({super.key, required this.product});
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,9 @@ class LatestArrivalItem extends StatelessWidget {
         await Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return const ProductDetailsScreens();
+              return ProductDetailsScreens(
+                product: product,
+              );
             },
           ),
         );
@@ -42,8 +47,7 @@ class LatestArrivalItem extends StatelessWidget {
                       Radius.circular(20),
                     ),
                     child: FancyShimmerImage(
-                      imageUrl:
-                          "https://cdn.pixabay.com/photo/2020/09/02/03/26/iphone-5537230_640.jpg",
+                      imageUrl: product.productImage,
                       height: size.width * 0.43,
                       boxFit: BoxFit.cover,
                     ),
@@ -56,7 +60,7 @@ class LatestArrivalItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        "Apple IPhone 16 Pro Max Japan Edition ",
+                        product.productTitle,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.lato(
@@ -88,7 +92,7 @@ class LatestArrivalItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        "\$200.00",
+                        "\$${product.productPrice}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.lato(

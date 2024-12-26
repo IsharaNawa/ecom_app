@@ -6,8 +6,6 @@ class BottomCartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return SizedBox(
       height: 70,
       child: Row(

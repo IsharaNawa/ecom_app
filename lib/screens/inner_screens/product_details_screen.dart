@@ -1,3 +1,4 @@
+import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -5,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductDetailsScreens extends StatelessWidget {
-  const ProductDetailsScreens({super.key});
+  const ProductDetailsScreens({super.key, required this.product});
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +48,7 @@ class ProductDetailsScreens extends StatelessWidget {
             ),
             Center(
               child: FancyShimmerImage(
-                imageUrl:
-                    "https://cdn.pixabay.com/photo/2020/09/02/03/26/iphone-5537230_640.jpg",
+                imageUrl: product.productImage,
                 height: 300,
                 width: double.infinity,
                 boxFit: BoxFit.cover,
@@ -58,7 +60,7 @@ class ProductDetailsScreens extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, top: 10),
               child: Text(
-                "Apple IPhone 16 Pro Max Japan Edition" * 2,
+                product.productTitle,
                 style: GoogleFonts.inter(
                   fontSize: 22,
                 ),
@@ -67,7 +69,7 @@ class ProductDetailsScreens extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, top: 10),
               child: Text(
-                "\$200.00",
+                "\$${product.productPrice}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
@@ -84,7 +86,7 @@ class ProductDetailsScreens extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: Text(
-                    "*In Phones",
+                    product.productCategory,
                     style: GoogleFonts.lato(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -100,8 +102,7 @@ class ProductDetailsScreens extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, top: 10),
               child: Text(
-                "Conducted a redesign of the Dyson Store's mobile app, implementing numerous new features and improvements. This initiative introduced an intuitive interface, optimized product search capabilities, personalized recommendation systems, and various enhancements to ensure an effortless and enjoyable shopping experience for users." *
-                    10,
+                product.productDescription,
                 style: GoogleFonts.lato(
                   fontSize: 16,
                 ),

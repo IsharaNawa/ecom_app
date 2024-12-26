@@ -1,16 +1,20 @@
+import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/product_provider.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/home_screen_widgets/carousel_section.dart';
 import 'package:ecom_app/widgets/home_screen_widgets/category_section.dart';
 import 'package:ecom_app/widgets/home_screen_widgets/latest_arrival_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<Product> products = ref.watch(productsProvider);
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
@@ -49,12 +53,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: ListView.builder(
                     itemBuilder: (context, index) {
-                      return const Row(
+                      return Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 8,
                           ),
-                          LatestArrivalItem()
+                          LatestArrivalItem(
+                            product: products[index],
+                          )
                         ],
                       );
                     },

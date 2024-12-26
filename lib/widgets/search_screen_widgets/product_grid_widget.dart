@@ -24,7 +24,9 @@ class _ProductGridWidgetState extends State<ProductGridWidget> {
         await Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return const ProductDetailsScreens();
+              return ProductDetailsScreens(
+                product: widget.product,
+              );
             },
           ),
         );
