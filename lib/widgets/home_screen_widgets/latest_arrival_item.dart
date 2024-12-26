@@ -1,17 +1,19 @@
 import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:ecom_app/screens/inner_screens/product_details_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LatestArrivalItem extends StatelessWidget {
+class LatestArrivalItem extends ConsumerWidget {
   const LatestArrivalItem({super.key, required this.product});
 
   final Product product;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () async {
@@ -73,7 +75,11 @@ class LatestArrivalItem extends StatelessWidget {
                       child: Row(
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              ref
+                                  .read(wishListProvider.notifier)
+                                  .addToWishList(product);
+                            },
                             icon: Icon(
                               IconManager.wishListGeneralIcon,
                               size: 20,

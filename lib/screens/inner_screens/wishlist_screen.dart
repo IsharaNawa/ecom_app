@@ -1,21 +1,25 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class WishListScreen extends StatefulWidget {
+class WishListScreen extends ConsumerStatefulWidget {
   const WishListScreen({super.key});
 
   @override
-  State<WishListScreen> createState() => WishListScreenState();
+  ConsumerState<WishListScreen> createState() => WishListScreenState();
 }
 
-class WishListScreenState extends State<WishListScreen> {
+class WishListScreenState extends ConsumerState<WishListScreen> {
   @override
   Widget build(BuildContext context) {
-    return Product.products.isEmpty
+    List<Product> wishListProducts = ref.watch(wishListProvider);
+
+    return wishListProducts.isEmpty
         ? Scaffold(
             appBar: AppBar(
               titleSpacing: 0,
@@ -65,7 +69,7 @@ class WishListScreenState extends State<WishListScreen> {
                 TextButton.icon(
                   onPressed: () {
                     setState(() {
-                      //TODO
+                      ref.read(wishListProvider.notifier).clearWishList();
                     });
                   },
                   icon: Icon(IconManager.clearWishListIcon),
@@ -75,10 +79,9 @@ class WishListScreenState extends State<WishListScreen> {
             ),
             body: DynamicHeightGridView(
               builder: (context, index) {
-                //TODO
-                return ProductGridWidget(product: Product.products[index]);
+                return ProductGridWidget(product: wishListProducts[index]);
               },
-              itemCount: Product.products.length,
+              itemCount: wishListProducts.length,
               crossAxisCount: 2,
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,

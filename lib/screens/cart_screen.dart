@@ -1,3 +1,4 @@
+import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/bottom_cart_widget.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/cart_widget.dart';
@@ -55,7 +56,9 @@ class _CartScreenState extends State<CartScreen> {
             body: ListView.builder(
               itemCount: 10,
               itemBuilder: (context, index) {
-                return const CartWidget();
+                return CartWidget(
+                  product: Product.products[0],
+                );
               },
             ),
             bottomSheet: const BottomCartWidget(),
