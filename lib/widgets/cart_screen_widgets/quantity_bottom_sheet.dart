@@ -29,6 +29,9 @@ class QuantityBottomSheet extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         print(index + 1);
+                        Navigator.of(context).canPop()
+                            ? Navigator.of(context).pop()
+                            : null;
                       },
                       child: Text(
                         (index + 1).toString(),

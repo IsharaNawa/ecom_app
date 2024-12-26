@@ -13,78 +13,81 @@ class CartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final themeProvider = Provider.of<ThemeProvider>(context);
-    return Container(
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.all(4),
-      height: 140,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: themeProvider.getIsDarkTheme
-            ? const Color.fromARGB(255, 10, 10, 10)
-            : const Color.fromARGB(255, 250, 250, 250),
-      ),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: FancyShimmerImage(
-                imageUrl:
-                    "https://cdn.pixabay.com/photo/2014/01/22/19/38/boot-250012_1280.jpg",
-                height: 100,
-                width: 100,
-              ),
+
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: FancyShimmerImage(
+              imageUrl:
+                  "https://cdn.pixabay.com/photo/2014/01/22/19/38/boot-250012_1280.jpg",
+              height: 100,
+              width: 100,
             ),
           ),
-          Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: size.width * 0.63,
-                    child: Text(
-                      "Hershel Supply fd fdfjdfjd fkdjfffffffffddf" * 13,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.lato(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+        ),
+        SizedBox(
+          width: size.width - 130,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        "Hershel Supply fd fdfjdfjd fkdjfffffffffddf" * 13,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.lato(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                  ),
-                  Column(
-                    children: [
-                      Icon(
-                        IconManager.removeItemFromCartIcon,
-                        size: 18,
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Icon(
-                        IconManager.wishListGeneralIcon,
-                        size: 18,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const Spacer(),
-              SizedBox(
-                width: size.width * 0.64,
-                child: Row(
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Column(
+                      children: [
+                        Icon(
+                          IconManager.removeItemFromCartIcon,
+                          size: 18,
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Icon(
+                          IconManager.wishListGeneralIcon,
+                          size: 18,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "\$100.50",
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.lato(),
+                    Flexible(
+                      child: Text(
+                        "\$100.50",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.lato(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
-                    TextButton.icon(
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    ElevatedButton(
                       onPressed: () async {
                         showModalBottomSheet(
                           context: context,
@@ -93,27 +96,36 @@ class CartWidget extends StatelessWidget {
                           },
                         );
                       },
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.black,
-                      ),
-                      label: Text(
-                        "Qty : 01",
-                        style: GoogleFonts.lato(
-                          color: Colors.white,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
                         ),
                       ),
-                      icon: Icon(
-                        IconManager.openCartQuantityBottomSheetIcon,
-                        color: Colors.white,
+                      child: Row(
+                        children: [
+                          Icon(
+                            IconManager.openCartQuantityBottomSheetIcon,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Qty : 01",
+                            style: GoogleFonts.lato(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
-                    )
+                    ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

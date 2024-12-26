@@ -1,3 +1,4 @@
+import 'package:ecom_app/screens/inner_screens/orders_screen.dart';
 import 'package:ecom_app/screens/inner_screens/viewed_recently.dart';
 import 'package:ecom_app/screens/inner_screens/wishlist_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
@@ -29,7 +30,13 @@ class ProfileScreenGeneralSection extends StatelessWidget {
     ];
 
     List<dynamic> buttonFunctions = [
-      () {},
+      () async {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const OrdersScreen(),
+          ),
+        );
+      },
       () async {
         await Navigator.of(context).push(
           MaterialPageRoute(

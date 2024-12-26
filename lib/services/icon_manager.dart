@@ -6,6 +6,9 @@ class IconManager {
   static IconData appBarIcon = HugeIcons.strokeRoundedShoppingBag02;
   static IconData backButtonIcon = HugeIcons.strokeRoundedArrowLeft01;
 
+  // orders
+  static IconData emptyOrdersList = HugeIcons.strokeRoundedShoppingBagRemove;
+
   // wishlist
   static IconData wishListGeneralIcon = HugeIcons.strokeRoundedHeartAdd;
   static IconData emptyWishListIcon = HugeIcons.strokeRoundedHeartRemove;
