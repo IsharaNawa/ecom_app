@@ -1,7 +1,5 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:ecom_app/model/category.dart';
-import 'package:ecom_app/model/product.dart';
-import 'package:ecom_app/providers/category_product_provider.dart';
 import 'package:ecom_app/screens/inner_screens/category_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:flutter/material.dart';
@@ -86,13 +84,8 @@ class CategorySection extends ConsumerWidget {
         builder: (context, index) {
           return GestureDetector(
             onTap: () {
-              List<Product> products = ref
-                  .read(categoryProductsProvider.notifier)
-                  .getCategoryProducts(categories[index].name);
-
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                 return CategoryScreen(
-                  categoryProducts: products,
                   categoryName: categories[index].name,
                 );
               }));

@@ -29,10 +29,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     super.dispose();
   }
 
+  List<Product> searchedProducts = [];
+
   @override
   Widget build(BuildContext context) {
-    List<Product> products = ref.watch(productsProvider);
-
+    List<Product> allProducts = ref.watch(productsProvider);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -56,17 +57,23 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 controller: _textEditingController,
                 autocorrect: false,
                 onSubmitted: (value) {
-                  print(_textEditingController.text);
+                  setState(() {
+                    searchedProducts = ref
+                        .watch(productsProvider.notifier)
+                        .getSearchedProducts(value);
+                  });
                 },
                 decoration: InputDecoration(
                   prefixIcon: Icon(IconManager.searhBarIcon),
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      _textEditingController.clear();
-                      FocusScope.of(context).unfocus();
-                    },
-                    child: Icon(IconManager.clearSearchBarIcon),
-                  ),
+                  suffixIcon: _textEditingController.text.isEmpty
+                      ? const SizedBox.shrink()
+                      : GestureDetector(
+                          onTap: () {
+                            _textEditingController.clear();
+                            FocusScope.of(context).unfocus();
+                          },
+                          child: Icon(IconManager.clearSearchBarIcon),
+                        ),
                   suffixIconColor: Colors.red,
                   label: Padding(
                     padding: const EdgeInsets.only(
@@ -85,17 +92,30 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             ),
             const SizedBox(height: 10),
             Expanded(
-              child: DynamicHeightGridView(
-                builder: (context, index) {
-                  return ProductGridWidget(
-                    product: products[index],
-                  );
-                },
-                itemCount: products.length,
-                crossAxisCount: 2,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-              ),
+              child: _textEditingController.text.isNotEmpty &&
+                      searchedProducts.isEmpty
+                  ? const Center(
+                      child: Column(
+                        children: [
+                          Text("No Products Found!"),
+                        ],
+                      ),
+                    )
+                  : DynamicHeightGridView(
+                      builder: (context, index) {
+                        return ProductGridWidget(
+                          product: _textEditingController.text.isEmpty
+                              ? allProducts[index]
+                              : searchedProducts[index],
+                        );
+                      },
+                      itemCount: _textEditingController.text.isEmpty
+                          ? allProducts.length
+                          : searchedProducts.length,
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                    ),
             )
           ],
         ),
