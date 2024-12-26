@@ -1,3 +1,3 @@
-1 . Make Cart Items Responsive : Edit Cart Widget Item.
-2 . bootm cart widget text Responsiveness
+1 . Make Cart Items Responsive : Edit Cart Widget Item. ==> done
+2 . bootm cart widget text Responsiveness ==> done
 3 . Play swipe animation when text are overflowing.

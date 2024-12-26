@@ -6,20 +6,16 @@ class BottomCartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    Size size = MediaQuery.of(context).size;
+
+    return SizedBox(
       height: 70,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(12),
-          topRight: Radius.circular(12),
-        ),
-      ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20, top: 10),
-            child: FittedBox(
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10.0, top: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -47,7 +43,6 @@ class BottomCartWidget extends StatelessWidget {
               ),
             ),
           ),
-          const Spacer(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

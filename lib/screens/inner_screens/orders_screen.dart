@@ -63,7 +63,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ),
             body: ListView.builder(
               itemBuilder: (context, index) {
-                return OrderWidget();
+                return const OrderWidget();
               },
               itemCount: 25,
             ),

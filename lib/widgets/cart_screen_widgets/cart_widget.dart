@@ -1,10 +1,8 @@
-import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/quantity_bottom_sheet.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class CartWidget extends StatelessWidget {
   const CartWidget({super.key});
@@ -12,7 +10,6 @@ class CartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Row(
       children: [
