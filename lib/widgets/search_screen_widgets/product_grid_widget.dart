@@ -1,6 +1,8 @@
 import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/cart_provider.dart';
 import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:ecom_app/screens/inner_screens/product_details_screen.dart';
+import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +105,14 @@ class _ProductGridWidgetState extends ConsumerState<ProductGridWidget> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    AppFunctions.showListRelatedSnackBar(
+                        context,
+                        widget.product,
+                        ref,
+                        'This item is already in the cart!',
+                        'Item is added to the cart');
+                  },
                   icon: Icon(
                     IconManager.addToCartGeneralIcon,
                     size: 20,

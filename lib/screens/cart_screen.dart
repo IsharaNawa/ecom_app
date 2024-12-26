@@ -1,23 +1,31 @@
+import 'package:ecom_app/model/cart.dart';
 import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/cart_provider.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/bottom_cart_widget.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/cart_widget.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CartScreen extends StatefulWidget {
+class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({super.key});
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
+  ConsumerState<CartScreen> createState() => _CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
-  bool isCartEmpty = false;
+class _CartScreenState extends ConsumerState<CartScreen> {
+  List<Cart> cartsList = [];
 
   @override
   Widget build(BuildContext context) {
-    return isCartEmpty
+    Map<String, Cart> cartItemsMap = ref.watch(cartProvider);
+    Map<String, dynamic> cartsSummaryMap =
+        ref.watch(cartProvider.notifier).getOverallCartSummary();
+    cartsList = cartItemsMap.values.toList();
+
+    return cartsList.isEmpty
         ? Scaffold(
             body: EmptyBag(
             mainImage: Icon(
@@ -40,12 +48,12 @@ class _CartScreenState extends State<CartScreen> {
                   IconManager.appBarIcon,
                 ),
               ),
-              title: const Text("Your Cart(6)"),
+              title: Text("Your Cart(${cartsList.length})"),
               actions: [
                 TextButton.icon(
                   onPressed: () {
                     setState(() {
-                      isCartEmpty = true;
+                      ref.read(cartProvider.notifier).clearCarts();
                     });
                   },
                   icon: Icon(IconManager.clearCartIcon),
@@ -54,14 +62,17 @@ class _CartScreenState extends State<CartScreen> {
               ],
             ),
             body: ListView.builder(
-              itemCount: 10,
+              padding: const EdgeInsets.only(bottom: 100),
+              itemCount: cartsList.length,
               itemBuilder: (context, index) {
                 return CartWidget(
-                  product: Product.products[0],
+                  cartItem: cartsList[index],
                 );
               },
             ),
-            bottomSheet: const BottomCartWidget(),
+            bottomSheet: BottomCartWidget(
+              cartSummary: cartsSummaryMap,
+            ),
           );
   }
 }

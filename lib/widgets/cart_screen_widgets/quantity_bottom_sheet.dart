@@ -1,11 +1,16 @@
+import 'package:ecom_app/model/cart.dart';
+import 'package:ecom_app/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class QuantityBottomSheet extends StatelessWidget {
-  const QuantityBottomSheet({super.key});
+class QuantityBottomSheet extends ConsumerWidget {
+  const QuantityBottomSheet({super.key, required this.cart});
+
+  final Cart cart;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
         Container(
@@ -28,6 +33,9 @@ class QuantityBottomSheet extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
+                        ref
+                            .read(cartProvider.notifier)
+                            .updateQuantityOfCart(cart, index + 1);
                         print(index + 1);
                         Navigator.of(context).canPop()
                             ? Navigator.of(context).pop()

@@ -1,17 +1,20 @@
 import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/cart_provider.dart';
+import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProductDetailsScreens extends StatelessWidget {
+class ProductDetailsScreens extends ConsumerWidget {
   const ProductDetailsScreens({super.key, required this.product});
 
   final Product product;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -116,7 +119,14 @@ class ProductDetailsScreens extends StatelessWidget {
         child: SizedBox(
           width: size.width - 30,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              AppFunctions.showListRelatedSnackBar(
+                  context,
+                  product,
+                  ref,
+                  'This item is already in the cart!',
+                  'Item is added to the cart');
+            },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(
                 vertical: 20,

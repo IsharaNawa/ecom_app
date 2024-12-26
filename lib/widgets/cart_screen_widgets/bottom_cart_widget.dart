@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomCartWidget extends StatelessWidget {
-  const BottomCartWidget({super.key});
+  const BottomCartWidget({super.key, required this.cartSummary});
+
+  final Map<String, dynamic> cartSummary;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class BottomCartWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Total (6 products/9 items)",
+                    "Total (${cartSummary["products"]} products/${cartSummary["items"]} items)",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.lato(
@@ -29,7 +31,7 @@ class BottomCartWidget extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "\$300.00",
+                    "\$${cartSummary["totalPrice"]}",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.lato(
