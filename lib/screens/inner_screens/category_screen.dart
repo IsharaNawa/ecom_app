@@ -84,8 +84,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              title:
-                  Text("${widget.categoryName}(${categoryAllProducts.length})"),
+              title: Text(
+                  "${widget.categoryName}(${_textEditingController.text.isEmpty ? categoryAllProducts.length : categorySearchedProducts.length})"),
             ),
             body: Column(
               children: [
