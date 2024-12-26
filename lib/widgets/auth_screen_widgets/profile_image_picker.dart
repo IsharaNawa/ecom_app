@@ -1,21 +1,23 @@
 import 'dart:io';
 
+import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ProfileImagePicker extends StatefulWidget {
+class ProfileImagePicker extends ConsumerStatefulWidget {
   const ProfileImagePicker({super.key, required this.borderColor});
 
   final Color borderColor;
 
   @override
-  State<ProfileImagePicker> createState() => _ProfileImagePickerState();
+  ConsumerState<ProfileImagePicker> createState() => _ProfileImagePickerState();
 }
 
-class _ProfileImagePickerState extends State<ProfileImagePicker> {
+class _ProfileImagePickerState extends ConsumerState<ProfileImagePicker> {
   File? pickedImage;
   final ImagePicker imagePicker = ImagePicker();
 
@@ -31,7 +33,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
     });
   }
 
-  Future<void> triggerImagePickDialogBox() async {
+  Future<void> triggerImagePickDialogBox(bool isDarkmodeOn) async {
     await AppFunctions.showErrorOrWarningOrImagePickerDialog(
       context: context,
       isWarning: true,
@@ -47,10 +49,12 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         await getImage(ImageSource.gallery);
         Navigator.of(context).pop();
       },
+      isDarkmodeOn: isDarkmodeOn,
     );
   }
 
-  Future<void> triggerImageDeletionConfirmationDialogBox() async {
+  Future<void> triggerImageDeletionConfirmationDialogBox(
+      bool isDarkmodeOn) async {
     await AppFunctions.showErrorOrWarningOrImagePickerDialog(
       context: context,
       isWarning: true,
@@ -67,11 +71,14 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         });
         Navigator.of(context).pop();
       },
+      isDarkmodeOn: isDarkmodeOn,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
+
     Widget imageIconContent = InkWell(
       child: Material(
         elevation: 10,
@@ -85,7 +92,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         ),
       ),
       onTap: () {
-        triggerImagePickDialogBox();
+        triggerImagePickDialogBox(isDarkmodeOn);
       },
     );
 
@@ -103,14 +110,14 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           ),
         ),
         onTap: () {
-          triggerImageDeletionConfirmationDialogBox();
+          triggerImageDeletionConfirmationDialogBox(isDarkmodeOn);
         },
       );
     }
 
     return GestureDetector(
       onTap: () async {
-        triggerImagePickDialogBox();
+        triggerImagePickDialogBox(isDarkmodeOn);
       },
       child: Stack(
         children: [

@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppFunctions {
-  static Future<void> showErrorOrWarningOrImagePickerDialog({
-    required BuildContext context,
-    required bool isWarning,
-    required String mainTitle,
-    required Icon icon,
-    required String action1Text,
-    required String action2Text,
-    required Function action1Func,
-    required Function action2Func,
-  }) async {
+  static Future<void> showErrorOrWarningOrImagePickerDialog(
+      {required BuildContext context,
+      required bool isWarning,
+      required String mainTitle,
+      required Icon icon,
+      required String action1Text,
+      required String action2Text,
+      required Function action1Func,
+      required Function action2Func,
+      required bool isDarkmodeOn}) async {
     await showDialog(
       context: context,
       builder: (context) {
-        final isDarkmodeOn = false;
         return AlertDialog(
           icon: icon,
           title: Text(

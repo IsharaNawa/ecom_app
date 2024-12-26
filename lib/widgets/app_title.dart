@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 
-class AppTitle extends StatelessWidget {
+import 'package:ecom_app/providers/theme_provider.dart';
+
+class AppTitle extends ConsumerWidget {
   const AppTitle({super.key, required double fontSize}) : _fontSize = fontSize;
 
   final double _fontSize;
 
   @override
-  Widget build(BuildContext context) {
-    final isDarkmodeOn = false;
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
     return Shimmer.fromColors(
       period: const Duration(seconds: 10),
       baseColor: isDarkmodeOn ? Colors.white : Colors.black,

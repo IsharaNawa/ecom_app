@@ -1,23 +1,26 @@
+import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/screens/auth_screens/login_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/form_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
+class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  ConsumerState<ForgotPasswordScreen> createState() =>
+      _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   String? _email;
 
   @override
   Widget build(BuildContext context) {
-    final isDarkmodeOn = false;
+    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
 
     final OutlineInputBorder outlinedInputBorder = OutlineInputBorder(
       borderRadius: const BorderRadius.all(

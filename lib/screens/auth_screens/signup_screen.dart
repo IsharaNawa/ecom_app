@@ -1,3 +1,4 @@
+import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/screens/auth_screens/login_screen.dart';
 import 'package:ecom_app/screens/root_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
@@ -5,16 +6,17 @@ import 'package:ecom_app/widgets/auth_screen_widgets/form_fields.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/profile_image_picker.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignupScreen extends StatefulWidget {
+class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  ConsumerState<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _SignupScreenState extends ConsumerState<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
   String? _userName;
   String? _email;
@@ -23,7 +25,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkmodeOn = false;
+    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
 
     final OutlineInputBorder outlinedInputBorder = OutlineInputBorder(
       borderRadius: const BorderRadius.all(
