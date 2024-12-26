@@ -55,7 +55,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
       context: context,
       isWarning: true,
       mainTitle: "Do you want to delete the Image?",
-      icon: Icon(IconManager.deletePickedImage),
+      icon: Icon(IconManager.deletePickedImageIcon),
       action1Text: "No",
       action2Text: "Yes",
       action1Func: () async {
@@ -98,7 +98,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           child: Padding(
             padding: const EdgeInsets.all(3.0),
             child: Icon(
-              IconManager.deletePickedImage,
+              IconManager.deletePickedImageIcon,
             ),
           ),
         ),

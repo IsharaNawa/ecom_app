@@ -32,7 +32,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ),
             body: EmptyBag(
               mainImage: Icon(
-                IconManager.emptyOrdersList,
+                IconManager.emptyOrdersListIcon,
                 size: 200,
               ),
               mainTitle: "There are no ongoing orders!",
@@ -63,7 +63,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ),
             body: ListView.builder(
               itemBuilder: (context, index) {
-                return const OrderWidget();
+                return const Column(
+                  children: [
+                    OrderWidget(),
+                    Divider(
+                      indent: 10,
+                      endIndent: 10,
+                      thickness: 0.8,
+                    ),
+                  ],
+                );
               },
               itemCount: 25,
             ),

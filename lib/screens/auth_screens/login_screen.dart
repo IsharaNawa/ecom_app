@@ -1,4 +1,5 @@
 import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/screens/auth_screens/forgot_password_screen.dart';
 import 'package:ecom_app/screens/auth_screens/signup_screen.dart';
 import 'package:ecom_app/screens/root_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
@@ -103,7 +104,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Align(
                           alignment: Alignment.bottomRight,
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ForgotPasswordScreen(),
+                                ),
+                              );
+                            },
                             child: Text(
                               "Forgot Password?",
                               style: GoogleFonts.oxygen(

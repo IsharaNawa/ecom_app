@@ -7,7 +7,8 @@ class IconManager {
   static IconData backButtonIcon = HugeIcons.strokeRoundedArrowLeft01;
 
   // orders
-  static IconData emptyOrdersList = HugeIcons.strokeRoundedShoppingBagRemove;
+  static IconData emptyOrdersListIcon =
+      HugeIcons.strokeRoundedShoppingBagRemove;
 
   // wishlist
   static IconData wishListGeneralIcon = HugeIcons.strokeRoundedHeartAdd;
@@ -37,7 +38,9 @@ class IconManager {
   static IconData pwVisibleIcon = HugeIcons.strokeRoundedView;
   static IconData pwNotVisibleIcon = HugeIcons.strokeRoundedViewOffSlash;
   static IconData showImagePickerDialogBoxIcon = HugeIcons.strokeRoundedImage02;
-  static IconData deletePickedImage = HugeIcons.strokeRoundedDelete02;
+  static IconData deletePickedImageIcon = HugeIcons.strokeRoundedDelete02;
+  static IconData fotgotScreenMainIcon = HugeIcons.strokeRoundedFingerAccess;
+  static IconData forgotScreenBackArrowIcon = Icons.arrow_back;
 
   //categories
   static IconData phoneCategoryIcon = HugeIcons.strokeRoundedSmartPhone01;
