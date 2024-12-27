@@ -1,6 +1,8 @@
 import 'package:ecom_app/model/cart.dart';
 import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/cart_provider.dart';
+import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/bottom_cart_widget.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/cart_widget.dart';
@@ -21,9 +23,12 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   @override
   Widget build(BuildContext context) {
     Map<String, Cart> cartItemsMap = ref.watch(cartProvider);
+    cartsList = cartItemsMap.values.toList();
+
     Map<String, dynamic> cartsSummaryMap =
         ref.watch(cartProvider.notifier).getOverallCartSummary();
-    cartsList = cartItemsMap.values.toList();
+
+    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
 
     return cartsList.isEmpty
         ? Scaffold(
@@ -51,10 +56,25 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               title: Text("Your Cart(${cartsList.length})"),
               actions: [
                 TextButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      ref.read(cartProvider.notifier).clearCarts();
-                    });
+                  onPressed: () async {
+                    await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+                      context: context,
+                      isWarning: true,
+                      mainTitle: "Do you want to clear Cart?",
+                      icon: Icon(IconManager.clearCartIcon),
+                      action1Text: "No",
+                      action2Text: "Yes",
+                      action1Func: () {
+                        Navigator.of(context).pop();
+                      },
+                      action2Func: () {
+                        setState(() {
+                          ref.read(cartProvider.notifier).clearCarts();
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      isDarkmodeOn: isDarkmodeOn,
+                    );
                   },
                   icon: Icon(IconManager.clearCartIcon),
                   label: const Text("Clear Cart"),

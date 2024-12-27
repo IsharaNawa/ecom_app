@@ -1,24 +1,35 @@
+import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/recently_viewed_provider.dart';
+import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:ecom_app/screens/inner_screens/orders_screen.dart';
 import 'package:ecom_app/screens/inner_screens/viewed_recently_screen.dart';
 import 'package:ecom_app/screens/inner_screens/wishlist_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProfileScreenGeneralSection extends StatelessWidget {
+class ProfileScreenGeneralSection extends ConsumerWidget {
   const ProfileScreenGeneralSection({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<Product> recentlyViewedProducts =
+        ref.watch(recentlyViewedListProvider);
+    List<Product> wishListProducts = ref.watch(wishListProvider);
     List<dynamic> leadingIcons = [
       Icon(IconManager.ordersIcon),
-      Badge(
-        label: const Text("3"),
-        child: Icon(IconManager.wishListGeneralIcon),
-      ),
-      Badge(
-        label: const Text("3"),
-        child: Icon(IconManager.recentlyViewedIcon),
-      ),
+      wishListProducts.isNotEmpty
+          ? Badge(
+              label: Text(wishListProducts.length.toString()),
+              child: Icon(IconManager.wishListGeneralIcon),
+            )
+          : Icon(IconManager.wishListGeneralIcon),
+      recentlyViewedProducts.isNotEmpty
+          ? Badge(
+              label: Text(recentlyViewedProducts.length.toString()),
+              child: Icon(IconManager.recentlyViewedIcon),
+            )
+          : Icon(IconManager.wishListGeneralIcon),
       Icon(IconManager.addressIcon),
     ];
 

@@ -1,6 +1,8 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/providers/wishlist_provider.dart';
+import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
@@ -17,6 +19,7 @@ class WishListScreen extends ConsumerStatefulWidget {
 class WishListScreenState extends ConsumerState<WishListScreen> {
   @override
   Widget build(BuildContext context) {
+    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
     List<Product> wishListProducts = ref.watch(wishListProvider);
 
     return wishListProducts.isEmpty
@@ -64,13 +67,28 @@ class WishListScreenState extends ConsumerState<WishListScreen> {
                   ),
                 ),
               ),
-              title: const Text("WishList(6)"),
+              title: Text("WishList(${wishListProducts.length})"),
               actions: [
                 TextButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      ref.read(wishListProvider.notifier).clearWishList();
-                    });
+                  onPressed: () async {
+                    await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+                      context: context,
+                      isWarning: true,
+                      mainTitle: "Do you want to clear Wishlist?",
+                      icon: Icon(IconManager.clearWishListIcon),
+                      action1Text: "No",
+                      action2Text: "Yes",
+                      action1Func: () {
+                        Navigator.of(context).pop();
+                      },
+                      action2Func: () {
+                        setState(() {
+                          ref.read(wishListProvider.notifier).clearWishList();
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      isDarkmodeOn: isDarkmodeOn,
+                    );
                   },
                   icon: Icon(IconManager.clearWishListIcon),
                   label: const Text("Clear Wishlist"),

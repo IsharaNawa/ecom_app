@@ -1,6 +1,9 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/cart_provider.dart';
 import 'package:ecom_app/providers/recently_viewed_provider.dart';
+import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
@@ -18,6 +21,7 @@ class ViewedRecentlyScreen extends ConsumerStatefulWidget {
 class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
   @override
   Widget build(BuildContext context) {
+    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
     List<Product> recentlyViewedProducts =
         ref.watch(recentlyViewedListProvider);
 
@@ -66,15 +70,31 @@ class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
                   ),
                 ),
               ),
-              title: const Text("Recently Viewed Items(6)"),
+              title: Text(
+                  "Recently Viewed Items(${recentlyViewedProducts.length})"),
               actions: [
                 TextButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      ref
-                          .read(recentlyViewedListProvider.notifier)
-                          .clearRecentlyViewedList();
-                    });
+                  onPressed: () async {
+                    await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+                      context: context,
+                      isWarning: true,
+                      mainTitle: "Do you want to clear recently viewed items?",
+                      icon: Icon(IconManager.clearRecentelyViewedList),
+                      action1Text: "No",
+                      action2Text: "Yes",
+                      action1Func: () {
+                        Navigator.of(context).pop();
+                      },
+                      action2Func: () {
+                        setState(() {
+                          ref
+                              .read(recentlyViewedListProvider.notifier)
+                              .clearRecentlyViewedList();
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      isDarkmodeOn: isDarkmodeOn,
+                    );
                   },
                   icon: Icon(IconManager.clearRecentelyViewedList),
                   label: const Text("Clear Items"),
