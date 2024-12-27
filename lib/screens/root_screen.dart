@@ -73,7 +73,12 @@ class _RootScreenState extends ConsumerState<RootScreen> {
                   )
                 : Icon(IconManager.addToCartGeneralIcon),
             label: "Cart",
-            selectedIcon: Icon(IconManager.cartActiveNavbarIcon),
+            selectedIcon: cartItemsMap.values.toList().isNotEmpty
+                ? Badge(
+                    label: Text(cartItemsMap.values.toList().length.toString()),
+                    child: Icon(IconManager.cartActiveNavbarIcon),
+                  )
+                : Icon(IconManager.cartActiveNavbarIcon),
           ),
           NavigationDestination(
             icon: Icon(IconManager.profileNavBarIcon),
