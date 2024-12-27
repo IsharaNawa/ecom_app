@@ -31,7 +31,7 @@ class BottomCartWidget extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "\$${cartSummary["totalPrice"]}",
+                    "\$${cartSummary["totalPrice"].toStringAsFixed(2)}",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.lato(

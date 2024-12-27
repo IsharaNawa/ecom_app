@@ -49,23 +49,27 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
   }
 
   void updateQuantityOfCart(Cart cart, int qty) {
-    String correctCartId = "";
+    String correctProductId = "";
     for (Cart currCart in state.values.toList()) {
       if (currCart.product.productId == cart.product.productId) {
-        correctCartId = currCart.cartId;
+        correctProductId = currCart.product.productId;
       }
     }
 
-    if (correctCartId == "") return;
+    if (correctProductId == "") return;
 
-    state.update(
-        correctCartId,
-        (cartItem) => Cart(
-            cartId: correctCartId,
-            product: state[correctCartId]!.product,
-            quantity: qty));
+    final updatedState = Map<String, Cart>.from(state);
 
-    state = {};
+    updatedState.update(
+      correctProductId,
+      (cartItem) => Cart(
+        cartId: correctProductId,
+        product: state[correctProductId]!.product,
+        quantity: qty,
+      ),
+    );
+
+    state = updatedState;
   }
 }
 
