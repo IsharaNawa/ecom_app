@@ -75,7 +75,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           },
                           child: Icon(IconManager.clearSearchBarIcon),
                         ),
-                  suffixIconColor: Colors.red,
+                  // suffixIconColor: Colors.red,
                   label: Padding(
                     padding: const EdgeInsets.only(
                       left: 8.0,

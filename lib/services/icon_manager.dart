@@ -14,6 +14,7 @@ class IconManager {
   static IconData wishListGeneralIcon = HugeIcons.strokeRoundedHeartAdd;
   static IconData emptyWishListIcon = HugeIcons.strokeRoundedHeartRemove;
   static IconData clearWishListIcon = HugeIcons.strokeRoundedHeartbreak;
+  static IconData addedToWishListIcon = HugeIcons.strokeRoundedHeartCheck;
 
   // recently viewed
   static IconData recentlyViewedIcon = HugeIcons.strokeRoundedClock02;
@@ -32,6 +33,7 @@ class IconManager {
   static IconData openCartQuantityBottomSheetIcon =
       HugeIcons.strokeRoundedArrowDown01;
   static IconData removeItemFromCartIcon = HugeIcons.strokeRoundedDelete04;
+  static IconData addedToCartIcon = HugeIcons.strokeRoundedShoppingCartCheck01;
 
   // auth
   static IconData generalLogoutIcon = HugeIcons.strokeRoundedLogout05;
@@ -40,7 +42,6 @@ class IconManager {
   static IconData showImagePickerDialogBoxIcon = HugeIcons.strokeRoundedImage02;
   static IconData deletePickedImageIcon = HugeIcons.strokeRoundedDelete02;
   static IconData fotgotScreenMainIcon = HugeIcons.strokeRoundedFingerAccess;
-  static IconData forgotScreenBackArrowIcon = Icons.arrow_back;
 
   //categories
   static IconData phoneCategoryIcon = HugeIcons.strokeRoundedSmartPhone01;
@@ -72,4 +73,5 @@ class IconManager {
   static IconData privacyPolicyIcon = HugeIcons.strokeRoundedPoliceBadge;
   static IconData ordersIcon = HugeIcons.strokeRoundedShoppingBag01;
   static IconData addressIcon = HugeIcons.strokeRoundedLocation03;
+  static IconData screenMiddleBackButtonIcon = Icons.arrow_back;
 }

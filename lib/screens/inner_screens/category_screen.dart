@@ -46,31 +46,32 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
 
     return categoryAllProducts.isEmpty
         ? Scaffold(
-            appBar: AppBar(
-              titleSpacing: 0,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.canPop(context)
-                      ? Navigator.of(context).pop()
-                      : null;
-                },
-                icon: Icon(
-                  IconManager.backButtonIcon,
-                  color: Theme.of(context).colorScheme.primary,
+            body: EmptyBag(
+            mainImage: Icon(
+              IconManager.emptyOrdersListIcon,
+              size: 200,
+            ),
+            mainTitle: "No products in this category!",
+            subTitle:
+                "There are no products in this category at the moment. Please check later for updates.",
+            buttonText: "Explore Products",
+            buttonFunction: () {},
+            backButton: TextButton.icon(
+              onPressed: () {
+                Navigator.of(context).canPop()
+                    ? Navigator.of(context).pop()
+                    : null;
+              },
+              icon: Icon(IconManager.screenMiddleBackButtonIcon),
+              label: Text(
+                "Go Back",
+                style: GoogleFonts.oxygen(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-            body: EmptyBag(
-              mainImage: Icon(
-                IconManager.emptyOrdersListIcon,
-                size: 200,
-              ),
-              mainTitle: "No products in this category!",
-              subTitle:
-                  "There are no products in this category at the moment. Please check later for updates.",
-              buttonText: "Explore Products",
-              buttonFunction: () {},
-            ))
+          ))
         : Scaffold(
             appBar: AppBar(
               titleSpacing: 0,

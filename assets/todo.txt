@@ -1,16 +1,18 @@
 1 . Make Cart Items Responsive : Edit Cart Widget Item. ==> done
 2 . bootm cart widget text Responsiveness ==> done
-3 . Play swipe animation when text are overflowing.
-4 . Remove the cross in the search screen search bar. Make it black. Appear only when user is focused on the input.
-5. In the empty bag, place the back button below the explore products button. copy the back button from the forgot password screen.
-6. When the user clicks on the wishlist icon on latest screen/search screen/recentlry viewed screen etc. show a snackbar saying added to wishlist.
-7. Do the above 6 for cart as well.
-8. Disable the heart icon of the products in the wishlist.
+[3 . Play swipe animation when text are overflowing.]
+4 . Remove the cross in the search screen search bar. Make it black. Appear only when user is focused on the input. ==> done
+5. In the empty bag, place the back button below the explore products button. copy the back button from the forgot password screen. ==> done
+6. When the user clicks on the wishlist icon on latest screen/search screen/recentlry viewed screen etc. show a snackbar saying added to wishlist. ==> done
+7. Do the above 6 for cart as well. ==> done
+[8. Disable the heart icon of the products in the wishlist.]
 9. Avoid adding duplicates to the wishlist.==> done
-9.A. Show a snackbar when adding a duplicate to the wishlist.
+9.A. Show a snackbar when adding a duplicate to the wishlist. ==> done
 
-10. Try to make product searching more optimized.
-11. Add debouncing to searching.
-12. Manage imports so that above ones are other packages, then empty line then, this packe imports.
-13. Add dialog box for clearing and removing from cart, wishlist and recently viewed items.
-14. Add max quantity for the product.
+[10. Try to make product searching more optimized.]
+[11. Add debouncing to searching.]
+12. Manage imports so that above ones are other packages, then empty line then, this packe imports. ==> done
+13. Add dialog box for clearing and removing from cart, wishlist and recently viewed items. ==> done
+[14. Add max quantity for the product.]
+
+[15. Change the input text color in dark mode.]

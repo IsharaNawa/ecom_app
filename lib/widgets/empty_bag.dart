@@ -9,6 +9,7 @@ class EmptyBag extends StatelessWidget {
     required this.subTitle,
     required this.buttonText,
     required this.buttonFunction,
+    this.backButton = const SizedBox.shrink(),
   });
 
   final Widget mainImage;
@@ -16,6 +17,7 @@ class EmptyBag extends StatelessWidget {
   final String subTitle;
   final String buttonText;
   final void Function() buttonFunction;
+  final Widget backButton;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,11 @@ class EmptyBag extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-            )
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            backButton,
           ],
         ),
       ),

@@ -159,7 +159,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                         ? Navigator.of(context).pop()
                         : null;
                   },
-                  icon: Icon(IconManager.forgotScreenBackArrowIcon),
+                  icon: Icon(IconManager.screenMiddleBackButtonIcon),
                   label: Text(
                     "Forgot Password?",
                     style: GoogleFonts.oxygen(

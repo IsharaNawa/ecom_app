@@ -101,7 +101,11 @@ class LatestArrivalItem extends ConsumerWidget {
                               );
                             },
                             icon: Icon(
-                              IconManager.wishListGeneralIcon,
+                              ref
+                                      .watch(wishListProvider.notifier)
+                                      .isProductExitsInWishList(product)
+                                  ? IconManager.addedToWishListIcon
+                                  : IconManager.wishListGeneralIcon,
                               size: 20,
                             ),
                           ),

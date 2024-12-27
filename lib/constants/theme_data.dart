@@ -100,6 +100,7 @@ class Styles {
               ),
             ),
             inputDecorationTheme: InputDecorationTheme(
+              // Error text color
               enabledBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(
                   Radius.circular(

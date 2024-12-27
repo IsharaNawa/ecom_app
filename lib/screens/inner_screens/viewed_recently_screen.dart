@@ -9,6 +9,7 @@ import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ViewedRecentlyScreen extends ConsumerStatefulWidget {
   const ViewedRecentlyScreen({super.key});
@@ -27,31 +28,32 @@ class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
 
     return recentlyViewedProducts.isEmpty
         ? Scaffold(
-            appBar: AppBar(
-              titleSpacing: 0,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.canPop(context)
-                      ? Navigator.of(context).pop()
-                      : null;
-                },
-                icon: Icon(
-                  IconManager.backButtonIcon,
-                  color: Theme.of(context).colorScheme.primary,
+            body: EmptyBag(
+            mainImage: Icon(
+              IconManager.emptyRecentlyViewedIcon,
+              size: 200,
+            ),
+            mainTitle: "You haven't viewed any products yet!",
+            subTitle:
+                "You have not viewed any products. Please explore products and then they will appear here.",
+            buttonText: "Explore Products",
+            buttonFunction: () {},
+            backButton: TextButton.icon(
+              onPressed: () {
+                Navigator.of(context).canPop()
+                    ? Navigator.of(context).pop()
+                    : null;
+              },
+              icon: Icon(IconManager.screenMiddleBackButtonIcon),
+              label: Text(
+                "Go Back",
+                style: GoogleFonts.oxygen(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-            body: EmptyBag(
-              mainImage: Icon(
-                IconManager.emptyRecentlyViewedIcon,
-                size: 200,
-              ),
-              mainTitle: "You haven't viewed any products yet!",
-              subTitle:
-                  "You have not viewed any products. Please explore products and then they will appear here.",
-              buttonText: "Explore Products",
-              buttonFunction: () {},
-            ))
+          ))
         : Scaffold(
             appBar: AppBar(
               titleSpacing: 0,
