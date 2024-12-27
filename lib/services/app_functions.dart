@@ -1,5 +1,6 @@
 import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/cart_provider.dart';
+import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,19 +77,22 @@ class AppFunctions {
   }
 
   static void showListRelatedSnackBar(
-      BuildContext context,
-      Product product,
-      WidgetRef ref,
-      String alreayExistMessage,
-      String successfullyAddedMessage) {
-    if (ref.read(cartProvider.notifier).isCartWithSameProductExits(product)) {
+    BuildContext context,
+    Product product,
+    WidgetRef ref,
+    bool isAlreayExists,
+    String alreayExistMessage,
+    String successfullyAddedMessage,
+    String type,
+  ) {
+    if (isAlreayExists) {
       ScaffoldMessenger.of(context)
         ..removeCurrentSnackBar()
         ..showSnackBar(
           SnackBar(
             backgroundColor: Theme.of(context).colorScheme.error,
             content: Text(
-              'This item is already in the cart!',
+              alreayExistMessage,
               style: GoogleFonts.lato(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
@@ -98,14 +102,18 @@ class AppFunctions {
           ),
         );
     } else {
-      ref.read(cartProvider.notifier).createNewCartItem(product);
+      if (type == "cart") {
+        ref.read(cartProvider.notifier).createNewCartItem(product);
+      } else if (type == "wishlist") {
+        ref.read(wishListProvider.notifier).addToWishList(product);
+      } else if (type == "recently_viewd") {}
 
       ScaffoldMessenger.of(context)
         ..removeCurrentSnackBar()
         ..showSnackBar(SnackBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
           content: Text(
-            'Item is added to the cart',
+            successfullyAddedMessage,
             style: GoogleFonts.lato(
               fontSize: 15,
               fontWeight: FontWeight.w600,

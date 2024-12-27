@@ -1,18 +1,21 @@
 import 'package:ecom_app/model/cart.dart';
+import 'package:ecom_app/providers/wishlist_provider.dart';
+import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/quantity_bottom_sheet.dart';
 
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CartWidget extends StatelessWidget {
+class CartWidget extends ConsumerWidget {
   const CartWidget({super.key, required this.cartItem});
 
   final Cart cartItem;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
 
     return Row(
@@ -62,9 +65,24 @@ class CartWidget extends StatelessWidget {
                         const SizedBox(
                           height: 25,
                         ),
-                        Icon(
-                          IconManager.wishListGeneralIcon,
-                          size: 18,
+                        GestureDetector(
+                          onTap: () {
+                            AppFunctions.showListRelatedSnackBar(
+                              context,
+                              cartItem.product,
+                              ref,
+                              ref
+                                  .read(wishListProvider.notifier)
+                                  .isProductExitsInWishList(cartItem.product),
+                              'This item is already in the wishlist!',
+                              'Item is added to the wishlist',
+                              "wishlist",
+                            );
+                          },
+                          child: Icon(
+                            IconManager.wishListGeneralIcon,
+                            size: 18,
+                          ),
                         ),
                       ],
                     ),

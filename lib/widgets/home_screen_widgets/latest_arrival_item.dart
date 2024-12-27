@@ -78,9 +78,17 @@ class LatestArrivalItem extends ConsumerWidget {
                         children: [
                           IconButton(
                             onPressed: () {
-                              ref
-                                  .read(wishListProvider.notifier)
-                                  .addToWishList(product);
+                              AppFunctions.showListRelatedSnackBar(
+                                context,
+                                product,
+                                ref,
+                                ref
+                                    .read(wishListProvider.notifier)
+                                    .isProductExitsInWishList(product),
+                                'This item is already in the wishlist!',
+                                'Item is added to the wishlist',
+                                "wishlist",
+                              );
                             },
                             icon: Icon(
                               IconManager.wishListGeneralIcon,
@@ -93,8 +101,12 @@ class LatestArrivalItem extends ConsumerWidget {
                                   context,
                                   product,
                                   ref,
+                                  ref
+                                      .read(cartProvider.notifier)
+                                      .isCartWithSameProductExits(product),
                                   'This item is already in the cart!',
-                                  'Item is added to the cart');
+                                  'Item is added to the cart',
+                                  "cart");
                             },
                             icon: Icon(
                               IconManager.addToCartGeneralIcon,

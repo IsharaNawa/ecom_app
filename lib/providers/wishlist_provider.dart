@@ -5,9 +5,13 @@ class WishListNotifier extends StateNotifier<List<Product>> {
   WishListNotifier() : super([]);
 
   void addToWishList(Product product) {
-    if (!state.contains(product)) {
+    if (!isProductExitsInWishList(product)) {
       state = [product, ...state];
     }
+  }
+
+  bool isProductExitsInWishList(Product product) {
+    return state.contains(product);
   }
 
   void clearWishList() {

@@ -72,9 +72,17 @@ class _ProductGridWidgetState extends ConsumerState<ProductGridWidget> {
                 ),
                 IconButton(
                   onPressed: () {
-                    ref
-                        .read(wishListProvider.notifier)
-                        .addToWishList(widget.product);
+                    AppFunctions.showListRelatedSnackBar(
+                      context,
+                      widget.product,
+                      ref,
+                      ref
+                          .read(wishListProvider.notifier)
+                          .isProductExitsInWishList(widget.product),
+                      'This item is already in the wishlist!',
+                      'Item is added to the wishlist',
+                      "wishlist",
+                    );
                   },
                   icon: Icon(
                     IconManager.wishListGeneralIcon,
@@ -107,11 +115,16 @@ class _ProductGridWidgetState extends ConsumerState<ProductGridWidget> {
                 IconButton(
                   onPressed: () {
                     AppFunctions.showListRelatedSnackBar(
-                        context,
-                        widget.product,
-                        ref,
-                        'This item is already in the cart!',
-                        'Item is added to the cart');
+                      context,
+                      widget.product,
+                      ref,
+                      ref
+                          .read(cartProvider.notifier)
+                          .isCartWithSameProductExits(widget.product),
+                      'This item is already in the cart!',
+                      'Item is added to the cart',
+                      "cart",
+                    );
                   },
                   icon: Icon(
                     IconManager.addToCartGeneralIcon,
