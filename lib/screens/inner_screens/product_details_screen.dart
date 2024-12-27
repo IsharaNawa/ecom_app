@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProductDetailsScreens extends ConsumerWidget {
-  const ProductDetailsScreens({super.key, required this.product});
+class ProductDetailsScreen extends ConsumerWidget {
+  const ProductDetailsScreen({super.key, required this.product});
 
   final Product product;
 

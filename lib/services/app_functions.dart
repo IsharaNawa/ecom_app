@@ -106,7 +106,10 @@ class AppFunctions {
         ref.read(cartProvider.notifier).createNewCartItem(product);
       } else if (type == "wishlist") {
         ref.read(wishListProvider.notifier).addToWishList(product);
-      } else if (type == "recently_viewd") {}
+      } else if (type == "recently_viewd") {
+      } else if (type == "cartRemoval") {
+        ref.read(cartProvider.notifier).deleteFromCart(product);
+      }
 
       ScaffoldMessenger.of(context)
         ..removeCurrentSnackBar()

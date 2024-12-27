@@ -21,6 +21,16 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
     };
   }
 
+  void deleteFromCart(Product product) {
+    final updatedState = Map<String, Cart>.from(state);
+
+    if (isCartWithSameProductExits(product)) {
+      updatedState.remove(product.productId);
+    }
+
+    state = updatedState;
+  }
+
   void clearCarts() {
     state = {};
   }

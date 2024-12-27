@@ -1,5 +1,5 @@
 import 'package:ecom_app/screens/inner_screens/orders_screen.dart';
-import 'package:ecom_app/screens/inner_screens/viewed_recently.dart';
+import 'package:ecom_app/screens/inner_screens/viewed_recently_screen.dart';
 import 'package:ecom_app/screens/inner_screens/wishlist_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:flutter/material.dart';

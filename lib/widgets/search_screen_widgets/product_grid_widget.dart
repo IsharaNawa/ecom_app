@@ -1,5 +1,6 @@
 import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/cart_provider.dart';
+import 'package:ecom_app/providers/recently_viewed_provider.dart';
 import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:ecom_app/screens/inner_screens/product_details_screen.dart';
 import 'package:ecom_app/services/app_functions.dart';
@@ -25,10 +26,18 @@ class _ProductGridWidgetState extends ConsumerState<ProductGridWidget> {
 
     return GestureDetector(
       onTap: () async {
+        if (!ref
+            .read(recentlyViewedListProvider.notifier)
+            .isProductExitsInRecentlyViewedList(widget.product)) {
+          ref
+              .read(recentlyViewedListProvider.notifier)
+              .addToRecentlyViewedList(widget.product);
+        }
+
         await Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return ProductDetailsScreens(
+              return ProductDetailsScreen(
                 product: widget.product,
               );
             },

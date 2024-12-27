@@ -64,7 +64,7 @@ class HomeScreen extends ConsumerWidget {
                         ],
                       );
                     },
-                    itemCount: 20,
+                    itemCount: products.length,
                     scrollDirection: Axis.horizontal,
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:ecom_app/model/cart.dart';
+import 'package:ecom_app/providers/cart_provider.dart';
 import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
@@ -58,9 +59,24 @@ class CartWidget extends ConsumerWidget {
                     ),
                     Column(
                       children: [
-                        Icon(
-                          IconManager.removeItemFromCartIcon,
-                          size: 18,
+                        GestureDetector(
+                          onTap: () {
+                            AppFunctions.showListRelatedSnackBar(
+                              context,
+                              cartItem.product,
+                              ref,
+                              !ref
+                                  .read(cartProvider.notifier)
+                                  .isCartWithSameProductExits(cartItem.product),
+                              'This item is not in the cart!',
+                              'Item is removed from the cart.',
+                              "cartRemoval",
+                            );
+                          },
+                          child: Icon(
+                            IconManager.removeItemFromCartIcon,
+                            size: 18,
+                          ),
                         ),
                         const SizedBox(
                           height: 25,

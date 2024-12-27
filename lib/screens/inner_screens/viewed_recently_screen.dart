@@ -1,21 +1,27 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/recently_viewed_provider.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ViewedRecentlyScreen extends StatefulWidget {
+class ViewedRecentlyScreen extends ConsumerStatefulWidget {
   const ViewedRecentlyScreen({super.key});
 
   @override
-  State<ViewedRecentlyScreen> createState() => ViewedRecentlyScreenState();
+  ConsumerState<ViewedRecentlyScreen> createState() =>
+      ViewedRecentlyScreenState();
 }
 
-class ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
+class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
   @override
   Widget build(BuildContext context) {
-    return Product.products.isEmpty
+    List<Product> recentlyViewedProducts =
+        ref.watch(recentlyViewedListProvider);
+
+    return recentlyViewedProducts.isEmpty
         ? Scaffold(
             appBar: AppBar(
               titleSpacing: 0,
@@ -65,7 +71,9 @@ class ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
                 TextButton.icon(
                   onPressed: () {
                     setState(() {
-                      //TODO
+                      ref
+                          .read(recentlyViewedListProvider.notifier)
+                          .clearRecentlyViewedList();
                     });
                   },
                   icon: Icon(IconManager.clearRecentelyViewedList),
@@ -75,9 +83,10 @@ class ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
             ),
             body: DynamicHeightGridView(
               builder: (context, index) {
-                return ProductGridWidget(product: Product.products[index]);
+                return ProductGridWidget(
+                    product: recentlyViewedProducts[index]);
               },
-              itemCount: Product.products.length,
+              itemCount: recentlyViewedProducts.length,
               crossAxisCount: 2,
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,
