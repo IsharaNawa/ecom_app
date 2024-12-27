@@ -1,5 +1,6 @@
-import 'package:ecom_app/model/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:ecom_app/model/product.dart';
 
 class CategoryProductNotifier extends StateNotifier<List<Product>> {
   CategoryProductNotifier() : super(Product.products);

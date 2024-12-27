@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/recently_viewed_provider.dart';
 import 'package:ecom_app/providers/wishlist_provider.dart';
@@ -5,8 +8,6 @@ import 'package:ecom_app/screens/inner_screens/orders_screen.dart';
 import 'package:ecom_app/screens/inner_screens/viewed_recently_screen.dart';
 import 'package:ecom_app/screens/inner_screens/wishlist_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProfileScreenGeneralSection extends ConsumerWidget {
   const ProfileScreenGeneralSection({super.key});

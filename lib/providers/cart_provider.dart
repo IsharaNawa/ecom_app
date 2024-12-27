@@ -1,7 +1,8 @@
-import 'package:ecom_app/model/cart.dart';
-import 'package:ecom_app/model/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
+
+import 'package:ecom_app/model/cart.dart';
+import 'package:ecom_app/model/product.dart';
 
 class CartNotifier extends StateNotifier<Map<String, Cart>> {
   CartNotifier() : super({});

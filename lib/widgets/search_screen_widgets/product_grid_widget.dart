@@ -1,3 +1,8 @@
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/cart_provider.dart';
 import 'package:ecom_app/providers/recently_viewed_provider.dart';
@@ -5,10 +10,6 @@ import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:ecom_app/screens/inner_screens/product_details_screen.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ProductGridWidget extends ConsumerStatefulWidget {
   const ProductGridWidget({super.key, required this.product});

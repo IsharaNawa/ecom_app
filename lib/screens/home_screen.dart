@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/product_provider.dart';
 import 'package:ecom_app/services/icon_manager.dart';
@@ -5,9 +9,6 @@ import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/home_screen_widgets/carousel_section.dart';
 import 'package:ecom_app/widgets/home_screen_widgets/category_section.dart';
 import 'package:ecom_app/widgets/home_screen_widgets/latest_arrival_item.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});

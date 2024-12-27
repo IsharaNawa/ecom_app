@@ -1,14 +1,14 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:ecom_app/model/product.dart';
-import 'package:ecom_app/providers/cart_provider.dart';
 import 'package:ecom_app/providers/recently_viewed_provider.dart';
 import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ViewedRecentlyScreen extends ConsumerStatefulWidget {
   const ViewedRecentlyScreen({super.key});

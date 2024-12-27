@@ -1,7 +1,8 @@
-import 'package:ecom_app/services/icon_manager.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:ecom_app/services/icon_manager.dart';
 
 enum FormFieldType {
   email,

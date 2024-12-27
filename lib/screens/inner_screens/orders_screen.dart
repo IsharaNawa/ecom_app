@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
 import 'package:ecom_app/widgets/orders_screen_widgets/order_widget.dart';
-import 'package:flutter/material.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});

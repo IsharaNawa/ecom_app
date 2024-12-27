@@ -1,9 +1,10 @@
-import 'package:ecom_app/model/product.dart';
-import 'package:ecom_app/providers/cart_provider.dart';
-import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/cart_provider.dart';
+import 'package:ecom_app/providers/wishlist_provider.dart';
 
 class AppFunctions {
   static Future<void> showErrorOrWarningOrImagePickerDialog(

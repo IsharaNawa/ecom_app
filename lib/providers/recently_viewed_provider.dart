@@ -1,5 +1,6 @@
-import 'package:ecom_app/model/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:ecom_app/model/product.dart';
 
 class RecentlyViewedNotifier extends StateNotifier<List<Product>> {
   RecentlyViewedNotifier() : super([]);

@@ -1,8 +1,9 @@
-import 'package:ecom_app/model/cart.dart';
-import 'package:ecom_app/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:ecom_app/model/cart.dart';
+import 'package:ecom_app/providers/cart_provider.dart';
 
 class QuantityBottomSheet extends ConsumerWidget {
   const QuantityBottomSheet({super.key, required this.cart});
