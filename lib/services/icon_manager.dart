@@ -69,6 +69,10 @@ class IconManager {
   static IconData profileNavBarIcon = HugeIcons.strokeRoundedUser;
   static IconData profileActiveNavBarIcon = HugeIcons.strokeRoundedUserAdd01;
 
+  // errors
+  static IconData errorIcon = HugeIcons.strokeRoundedSettingsError01;
+  static IconData accountErrorIcon = HugeIcons.strokeRoundedAccountSetting01;
+
   //other
   static IconData privacyPolicyIcon = HugeIcons.strokeRoundedPoliceBadge;
   static IconData ordersIcon = HugeIcons.strokeRoundedShoppingBag01;

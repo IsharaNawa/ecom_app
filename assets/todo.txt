@@ -16,3 +16,9 @@
 [14. Add max quantity for the product.]
 
 [15. Change the input text color in dark mode.]
+
+[16. Consider adding Toast instead of snackbar.]
+
+[17. Confirm password comparison in sign up page.]
+
+[18. Create a custom toast with icons.]
