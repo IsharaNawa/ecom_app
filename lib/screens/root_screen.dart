@@ -30,7 +30,7 @@ class _RootScreenState extends ConsumerState<RootScreen> {
       CartScreen(),
       ProfileScreen(),
     ];
-    _currentScreen = 3;
+    _currentScreen = 0;
     _pageController = PageController(initialPage: _currentScreen);
   }
 

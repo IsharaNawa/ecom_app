@@ -24,12 +24,12 @@ class SignupScreen extends ConsumerStatefulWidget {
 class _SignupScreenState extends ConsumerState<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth auth = FirebaseAuth.instance;
+  bool isLoading = false;
 
   String? _userName;
   String? _email;
   String? _password;
   String? _confirmPassword;
-  bool isLoading = false;
 
   void _signIn(bool isDarkmodeOn) async {
     if (!_formKey.currentState!.validate()) {
