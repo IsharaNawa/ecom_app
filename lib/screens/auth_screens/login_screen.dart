@@ -13,6 +13,7 @@ import 'package:ecom_app/screens/auth_screens/signup_screen.dart';
 import 'package:ecom_app/screens/root_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/form_fields.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -29,7 +30,96 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   String? _email;
   String? _password;
 
-  void _logIn(bool isDarkmodeOn) async {
+  Future<void> _googleSignIn(BuildContext context, bool isDarkmodeOn) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      final googleSignIn = GoogleSignIn();
+      final googleAccount = await googleSignIn.signIn();
+      if (googleAccount != null) {
+        final googleAuth = await googleAccount.authentication;
+
+        if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+          final authResults = await FirebaseAuth.instance
+              .signInWithCredential(GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          ));
+        } else {
+          throw Exception("Error while collecting google auth credentials!");
+        }
+      }
+
+      await Fluttertoast.showToast(
+        msg: "Your are Logged In!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: isDarkmodeOn
+            ? AppColors.lightScaffoldColor
+            : AppColors.darkScaffoldColor,
+        textColor: isDarkmodeOn
+            ? AppColors.darkScaffoldColor
+            : AppColors.lightScaffoldColor,
+        fontSize: 16.0,
+      );
+
+      WidgetsBinding.instance.addPostFrameCallback((timestamp) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const RootScreen(),
+          ),
+        );
+      });
+    } on FirebaseException catch (error) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (timestamp) {
+          AppFunctions.showErrorOrWarningOrImagePickerDialog(
+            context: context,
+            isWarning: false,
+            mainTitle: error.message.toString(),
+            icon: Icon(IconManager.accountErrorIcon),
+            action1Text: "OK",
+            action2Text: "",
+            action1Func: () async {
+              Navigator.of(context).canPop()
+                  ? Navigator.of(context).pop()
+                  : null;
+            },
+            action2Func: () {},
+            isDarkmodeOn: isDarkmodeOn,
+          );
+        },
+      );
+    } catch (error) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (timestamp) {
+          AppFunctions.showErrorOrWarningOrImagePickerDialog(
+            context: context,
+            isWarning: false,
+            mainTitle: error.toString(),
+            icon: Icon(IconManager.accountErrorIcon),
+            action1Text: "OK",
+            action2Text: "",
+            action1Func: () async {
+              Navigator.of(context).canPop()
+                  ? Navigator.of(context).pop()
+                  : null;
+            },
+            action2Func: () {},
+            isDarkmodeOn: isDarkmodeOn,
+          );
+        },
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _logIn(bool isDarkmodeOn) async {
     if (!_formKey.currentState!.validate()) {
       FocusScope.of(context).unfocus();
       return;
@@ -233,8 +323,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width - 60,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  _logIn(isDarkmodeOn);
+                                onPressed: () async {
+                                  await _logIn(isDarkmodeOn);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
@@ -289,11 +379,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                             IconButton(
                               onPressed: () async {
-                                await Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => const RootScreen(),
-                                  ),
-                                );
+                                _googleSignIn(context, isDarkmodeOn);
                               },
                               style: OutlinedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

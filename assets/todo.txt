@@ -22,3 +22,5 @@
 [17. Confirm password comparison in sign up page.]
 
 [18. Create a custom toast with icons.]
+
+[19. Fix google sign in.]

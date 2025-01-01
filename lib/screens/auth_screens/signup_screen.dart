@@ -31,7 +31,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   String? _password;
   String? _confirmPassword;
 
-  void _signIn(bool isDarkmodeOn) async {
+  Future<void> _signIn(bool isDarkmodeOn) async {
     if (!_formKey.currentState!.validate()) {
       FocusScope.of(context).unfocus();
       return;
@@ -272,8 +272,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width - 60,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  _signIn(isDarkmodeOn);
+                                onPressed: () async {
+                                  await _signIn(isDarkmodeOn);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
