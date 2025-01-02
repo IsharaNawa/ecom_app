@@ -18,7 +18,11 @@ class ProfileScreen extends ConsumerStatefulWidget {
   ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   bool isLoading = false;
 
@@ -28,9 +32,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     try {
       appUser = await ref.watch(userProvider.notifier).fetchUserInfo();
 
-      if (appUser == null) {
-        throw Exception("User does not exist");
-      }
       setState(() {
         isLoading = true;
       });
@@ -59,12 +60,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Fetch user info here
-    _fetchUserInfo(false);
+    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
+    _fetchUserInfo(isDarkmodeOn);
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
 
     return Scaffold(
@@ -139,8 +141,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              appUser!.userName!,
-                              // "noting",
+                              appUser?.userName ?? "Loading...",
                               style: const TextStyle(
                                 fontSize: 20,
                               ),
@@ -150,8 +151,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               height: 8,
                             ),
                             Text(
-                              appUser!.userEmail!,
-                              // "noting",
+                              appUser?.userEmail ?? "Loading...",
                               style: TextStyle(fontSize: 16),
                               textAlign: TextAlign.start,
                             )
