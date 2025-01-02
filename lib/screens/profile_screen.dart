@@ -1,3 +1,5 @@
+import 'package:ecom_app/model/user.dart';
+import 'package:ecom_app/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,9 +22,51 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   bool isLoading = false;
 
+  AppUser? appUser;
+
+  Future<void> _fetchUserInfo(bool isDarkmodeOn) async {
+    try {
+      appUser = await ref.watch(userProvider.notifier).fetchUserInfo();
+
+      if (appUser == null) {
+        throw Exception("User does not exist");
+      }
+      setState(() {
+        isLoading = true;
+      });
+    } catch (error) {
+      if (!mounted) return;
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        isDarkmodeOn: isDarkmodeOn,
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Fetch user info here
+    _fetchUserInfo(false);
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
+
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
@@ -91,21 +135,23 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         const SizedBox(
                           width: 15,
                         ),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Ishara Nawarathna",
-                              style: TextStyle(
+                              appUser!.userName!,
+                              // "noting",
+                              style: const TextStyle(
                                 fontSize: 20,
                               ),
                               textAlign: TextAlign.start,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             Text(
-                              "yc.ishara@gmail.com",
+                              appUser!.userEmail!,
+                              // "noting",
                               style: TextStyle(fontSize: 16),
                               textAlign: TextAlign.start,
                             )

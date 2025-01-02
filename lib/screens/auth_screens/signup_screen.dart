@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/constants/app_colors.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
@@ -55,6 +56,24 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         email: _email!.trim(),
         password: _password!.trim(),
       );
+
+      final User? user = auth.currentUser;
+
+      if (user == null) {
+        throw Exception("Error! User is not valid!");
+      }
+
+      final String uid = user.uid;
+
+      await FirebaseFirestore.instance.collection("users").doc(uid).set({
+        "userId": uid,
+        "userName": _userName!.trim(),
+        "userImage": "",
+        "userEmail": _email!.trim(),
+        "createdAt": Timestamp.now(),
+        "userCart": [],
+        "userWishList": [],
+      });
 
       await Fluttertoast.showToast(
         msg: "Your account is created!",
