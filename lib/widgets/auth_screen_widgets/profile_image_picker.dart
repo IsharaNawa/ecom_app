@@ -9,9 +9,13 @@ import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 
 class ProfileImagePicker extends ConsumerStatefulWidget {
-  const ProfileImagePicker({super.key, required this.borderColor});
+  const ProfileImagePicker(
+      {super.key,
+      required this.borderColor,
+      required this.pickedImageFileGetter});
 
   final Color borderColor;
+  final void Function(File? imageFile) pickedImageFileGetter;
 
   @override
   ConsumerState<ProfileImagePicker> createState() => _ProfileImagePickerState();
@@ -27,6 +31,8 @@ class _ProfileImagePickerState extends ConsumerState<ProfileImagePicker> {
     if (pickedImageXFile == null) {
       return;
     }
+
+    widget.pickedImageFileGetter(File(pickedImageXFile.path));
 
     setState(() {
       pickedImage = File(pickedImageXFile.path);
@@ -69,6 +75,7 @@ class _ProfileImagePickerState extends ConsumerState<ProfileImagePicker> {
         setState(() {
           pickedImage = null;
         });
+        widget.pickedImageFileGetter(null);
         Navigator.of(context).pop();
       },
       isDarkmodeOn: isDarkmodeOn,

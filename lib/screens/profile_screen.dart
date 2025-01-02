@@ -1,5 +1,6 @@
 import 'package:ecom_app/model/user.dart';
 import 'package:ecom_app/providers/user_provider.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,8 +26,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   bool isLoading = false;
-
   AppUser? appUser;
+  String? imageUrl;
 
   Future<void> _fetchUserInfo(bool isDarkmodeOn) async {
     try {
@@ -127,9 +128,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                     child: Row(
                       children: [
                         ClipOval(
-                          child: Image.network(
-                            "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png",
-                            fit: BoxFit.cover,
+                          child: FancyShimmerImage(
+                            imageUrl: appUser?.userimage ??
+                                "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png",
+                            boxFit: BoxFit.cover,
                             width: 60,
                             height: 60,
                           ),

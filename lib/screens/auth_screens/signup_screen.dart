@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/constants/app_colors.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -31,10 +34,28 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   String? _email;
   String? _password;
   String? _confirmPassword;
+  File? pickedImage;
 
   Future<void> _signIn(bool isDarkmodeOn) async {
     if (!_formKey.currentState!.validate()) {
       FocusScope.of(context).unfocus();
+      return;
+    }
+
+    if (pickedImage == null) {
+      AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: "Please select a profile picture!",
+        icon: Icon(IconManager.imagepickingErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        isDarkmodeOn: isDarkmodeOn,
+      );
       return;
     }
 
@@ -65,10 +86,17 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
       final String uid = user.uid;
 
+      final ref =
+          FirebaseStorage.instance.ref().child("usersImage").child("$uid.jpg");
+
+      await ref.putFile(pickedImage!);
+
+      String imageUrl = await ref.getDownloadURL();
+
       await FirebaseFirestore.instance.collection("users").doc(uid).set({
         "userId": uid,
         "userName": _userName!.trim(),
-        "userImage": "",
+        "userImage": imageUrl,
         "userEmail": _email!.trim(),
         "createdAt": Timestamp.now(),
         "userCart": [],
@@ -210,6 +238,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             ProfileImagePicker(
                               borderColor:
                                   isDarkmodeOn ? Colors.white : Colors.black,
+                              pickedImageFileGetter: (File? file) {
+                                pickedImage = file;
+                              },
                             ),
                             const SizedBox(
                               height: 20,

@@ -72,6 +72,7 @@ class IconManager {
   // errors
   static IconData errorIcon = HugeIcons.strokeRoundedSettingsError01;
   static IconData accountErrorIcon = HugeIcons.strokeRoundedAccountSetting01;
+  static IconData imagepickingErrorIcon = HugeIcons.strokeRoundedImageUpload;
 
   //other
   static IconData privacyPolicyIcon = HugeIcons.strokeRoundedPoliceBadge;

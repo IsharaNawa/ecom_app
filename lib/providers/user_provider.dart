@@ -30,7 +30,6 @@ class UserNotifier extends StateNotifier<AppUser> {
         userWish: userMap["useruserWishListId"],
       );
 
-
       return state;
     } on FirebaseException catch (error) {
       return null;
