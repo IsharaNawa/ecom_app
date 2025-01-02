@@ -27,3 +27,5 @@
 
 [20. Fix null error when user goes to profile screen after signup. Here an exception is thrown when the user is null. Not managed currectly. To recrete, delete the user entry related to the user in the firebase.]
 
+
+[21. Fix realtime update of search screen products, stream gets updated but the UI does not re-render].

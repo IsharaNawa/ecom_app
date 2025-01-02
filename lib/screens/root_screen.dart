@@ -1,3 +1,7 @@
+import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/product_provider.dart';
+import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/services/app_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,6 +24,29 @@ class _RootScreenState extends ConsumerState<RootScreen> {
   late List<Widget> _screens;
   late int _currentScreen;
   late PageController _pageController;
+  List<Product>? products;
+  bool isLoadingProd = true;
+
+  Future<void> fetchProducts(bool isDarkmodeOn) async {
+    try {
+      Future.wait({ref.watch(productsProvider.notifier).fetchProducts()});
+    } catch (error) {
+      if (!mounted) return;
+      AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: "Error Occured when fetching products!",
+        icon: Icon(IconManager.productFetchingErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        isDarkmodeOn: isDarkmodeOn,
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -32,6 +59,15 @@ class _RootScreenState extends ConsumerState<RootScreen> {
     ];
     _currentScreen = 0;
     _pageController = PageController(initialPage: _currentScreen);
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (isLoadingProd) {
+      bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
+      fetchProducts(isDarkmodeOn);
+    }
+    super.didChangeDependencies();
   }
 
   @override

@@ -35,38 +35,44 @@ class HomeScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CarouselSection(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Latest Arrivals",
-                  style: GoogleFonts.lato(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+              Visibility(
+                visible: products.isEmpty ? false : true,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Latest Arrivals",
+                    style: GoogleFonts.lato(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 105,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 8.0,
-                    top: 4.0,
-                  ),
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return Row(
-                        children: [
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          LatestArrivalItem(
-                            product: products[index],
-                          )
-                        ],
-                      );
-                    },
-                    itemCount: products.length,
-                    scrollDirection: Axis.horizontal,
+              Visibility(
+                visible: products.isEmpty ? false : true,
+                child: SizedBox(
+                  height: 105,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 8.0,
+                      top: 4.0,
+                    ),
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Row(
+                          children: [
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            LatestArrivalItem(
+                              product: products[index],
+                            )
+                          ],
+                        );
+                      },
+                      itemCount: products.length > 10 ? 10 : products.length,
+                      scrollDirection: Axis.horizontal,
+                    ),
                   ),
                 ),
               ),

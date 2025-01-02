@@ -73,6 +73,8 @@ class IconManager {
   static IconData errorIcon = HugeIcons.strokeRoundedSettingsError01;
   static IconData accountErrorIcon = HugeIcons.strokeRoundedAccountSetting01;
   static IconData imagepickingErrorIcon = HugeIcons.strokeRoundedImageUpload;
+  static IconData productFetchingErrorIcon =
+      HugeIcons.strokeRoundedShoppingBasketRemove03;
 
   //other
   static IconData privacyPolicyIcon = HugeIcons.strokeRoundedPoliceBadge;
