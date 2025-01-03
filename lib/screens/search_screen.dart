@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,34 +35,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Product> allProducts = ref.watch(productsProvider);
-
-    Widget content = DynamicHeightGridView(
-      builder: (context, index) {
-        return ProductGridWidget(
-          product: _textEditingController.text.isEmpty
-              ? allProducts[index]
-              : searchedProducts[index],
-        );
-      },
-      itemCount: _textEditingController.text.isEmpty
-          ? allProducts.length
-          : searchedProducts.length,
-      crossAxisCount: 2,
-      mainAxisSpacing: 12,
-      crossAxisSpacing: 12,
-    );
-
-    if (_textEditingController.text.isNotEmpty && searchedProducts.isEmpty) {
-      content = const Center(
-        child: Column(
-          children: [
-            Text("No Products Found!"),
-          ],
-        ),
-      );
-    }
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -77,10 +50,31 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           ),
           title: const Text("Explore Products"),
         ),
-        body: StreamBuilder<List<Product>>(
+        body: StreamBuilder(
             stream:
-                ref.watch(productsProvider.notifier).fetchProdcutsAsStream(),
+                FirebaseFirestore.instance.collection("products").snapshots(),
             builder: (context, snapshot) {
+              ref.watch(productsProvider.notifier).fetchProducts();
+
+              List<Product> allProducts = [];
+
+              if (snapshot.data == null) {
+                return const Scaffold(
+                  body: Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          "No product in the catelog!",
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+
+              for (var element in snapshot.data!.docs) {
+                allProducts.add(Product.fromFirebase(element));
+              }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Scaffold(
                   body: Center(
@@ -155,7 +149,31 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       ? const Text(
                           "No Products in the Catelog! Please check later.")
                       : Expanded(
-                          child: content,
+                          child: _textEditingController.text.isNotEmpty &&
+                                  searchedProducts.isEmpty
+                              ? const Center(
+                                  child: Column(
+                                    children: [
+                                      Text("No Products Found!"),
+                                    ],
+                                  ),
+                                )
+                              : DynamicHeightGridView(
+                                  builder: (context, index) {
+                                    return ProductGridWidget(
+                                      product:
+                                          _textEditingController.text.isEmpty
+                                              ? allProducts![index]
+                                              : searchedProducts[index],
+                                    );
+                                  },
+                                  itemCount: _textEditingController.text.isEmpty
+                                      ? allProducts!.length
+                                      : searchedProducts.length,
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 12,
+                                  crossAxisSpacing: 12,
+                                ),
                         )
                 ],
               );
