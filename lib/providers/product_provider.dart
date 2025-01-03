@@ -13,11 +13,17 @@ class ProductNotifier extends StateNotifier<List<Product>> {
             .contains(searchQuery.toLowerCase()))
         .toList();
 
-    searchedItems.addAll(state
+    List<Product> searchedInDesc = state
         .where((product) => product.productDescription
             .toLowerCase()
             .contains(searchQuery.toLowerCase()))
-        .toList());
+        .toList();
+
+    for (final item in searchedInDesc) {
+      if (!searchedItems.contains(item)) {
+        searchedItems.add(item);
+      }
+    }
 
     return searchedItems;
   }

@@ -111,6 +111,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       controller: _textEditingController,
                       autocorrect: false,
                       onSubmitted: (value) {
+                        print(searchedProducts.length);
+
                         setState(() {
                           searchedProducts = ref
                               .watch(productsProvider.notifier)
@@ -128,7 +130,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                 },
                                 child: Icon(IconManager.clearSearchBarIcon),
                               ),
-                        // suffixIconColor: Colors.red,
                         label: Padding(
                           padding: const EdgeInsets.only(
                             left: 8.0,
@@ -163,12 +164,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                     return ProductGridWidget(
                                       product:
                                           _textEditingController.text.isEmpty
-                                              ? allProducts![index]
+                                              ? allProducts[index]
                                               : searchedProducts[index],
                                     );
                                   },
                                   itemCount: _textEditingController.text.isEmpty
-                                      ? allProducts!.length
+                                      ? allProducts.length
                                       : searchedProducts.length,
                                   crossAxisCount: 2,
                                   mainAxisSpacing: 12,
