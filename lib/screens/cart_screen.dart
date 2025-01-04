@@ -33,6 +33,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       });
     } catch (error) {
       if (!mounted) return;
+
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,

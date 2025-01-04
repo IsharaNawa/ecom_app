@@ -1,7 +1,9 @@
+import 'package:ecom_app/constants/app_colors.dart';
 import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:ecom_app/model/product.dart';
@@ -157,6 +159,25 @@ class AppFunctions {
       },
       action2Func: () {},
       ref: ref,
+    );
+  }
+
+  static Future<void> triggerToast(
+    String toastText,
+    WidgetRef ref,
+  ) async {
+    await Fluttertoast.showToast(
+      msg: "Your account is created!",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: ref.watch(darkModeThemeStatusProvider)
+          ? AppColors.lightScaffoldColor
+          : AppColors.darkScaffoldColor,
+      textColor: ref.watch(darkModeThemeStatusProvider)
+          ? AppColors.darkScaffoldColor
+          : AppColors.lightScaffoldColor,
+      fontSize: 16.0,
     );
   }
 }

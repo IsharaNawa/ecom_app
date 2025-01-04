@@ -1,11 +1,9 @@
-import 'package:ecom_app/constants/app_colors.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/loading_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:ecom_app/providers/theme_provider.dart';
@@ -52,19 +50,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         }
       }
 
-      await Fluttertoast.showToast(
-        msg: "Your are Logged In!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: isDarkmodeOn
-            ? AppColors.lightScaffoldColor
-            : AppColors.darkScaffoldColor,
-        textColor: isDarkmodeOn
-            ? AppColors.darkScaffoldColor
-            : AppColors.lightScaffoldColor,
-        fontSize: 16.0,
-      );
+      await AppFunctions.triggerToast("You are Logged In!", ref);
 
       WidgetsBinding.instance.addPostFrameCallback((timestamp) {
         Navigator.of(context).pushReplacement(
@@ -138,19 +124,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         password: _passwordController.text.trim(),
       );
 
-      await Fluttertoast.showToast(
-        msg: "Your are Logged In!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: isDarkmodeOn
-            ? AppColors.lightScaffoldColor
-            : AppColors.darkScaffoldColor,
-        textColor: isDarkmodeOn
-            ? AppColors.darkScaffoldColor
-            : AppColors.lightScaffoldColor,
-        fontSize: 16.0,
-      );
+      await AppFunctions.triggerToast("You are Logged In!", ref);
 
       if (!mounted) return;
       await Navigator.of(context).pushReplacement(

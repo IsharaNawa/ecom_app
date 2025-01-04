@@ -81,12 +81,12 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
       final String uid = user.uid;
 
-      final ref =
+      final firebaseRef =
           FirebaseStorage.instance.ref().child("usersImage").child("$uid.jpg");
 
-      await ref.putFile(pickedImage!);
+      await firebaseRef.putFile(pickedImage!);
 
-      String imageUrl = await ref.getDownloadURL();
+      String imageUrl = await firebaseRef.getDownloadURL();
 
       await FirebaseFirestore.instance.collection("users").doc(uid).set({
         "userId": uid,
@@ -98,19 +98,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         "userWishList": [],
       });
 
-      await Fluttertoast.showToast(
-        msg: "Your account is created!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: isDarkmodeOn
-            ? AppColors.lightScaffoldColor
-            : AppColors.darkScaffoldColor,
-        textColor: isDarkmodeOn
-            ? AppColors.darkScaffoldColor
-            : AppColors.lightScaffoldColor,
-        fontSize: 16.0,
-      );
+      await AppFunctions.triggerToast("Your account is created!", ref);
 
       if (!mounted) return;
       await Navigator.of(context).pushReplacement(
