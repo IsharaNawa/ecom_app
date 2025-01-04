@@ -1,3 +1,4 @@
+import 'package:ecom_app/screens/auth_screens/login_screen.dart';
 import 'package:ecom_app/screens/auth_screens/signup_screen.dart';
 import 'package:ecom_app/screens/root_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -61,8 +62,8 @@ class MyApp extends ConsumerWidget {
             title: 'ECom App',
             theme:
                 Styles.themeData(isDarkTheme: isDarkmodeOn, context: context),
-            home: const RootScreen(),
-            // home: const LoginScreen(),
+            // home: const RootScreen(),
+            home: const LoginScreen(),
             // home: const SignupScreen(),
             // home: const ForgotPasswordScreen(),
           );

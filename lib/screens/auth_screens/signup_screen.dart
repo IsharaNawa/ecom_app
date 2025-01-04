@@ -120,33 +120,17 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       );
     } on FirebaseException catch (error) {
       if (!mounted) return;
-      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+      AppFunctions.triggerErrorDialog(
         context: context,
-        isWarning: false,
-        mainTitle: error.message.toString(),
-        icon: Icon(IconManager.accountErrorIcon),
-        action1Text: "OK",
-        action2Text: "",
-        action1Func: () async {
-          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
-        },
-        action2Func: () {},
         ref: ref,
+        errorMessage: error.message.toString(),
       );
     } catch (error) {
       if (!mounted) return;
-      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+      AppFunctions.triggerErrorDialog(
         context: context,
-        isWarning: false,
-        mainTitle: error.toString(),
-        icon: Icon(IconManager.accountErrorIcon),
-        action1Text: "OK",
-        action2Text: "",
-        action1Func: () async {
-          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
-        },
-        action2Func: () {},
         ref: ref,
+        errorMessage: error.toString(),
       );
     } finally {
       setState(() {
@@ -180,213 +164,236 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const AppTitle(
-                  fontSize: 30.0,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Hello There!",
-                  style: GoogleFonts.oxygen(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 1.5,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Create an account to experience one of the best online shopping experiences ever!",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.oxygen(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 1.5,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      ProfileImagePicker(
-                        borderColor: isDarkmodeOn ? Colors.white : Colors.black,
-                        pickedImageFileGetter: (File? file) {
-                          pickedImage = file;
-                        },
+        body: Stack(
+          children: [
+            Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const AppTitle(
+                      fontSize: 30.0,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Hello There!",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 40,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.5,
                       ),
-                      const SizedBox(
-                        height: 20,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Create an account to experience one of the best online shopping experiences ever!",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.oxygen(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.5,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: AppFormField(
-                          outlinedInputBorder: outlinedInputBorder,
-                          inputLabel: "FirstName LastName",
-                          nullValueErrorStringValidator:
-                              "Please enter your full name!",
-                          controller: _userNameController,
-                          formFieldType: FormFieldType.fullname,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: AppFormField(
-                          outlinedInputBorder: outlinedInputBorder,
-                          inputLabel: "Email",
-                          nullValueErrorStringValidator:
-                              "Please enter a valid Email!",
-                          controller: _emailController,
-                          formFieldType: FormFieldType.email,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: AppFormField(
-                          outlinedInputBorder: outlinedInputBorder,
-                          inputLabel: "Password",
-                          nullValueErrorStringValidator:
-                              "Please enter a valid Password!",
-                          controller: _passwordController,
-                          formFieldType: FormFieldType.password,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: AppFormField(
-                          outlinedInputBorder: outlinedInputBorder,
-                          inputLabel: "Confirm Password",
-                          nullValueErrorStringValidator:
-                              "Please enter a valid Password!",
-                          controller: _confirmedPasswordController,
-                          formFieldType: FormFieldType.confirmPassword,
-                          comparisonValue: _passwordController.text,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 60,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await _signIn(isDarkmodeOn);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 20,
-                            ),
-                          ),
-                          child: Text(
-                            "Sign Up",
-                            style: GoogleFonts.lato(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const Row(
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
                         children: [
-                          Expanded(
-                            child: Divider(
-                              indent: 25,
-                              endIndent: 10,
-                              thickness: 0.5,
-                            ),
-                          ),
-                          Text(
-                            "OR",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              indent: 10,
-                              endIndent: 25,
-                              thickness: 0.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      IconButton(
-                        onPressed: () async {
-                          await Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const RootScreen(),
-                            ),
-                          );
-                        },
-                        style: Theme.of(context).outlinedButtonTheme.style,
-                        icon: Image.asset(
-                          "assets/images/google_logo.png",
-                          height: 40,
-                          width: 40,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Already have an Account?",
-                            style: GoogleFonts.oxygen(
-                              fontSize: 18,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () async {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginScreen(),
-                                ),
-                              );
+                          ProfileImagePicker(
+                            borderColor:
+                                isDarkmodeOn ? Colors.white : Colors.black,
+                            pickedImageFileGetter: (File? file) {
+                              pickedImage = file;
                             },
-                            child: Text(
-                              "Log In.",
-                              style: GoogleFonts.oxygen(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 25.0),
+                            child: AppFormField(
+                              outlinedInputBorder: outlinedInputBorder,
+                              inputLabel: "FirstName LastName",
+                              nullValueErrorStringValidator:
+                                  "Please enter your full name!",
+                              controller: _userNameController,
+                              formFieldType: FormFieldType.fullname,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 25.0),
+                            child: AppFormField(
+                              outlinedInputBorder: outlinedInputBorder,
+                              inputLabel: "Email",
+                              nullValueErrorStringValidator:
+                                  "Please enter a valid Email!",
+                              controller: _emailController,
+                              formFieldType: FormFieldType.email,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 25.0),
+                            child: AppFormField(
+                              outlinedInputBorder: outlinedInputBorder,
+                              inputLabel: "Password",
+                              nullValueErrorStringValidator:
+                                  "Please enter a valid Password!",
+                              controller: _passwordController,
+                              formFieldType: FormFieldType.password,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 25.0),
+                            child: AppFormField(
+                              outlinedInputBorder: outlinedInputBorder,
+                              inputLabel: "Confirm Password",
+                              nullValueErrorStringValidator:
+                                  "Please enter a valid Password!",
+                              controller: _confirmedPasswordController,
+                              formFieldType: FormFieldType.confirmPassword,
+                              comparisonValue: _passwordController.text,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 60,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                await _signIn(isDarkmodeOn);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 20,
+                                ),
+                              ),
+                              child: Text(
+                                "Sign Up",
+                                style: GoogleFonts.lato(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          const Row(
+                            children: [
+                              Expanded(
+                                child: Divider(
+                                  indent: 25,
+                                  endIndent: 10,
+                                  thickness: 0.5,
+                                ),
+                              ),
+                              Text(
+                                "OR",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Expanded(
+                                child: Divider(
+                                  indent: 10,
+                                  endIndent: 25,
+                                  thickness: 0.5,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          IconButton(
+                            onPressed: () async {
+                              await Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const RootScreen(),
+                                ),
+                              );
+                            },
+                            style: Theme.of(context).outlinedButtonTheme.style,
+                            icon: Image.asset(
+                              "assets/images/google_logo.png",
+                              height: 40,
+                              width: 40,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Already have an Account?",
+                                style: GoogleFonts.oxygen(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  "Log In.",
+                                  style: GoogleFonts.oxygen(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  ),
-                )
-              ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-          ),
+            Positioned(
+              right: 10,
+              top: 20,
+              child: IconButton(
+                icon: isDarkmodeOn
+                    ? Icon(IconManager.darkModeIcon)
+                    : Icon(IconManager.lightModeIcon),
+                onPressed: () {
+                  ref
+                      .read(darkModeThemeStatusProvider.notifier)
+                      .toggleDarkMode();
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

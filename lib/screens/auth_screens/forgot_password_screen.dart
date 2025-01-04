@@ -40,130 +40,146 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-        ),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 2,
-                      color: Colors.black12,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      IconManager.fotgotScreenMainIcon,
-                      size: 35,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Forgot Password?",
-                  style: GoogleFonts.oxygen(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 1.5,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "No worries, we'll send you reset instructions.",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.oxygen(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 1.5,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: AppFormField(
-                          outlinedInputBorder: outlinedInputBorder,
-                          inputLabel: "Email",
-                          nullValueErrorStringValidator:
-                              "Please enter a valid Email!",
-                          formFieldType: FormFieldType.email,
-                          controller: _emailController,
+        body: Stack(
+          children: [
+            Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.black12,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          IconManager.fotgotScreenMainIcon,
+                          size: 35,
                         ),
                       ),
-                      const SizedBox(
-                        height: 30,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Forgot Password?",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.5,
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 60,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            if (!_formKey.currentState!.validate()) {
-                              FocusScope.of(context).unfocus();
-                              return;
-                            }
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "No worries, we'll send you reset instructions.",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.oxygen(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.5,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 25.0),
+                            child: AppFormField(
+                              outlinedInputBorder: outlinedInputBorder,
+                              inputLabel: "Email",
+                              nullValueErrorStringValidator:
+                                  "Please enter a valid Email!",
+                              formFieldType: FormFieldType.email,
+                              controller: _emailController,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 60,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                if (!_formKey.currentState!.validate()) {
+                                  FocusScope.of(context).unfocus();
+                                  return;
+                                }
 
-                            _formKey.currentState!.save();
+                                _formKey.currentState!.save();
 
-                            await Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
+                                await Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 20,
+                                ),
                               ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 20,
+                              child: Text(
+                                "Reset Password",
+                                style: GoogleFonts.lato(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                           ),
-                          child: Text(
-                            "Reset Password",
-                            style: GoogleFonts.lato(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        Navigator.of(context).canPop()
+                            ? Navigator.of(context).pop()
+                            : null;
+                      },
+                      icon: Icon(IconManager.screenMiddleBackButtonIcon),
+                      label: Text(
+                        "Forgot Password?",
+                        style: GoogleFonts.oxygen(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).canPop()
-                        ? Navigator.of(context).pop()
-                        : null;
-                  },
-                  icon: Icon(IconManager.screenMiddleBackButtonIcon),
-                  label: Text(
-                    "Forgot Password?",
-                    style: GoogleFonts.oxygen(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+            Positioned(
+              right: 10,
+              top: 20,
+              child: IconButton(
+                icon: isDarkmodeOn
+                    ? Icon(IconManager.darkModeIcon)
+                    : Icon(IconManager.lightModeIcon),
+                onPressed: () {
+                  ref
+                      .read(darkModeThemeStatusProvider.notifier)
+                      .toggleDarkMode();
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

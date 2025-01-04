@@ -1,4 +1,5 @@
 import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/services/icon_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -80,7 +81,7 @@ class AppFunctions {
     );
   }
 
-  static void showListRelatedSnackBar(
+  static Future<void> showListRelatedSnackBar(
     BuildContext context,
     Product product,
     WidgetRef ref,
@@ -89,7 +90,7 @@ class AppFunctions {
     String successfullyAddedMessage,
     String type,
     int qty,
-  ) {
+  ) async {
     if (isAlreayExists) {
       ScaffoldMessenger.of(context)
         ..removeCurrentSnackBar()
@@ -137,5 +138,25 @@ class AppFunctions {
           duration: const Duration(milliseconds: 1500),
         ));
     }
+  }
+
+  static Future<void> triggerErrorDialog({
+    required BuildContext context,
+    required WidgetRef ref,
+    required String errorMessage,
+  }) async {
+    await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+      context: context,
+      isWarning: false,
+      mainTitle: errorMessage,
+      icon: Icon(IconManager.accountErrorIcon),
+      action1Text: "OK",
+      action2Text: "",
+      action1Func: () async {
+        Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+      },
+      action2Func: () {},
+      ref: ref,
+    );
   }
 }

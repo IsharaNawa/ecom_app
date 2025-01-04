@@ -33,3 +33,5 @@
 [22. Reduce usage of darkmode statements]
 
 [23. Create a fixed loading screen]
+
+[23. Use ThemeData more often]
