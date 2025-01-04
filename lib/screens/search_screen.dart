@@ -51,8 +51,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           title: const Text("Explore Products"),
         ),
         body: StreamBuilder(
-            stream:
-                FirebaseFirestore.instance.collection("products").snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection("products")
+                .orderBy(
+                  "createdAt",
+                  descending: true,
+                )
+                .snapshots(),
             builder: (context, snapshot) {
               ref.watch(productsProvider.notifier).fetchProducts();
 

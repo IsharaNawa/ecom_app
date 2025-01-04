@@ -32,7 +32,13 @@ class ProductNotifier extends StateNotifier<List<Product>> {
     try {
       final productDB = FirebaseFirestore.instance.collection("products");
       List<Product> products = [];
-      await productDB.get().then((productSnapshot) {
+      await productDB
+          .orderBy(
+            "createdAt",
+            descending: true,
+          )
+          .get()
+          .then((productSnapshot) {
         for (var element in productSnapshot.docs) {
           products.add(Product.fromFirebase(element));
         }
@@ -45,27 +51,6 @@ class ProductNotifier extends StateNotifier<List<Product>> {
       return null;
     } catch (error) {
       return null;
-    }
-  }
-
-  Stream<List<Product>>? fetchProdcutsAsStream() {
-    try {
-      final productDB = FirebaseFirestore.instance.collection("products");
-
-      return productDB.snapshots().map((snapshot) {
-        List<Product> products = [];
-        for (var element in snapshot.docs) {
-          products.add(Product.fromFirebase(element));
-        }
-        print("Stream emitted ${products.length} products");
-
-        // state = products;
-        return products;
-      });
-    } on FirebaseException catch (error) {
-      rethrow;
-    } catch (error) {
-      rethrow;
     }
   }
 }
