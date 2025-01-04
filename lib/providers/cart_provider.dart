@@ -51,6 +51,15 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
           }
         ])
       });
+
+      state = {
+        product.productId: Cart(
+          cartId: const Uuid().v4(),
+          product: product,
+          quantity: 1,
+        ),
+        ...state
+      };
     } on FirebaseException catch (error) {
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
@@ -80,15 +89,6 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         ref: ref,
       );
     }
-
-    state = {
-      product.productId: Cart(
-        cartId: const Uuid().v4(),
-        product: product,
-        quantity: 1,
-      ),
-      ...state
-    };
   }
 
   Future<Map<String, Cart>> fetchProducts(
@@ -120,7 +120,12 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
           .doc(user.uid)
           .get()
           .then((userSnapshot) async {
+        if (userSnapshot.data() == null) return {};
+
         final userMap = userSnapshot.data() as Map<String, dynamic>;
+
+        if (!userMap.containsKey("userCart")) return {};
+
         final cartItems = userMap["userCart"];
 
         for (final item in cartItems) {
@@ -151,18 +156,148 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
     }
   }
 
-  void deleteItemFromCart(Product product) {
-    final updatedState = Map<String, Cart>.from(state);
+  void deleteItemFromCart(
+      Product product, BuildContext context, WidgetRef ref) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
 
-    if (isItemAlreadyExistsInCart(product)) {
-      updatedState.remove(product.productId);
+      if (user == null) {
+        await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+          context: context,
+          isWarning: false,
+          mainTitle: "You are not authenticated. Please login First!",
+          icon: Icon(IconManager.accountErrorIcon),
+          action1Text: "OK",
+          action2Text: "",
+          action1Func: () async {
+            Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+          },
+          action2Func: () {},
+          ref: ref,
+        );
+
+        return;
+      }
+
+      if (!isItemAlreadyExistsInCart(product)) {
+        return;
+      }
+
+      Cart? cartItem = state[product.productId];
+
+      if (cartItem == null) {
+        return;
+      }
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid)
+          .update({
+        "userCart": FieldValue.arrayRemove([
+          {
+            "cartId": cartItem.cartId,
+            "productId": product.productId,
+            "quatity": cartItem.quantity,
+          }
+        ])
+      });
+
+      final updatedState = Map<String, Cart>.from(state);
+
+      if (isItemAlreadyExistsInCart(product)) {
+        updatedState.remove(product.productId);
+      }
+
+      state = updatedState;
+    } on FirebaseException catch (error) {
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.message.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
+    } catch (error) {
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
     }
-
-    state = updatedState;
   }
 
-  void clearItemFromCart() {
+  Future<void> clearItemFromCart(BuildContext context, WidgetRef ref) async {
     state = {};
+
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+          context: context,
+          isWarning: false,
+          mainTitle: "You are not authenticated. Please login First!",
+          icon: Icon(IconManager.accountErrorIcon),
+          action1Text: "OK",
+          action2Text: "",
+          action1Func: () async {
+            Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+          },
+          action2Func: () {},
+          ref: ref,
+        );
+
+        return;
+      }
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid)
+          .update({"userCart": []});
+
+      state = {};
+    } on FirebaseException catch (error) {
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.message.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
+    } catch (error) {
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
+    }
   }
 
   bool isItemAlreadyExistsInCart(Product product) {

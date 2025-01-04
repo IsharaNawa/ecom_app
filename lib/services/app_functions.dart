@@ -118,7 +118,9 @@ class AppFunctions {
         ref.read(wishListProvider.notifier).addToWishList(product);
       } else if (type == "recently_viewd") {
       } else if (type == "cartRemoval") {
-        ref.read(cartProvider.notifier).deleteItemFromCart(product);
+        ref
+            .read(cartProvider.notifier)
+            .deleteItemFromCart(product, context, ref);
       }
 
       ScaffoldMessenger.of(context)
