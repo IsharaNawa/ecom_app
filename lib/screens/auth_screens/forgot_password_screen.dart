@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/screens/auth_screens/login_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
-import 'package:ecom_app/widgets/auth_screen_widgets/form_fields.dart';
+import 'package:ecom_app/widgets/auth_screen_widgets/app_form_field.dart';
 
 class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -97,12 +97,11 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: CustomFormField(
+                        child: AppFormField(
                           outlinedInputBorder: outlinedInputBorder,
                           inputLabel: "Email",
                           nullValueErrorStringValidator:
                               "Please enter a valid Email!",
-                          validatorErrorString: "Please enter a valid email!",
                           formFieldType: FormFieldType.email,
                           controller: _emailController,
                         ),

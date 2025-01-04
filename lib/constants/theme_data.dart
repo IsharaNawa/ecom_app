@@ -16,6 +16,9 @@ class Styles {
               titleSmall: GoogleFonts.ubuntu(
                 color: Colors.white,
               ),
+              bodyLarge: GoogleFonts.ubuntu(
+                color: Colors.white,
+              ),
               bodyMedium: GoogleFonts.ubuntu(
                 color: Colors.white,
               ),
@@ -83,6 +86,9 @@ class Styles {
             ),
             textTheme: GoogleFonts.ubuntuTextTheme().copyWith(
               titleSmall: GoogleFonts.ubuntu(
+                color: Colors.black,
+              ),
+              bodyLarge: GoogleFonts.ubuntu(
                 color: Colors.black,
               ),
               bodyMedium: GoogleFonts.ubuntu(

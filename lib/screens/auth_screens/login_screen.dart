@@ -12,7 +12,7 @@ import 'package:ecom_app/screens/auth_screens/forgot_password_screen.dart';
 import 'package:ecom_app/screens/auth_screens/signup_screen.dart';
 import 'package:ecom_app/screens/root_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
-import 'package:ecom_app/widgets/auth_screen_widgets/form_fields.dart';
+import 'package:ecom_app/widgets/auth_screen_widgets/app_form_field.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -259,13 +259,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25.0),
-                              child: CustomFormField(
+                              child: AppFormField(
                                 outlinedInputBorder: outlinedInputBorder,
                                 inputLabel: "Email",
                                 nullValueErrorStringValidator:
                                     "Please enter a valid Email!",
-                                validatorErrorString:
-                                    "Please enter a valid email!",
                                 formFieldType: FormFieldType.email,
                                 controller: _emailController,
                               ),
@@ -276,14 +274,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25.0),
-                              child: PasswordFormField(
+                              child: AppFormField(
                                 outlinedInputBorder: outlinedInputBorder,
                                 inputLabel: "Password",
                                 nullValueErrorStringValidator:
                                     "Please enter a valid Password!",
-                                validatorErrorString:
-                                    "Password should be at least 8 Characters!",
                                 controller: _passwordController,
+                                formFieldType: FormFieldType.password,
                               ),
                             ),
                             Padding(
@@ -405,9 +402,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 TextButton(
                                   onPressed: () async {
                                     Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const SignupScreen()));
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SignupScreen(),
+                                      ),
+                                    );
                                   },
                                   child: Text(
                                     "Sign Up.",
