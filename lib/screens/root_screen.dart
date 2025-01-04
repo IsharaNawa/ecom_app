@@ -43,7 +43,7 @@ class _RootScreenState extends ConsumerState<RootScreen> {
           Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
         },
         action2Func: () {},
-        isDarkmodeOn: isDarkmodeOn,
+        ref: ref,
       );
     }
   }

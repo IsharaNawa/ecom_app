@@ -88,7 +88,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   : null;
             },
             action2Func: () {},
-            isDarkmodeOn: isDarkmodeOn,
+            ref: ref,
           );
         },
       );
@@ -108,7 +108,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   : null;
             },
             action2Func: () {},
-            isDarkmodeOn: isDarkmodeOn,
+            ref: ref,
           );
         },
       );
@@ -174,7 +174,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
         },
         action2Func: () {},
-        isDarkmodeOn: isDarkmodeOn,
+        ref: ref,
       );
     } catch (error) {
       if (!mounted) return;
@@ -189,7 +189,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
         },
         action2Func: () {},
-        isDarkmodeOn: isDarkmodeOn,
+        ref: ref,
       );
     } finally {
       setState(() {

@@ -1,3 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecom_app/services/app_functions.dart';
+import 'package:ecom_app/services/icon_manager.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
@@ -7,9 +12,73 @@ import 'package:ecom_app/model/product.dart';
 class CartNotifier extends StateNotifier<Map<String, Cart>> {
   CartNotifier() : super({});
 
-  void createNewCartItem(Product product) {
-    if (isCartWithSameProductExits(product)) {
-      return;
+  void addItemToCart(
+      Product product, BuildContext context, WidgetRef ref, int qty) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+          context: context,
+          isWarning: false,
+          mainTitle: "You are not authenticated. Please login First!",
+          icon: Icon(IconManager.accountErrorIcon),
+          action1Text: "OK",
+          action2Text: "",
+          action1Func: () async {
+            Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+          },
+          action2Func: () {},
+          ref: ref,
+        );
+
+        return;
+      }
+      if (isItemAlreadyExistsInCart(product)) {
+        return;
+      }
+
+      String cartId = const Uuid().v4();
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid)
+          .update({
+        "userCart": FieldValue.arrayUnion([
+          {
+            "cartId": cartId,
+            "productId": product.productId,
+            "quatity": qty,
+          }
+        ])
+      });
+    } on FirebaseException catch (error) {
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.message.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
+    } catch (error) {
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
     }
 
     state = {
@@ -22,21 +91,81 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
     };
   }
 
-  void deleteFromCart(Product product) {
+  Future<Map<String, Cart>> fetchProducts(
+      BuildContext context, WidgetRef ref) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+          context: context,
+          isWarning: false,
+          mainTitle: "You are not authenticated. Please login First!",
+          icon: Icon(IconManager.accountErrorIcon),
+          action1Text: "OK",
+          action2Text: "",
+          action1Func: () async {
+            Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+          },
+          action2Func: () {},
+          ref: ref,
+        );
+
+        return {};
+      }
+
+      Map<String, Cart> cartItemsMap = {};
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid)
+          .get()
+          .then((userSnapshot) async {
+        final userMap = userSnapshot.data() as Map<String, dynamic>;
+        final cartItems = userMap["userCart"];
+
+        for (final item in cartItems) {
+          String prodId = item["productId"];
+
+          final prodDoc = await FirebaseFirestore.instance
+              .collection("products")
+              .doc(prodId)
+              .get();
+
+          final product_ = Product.fromFirebaseDocumentSnapshot(prodDoc);
+
+          cartItemsMap[prodId] = Cart(
+            cartId: item["cartId"],
+            product: product_,
+            quantity: item["quatity"],
+          );
+        }
+      });
+
+      state = cartItemsMap;
+
+      return state;
+    } on FirebaseException catch (error) {
+      return {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  void deleteItemFromCart(Product product) {
     final updatedState = Map<String, Cart>.from(state);
 
-    if (isCartWithSameProductExits(product)) {
+    if (isItemAlreadyExistsInCart(product)) {
       updatedState.remove(product.productId);
     }
 
     state = updatedState;
   }
 
-  void clearCarts() {
+  void clearItemFromCart() {
     state = {};
   }
 
-  bool isCartWithSameProductExits(Product product) {
+  bool isItemAlreadyExistsInCart(Product product) {
     List<Cart> carts = state.values.toList();
     List<Cart> foundCart = carts
         .where((cart) => cart.product.productId == product.productId)
@@ -44,7 +173,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
     return foundCart.isNotEmpty;
   }
 
-  Map<String, dynamic> getOverallCartSummary() {
+  Map<String, dynamic> getCartSummary() {
     List<Cart> carts = state.values.toList();
     double totalPrice = 0.0;
     int items = 0;
@@ -59,7 +188,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
     return {"totalPrice": totalPrice, "products": products, "items": items};
   }
 
-  void updateQuantityOfCart(Cart cart, int qty) {
+  void updateQuatityOfItemInCart(Cart cart, int qty) {
     String correctProductId = "";
     for (Cart currCart in state.values.toList()) {
       if (currCart.product.productId == cart.product.productId) {

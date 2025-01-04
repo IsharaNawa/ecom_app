@@ -22,7 +22,7 @@ class Product {
     this.createdAt,
   });
 
-  factory Product.fromFirebase(DocumentSnapshot doc) {
+  factory Product.fromFirebaseDocumentSnapshot(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
     return Product(
       productTitle: data["productTitle"],

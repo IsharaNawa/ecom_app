@@ -78,7 +78,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               }
 
               for (var element in snapshot.data!.docs) {
-                allProducts.add(Product.fromFirebase(element));
+                allProducts.add(Product.fromFirebaseDocumentSnapshot(element));
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Scaffold(

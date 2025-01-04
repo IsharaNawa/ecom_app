@@ -1,3 +1,4 @@
+import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,16 +8,18 @@ import 'package:ecom_app/providers/cart_provider.dart';
 import 'package:ecom_app/providers/wishlist_provider.dart';
 
 class AppFunctions {
-  static Future<void> showErrorOrWarningOrImagePickerDialog(
-      {required BuildContext context,
-      required bool isWarning,
-      required String mainTitle,
-      required Icon icon,
-      required String action1Text,
-      required String action2Text,
-      required Function action1Func,
-      required Function action2Func,
-      required bool isDarkmodeOn}) async {
+  static Future<void> showErrorOrWarningOrImagePickerDialog({
+    required BuildContext context,
+    required bool isWarning,
+    required String mainTitle,
+    required Icon icon,
+    required String action1Text,
+    required String action2Text,
+    required Function action1Func,
+    required Function action2Func,
+    required WidgetRef ref,
+  }) async {
+    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
     await showDialog(
       context: context,
       builder: (context) {
@@ -85,6 +88,7 @@ class AppFunctions {
     String alreayExistMessage,
     String successfullyAddedMessage,
     String type,
+    int qty,
   ) {
     if (isAlreayExists) {
       ScaffoldMessenger.of(context)
@@ -104,12 +108,17 @@ class AppFunctions {
         );
     } else {
       if (type == "cart") {
-        ref.read(cartProvider.notifier).createNewCartItem(product);
+        ref.read(cartProvider.notifier).addItemToCart(
+              product,
+              context,
+              ref,
+              qty,
+            );
       } else if (type == "wishlist") {
         ref.read(wishListProvider.notifier).addToWishList(product);
       } else if (type == "recently_viewd") {
       } else if (type == "cartRemoval") {
-        ref.read(cartProvider.notifier).deleteFromCart(product);
+        ref.read(cartProvider.notifier).deleteItemFromCart(product);
       }
 
       ScaffoldMessenger.of(context)

@@ -67,10 +67,11 @@ class CartWidget extends ConsumerWidget {
                               ref,
                               !ref
                                   .read(cartProvider.notifier)
-                                  .isCartWithSameProductExits(cartItem.product),
+                                  .isItemAlreadyExistsInCart(cartItem.product),
                               'This item is not in the cart!',
                               'Item is removed from the cart.',
                               "cartRemoval",
+                              1,
                             );
                           },
                           child: Icon(
@@ -93,6 +94,7 @@ class CartWidget extends ConsumerWidget {
                               'This item is already in the wishlist!',
                               'Item is added to the wishlist',
                               "wishlist",
+                              1,
                             );
                           },
                           child: Icon(

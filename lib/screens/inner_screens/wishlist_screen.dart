@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ecom_app/model/product.dart';
-import 'package:ecom_app/providers/theme_provider.dart';
+
 import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
@@ -21,7 +21,7 @@ class WishListScreen extends ConsumerStatefulWidget {
 class WishListScreenState extends ConsumerState<WishListScreen> {
   @override
   Widget build(BuildContext context) {
-    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
+
     List<Product> wishListProducts = ref.watch(wishListProvider);
 
     return wishListProducts.isEmpty
@@ -90,7 +90,7 @@ class WishListScreenState extends ConsumerState<WishListScreen> {
                         });
                         Navigator.of(context).pop();
                       },
-                      isDarkmodeOn: isDarkmodeOn,
+                      ref: ref,
                     );
                   },
                   icon: Icon(IconManager.clearWishListIcon),

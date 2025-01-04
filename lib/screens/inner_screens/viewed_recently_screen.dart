@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/recently_viewed_provider.dart';
-import 'package:ecom_app/providers/theme_provider.dart';
+
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
@@ -22,7 +22,7 @@ class ViewedRecentlyScreen extends ConsumerStatefulWidget {
 class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
   @override
   Widget build(BuildContext context) {
-    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
+    
     List<Product> recentlyViewedProducts =
         ref.watch(recentlyViewedListProvider);
 
@@ -95,7 +95,7 @@ class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
                         });
                         Navigator.of(context).pop();
                       },
-                      isDarkmodeOn: isDarkmodeOn,
+                      ref: ref,
                     );
                   },
                   icon: Icon(IconManager.clearRecentelyViewedList),

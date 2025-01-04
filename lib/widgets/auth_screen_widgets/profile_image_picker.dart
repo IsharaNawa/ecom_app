@@ -55,7 +55,7 @@ class _ProfileImagePickerState extends ConsumerState<ProfileImagePicker> {
         await getImage(ImageSource.gallery);
         Navigator.of(context).pop();
       },
-      isDarkmodeOn: isDarkmodeOn,
+      ref: ref,
     );
   }
 
@@ -78,7 +78,7 @@ class _ProfileImagePickerState extends ConsumerState<ProfileImagePicker> {
         widget.pickedImageFileGetter(null);
         Navigator.of(context).pop();
       },
-      isDarkmodeOn: isDarkmodeOn,
+      ref: ref,
     );
   }
 

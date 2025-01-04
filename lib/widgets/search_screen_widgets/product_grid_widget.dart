@@ -92,6 +92,7 @@ class _ProductGridWidgetState extends ConsumerState<ProductGridWidget> {
                       'This item is already in the wishlist!',
                       'Item is added to the wishlist',
                       "wishlist",
+                      1,
                     );
                   },
                   icon: Icon(
@@ -130,10 +131,11 @@ class _ProductGridWidgetState extends ConsumerState<ProductGridWidget> {
                       ref,
                       ref
                           .read(cartProvider.notifier)
-                          .isCartWithSameProductExits(widget.product),
+                          .isItemAlreadyExistsInCart(widget.product),
                       'This item is already in the cart!',
                       'Item is added to the cart',
                       "cart",
+                      1,
                     );
                   },
                   icon: Icon(

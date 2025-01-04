@@ -36,7 +36,7 @@ class QuantityBottomSheet extends ConsumerWidget {
                       onTap: () {
                         ref
                             .read(cartProvider.notifier)
-                            .updateQuantityOfCart(cart, index + 1);
+                            .updateQuatityOfItemInCart(cart, index + 1);
                         print(index + 1);
                         Navigator.of(context).canPop()
                             ? Navigator.of(context).pop()

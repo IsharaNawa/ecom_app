@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ecom_app/model/cart.dart';
 import 'package:ecom_app/providers/cart_provider.dart';
-import 'package:ecom_app/providers/theme_provider.dart';
+
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/bottom_cart_widget.dart';
@@ -19,16 +19,78 @@ class CartScreen extends ConsumerStatefulWidget {
 
 class _CartScreenState extends ConsumerState<CartScreen> {
   List<Cart> cartsList = [];
+  bool isLoading = false;
+  Map<String, Cart>? cartItemsMap;
+
+  Future<void> _fetchCartInfo() async {
+    try {
+      cartItemsMap =
+          await ref.watch(cartProvider.notifier).fetchProducts(context, ref);
+
+      setState(() {
+        isLoading = true;
+      });
+    } catch (error) {
+      if (!mounted) return;
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    isLoading = true;
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _fetchCartInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Map<String, Cart> cartItemsMap = ref.watch(cartProvider);
-    cartsList = cartItemsMap.values.toList();
+    cartsList = cartItemsMap == null ? [] : cartItemsMap!.values.toList();
 
     Map<String, dynamic> cartsSummaryMap =
-        ref.watch(cartProvider.notifier).getOverallCartSummary();
+        ref.watch(cartProvider.notifier).getCartSummary();
 
-    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
+    if (isLoading) {
+      return Scaffold(
+        appBar: AppBar(
+          titleSpacing: 0,
+          leading: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+            child: Icon(
+              IconManager.appBarIcon,
+            ),
+          ),
+          title: const Text("Loading your cart..."),
+        ),
+        body: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [CircularProgressIndicator()],
+          ),
+        ),
+      );
+    }
 
     return cartsList.isEmpty
         ? Scaffold(
@@ -69,11 +131,11 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       },
                       action2Func: () {
                         setState(() {
-                          ref.read(cartProvider.notifier).clearCarts();
+                          ref.read(cartProvider.notifier).clearItemFromCart();
                         });
                         Navigator.of(context).pop();
                       },
-                      isDarkmodeOn: isDarkmodeOn,
+                      ref: ref,
                     );
                   },
                   icon: Icon(IconManager.clearCartIcon),

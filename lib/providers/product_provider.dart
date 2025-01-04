@@ -38,11 +38,13 @@ class ProductNotifier extends StateNotifier<List<Product>> {
             descending: true,
           )
           .get()
-          .then((productSnapshot) {
-        for (var element in productSnapshot.docs) {
-          products.add(Product.fromFirebase(element));
-        }
-      });
+          .then(
+        (productSnapshot) {
+          for (var element in productSnapshot.docs) {
+            products.add(Product.fromFirebaseDocumentSnapshot(element));
+          }
+        },
+      );
 
       state = products;
 

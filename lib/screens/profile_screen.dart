@@ -49,7 +49,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
           Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
         },
         action2Func: () {},
-        isDarkmodeOn: isDarkmodeOn,
+        ref: ref,
       );
     } finally {
       setState(() {
@@ -244,7 +244,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                                   ),
                                 );
                               },
-                              isDarkmodeOn: isDarkmodeOn,
+                              ref: ref,
                             );
                           },
                           label: const Text("Log Out"),

@@ -54,7 +54,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
         },
         action2Func: () {},
-        isDarkmodeOn: isDarkmodeOn,
+        ref: ref,
       );
       return;
     }
@@ -136,7 +136,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
         },
         action2Func: () {},
-        isDarkmodeOn: isDarkmodeOn,
+        ref: ref,
       );
     } catch (error) {
       if (!mounted) return;
@@ -151,7 +151,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
         },
         action2Func: () {},
-        isDarkmodeOn: isDarkmodeOn,
+        ref: ref,
       );
     } finally {
       setState(() {

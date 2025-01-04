@@ -46,6 +46,7 @@ class ProductDetailsScreen extends ConsumerWidget {
                 'This item is already in the wishlist!',
                 'Item is added to the wishlist',
                 "wishlist",
+                1,
               );
             },
             icon: Icon(
@@ -140,10 +141,11 @@ class ProductDetailsScreen extends ConsumerWidget {
                 ref,
                 ref
                     .read(cartProvider.notifier)
-                    .isCartWithSameProductExits(product),
+                    .isItemAlreadyExistsInCart(product),
                 'This item is already in the cart!',
                 'Item is added to the cart',
                 "cart",
+                1,
               );
             },
             style: ElevatedButton.styleFrom(
