@@ -15,11 +15,11 @@
 13. Add dialog box for clearing and removing from cart, wishlist and recently viewed items. ==> done
 [14. Add max quantity for the product.]
 
-[15. Change the input text color in dark mode.]
+15. Change the input text color in dark mode.==> done
 
 [16. Consider adding Toast instead of snackbar.]
 
-[17. Confirm password comparison in sign up page.]
+17. Confirm password comparison in sign up page.==>done
 
 [18. Create a custom toast with icons.]
 

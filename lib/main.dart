@@ -62,8 +62,8 @@ class MyApp extends ConsumerWidget {
             title: 'ECom App',
             theme:
                 Styles.themeData(isDarkTheme: isDarkmodeOn, context: context),
-            // home: const RootScreen(),
-            home: const LoginScreen(),
+            home: const RootScreen(),
+            // home: const LoginScreen(),
             // home: const SignupScreen(),
             // home: const ForgotPasswordScreen(),
           );
