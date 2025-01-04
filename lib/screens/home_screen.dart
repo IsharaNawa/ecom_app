@@ -86,7 +86,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              CategorySection(),
+              const CategorySection(),
             ],
           ),
         ),

@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ecom_app/constants/theme_data.dart';
 import 'package:ecom_app/providers/theme_provider.dart';
-import 'package:ecom_app/screens/auth_screens/signup_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

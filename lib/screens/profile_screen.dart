@@ -154,7 +154,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                             ),
                             Text(
                               appUser?.userEmail ?? "Loading...",
-                              style: TextStyle(fontSize: 16),
+                              style: const TextStyle(fontSize: 16),
                               textAlign: TextAlign.start,
                             )
                           ],
