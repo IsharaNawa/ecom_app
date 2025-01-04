@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecom_app/widgets/auth_screen_widgets/dark_mode_toggler.dart';
 import 'package:ecom_app/widgets/loading_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:ecom_app/providers/theme_provider.dart';
@@ -14,7 +14,6 @@ import 'package:ecom_app/screens/root_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/app_form_field.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/profile_image_picker.dart';
-import 'package:ecom_app/constants/app_colors.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 
@@ -367,20 +366,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 ),
               ),
             ),
-            Positioned(
-              right: 10,
-              top: 20,
-              child: IconButton(
-                icon: isDarkmodeOn
-                    ? Icon(IconManager.darkModeIcon)
-                    : Icon(IconManager.lightModeIcon),
-                onPressed: () {
-                  ref
-                      .read(darkModeThemeStatusProvider.notifier)
-                      .toggleDarkMode();
-                },
-              ),
-            ),
+            const DarkModeToggler(),
           ],
         ),
       ),

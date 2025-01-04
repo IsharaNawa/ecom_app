@@ -1,5 +1,6 @@
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
+import 'package:ecom_app/widgets/auth_screen_widgets/dark_mode_toggler.dart';
 import 'package:ecom_app/widgets/loading_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -359,20 +360,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
             ),
-            Positioned(
-              right: 10,
-              top: 20,
-              child: IconButton(
-                icon: isDarkmodeOn
-                    ? Icon(IconManager.darkModeIcon)
-                    : Icon(IconManager.lightModeIcon),
-                onPressed: () {
-                  ref
-                      .read(darkModeThemeStatusProvider.notifier)
-                      .toggleDarkMode();
-                },
-              ),
-            ),
+            const DarkModeToggler(),
           ],
         ),
       ),
