@@ -364,17 +364,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               onPressed: () async {
                                 _googleSignIn(context, isDarkmodeOn);
                               },
-                              style: OutlinedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                side: BorderSide(
-                                  width: 1.0,
-                                  color: isDarkmodeOn
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
+                              style:
+                                  Theme.of(context).outlinedButtonTheme.style,
                               icon: Image.asset(
                                 "assets/images/google_logo.png",
                                 height: 40,

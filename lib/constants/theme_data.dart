@@ -29,7 +29,18 @@ class Styles {
                 foregroundColor: Colors.black,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40), // Rounded corners
+                  borderRadius: BorderRadius.circular(40),
+                ),
+              ),
+            ),
+            outlinedButtonTheme: OutlinedButtonThemeData(
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                side: const BorderSide(
+                  width: 1.0,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -106,7 +117,18 @@ class Styles {
                 ),
               ),
             ),
-            dividerColor: AppColors.darkScaffoldColor,
+            outlinedButtonTheme: OutlinedButtonThemeData(
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                side: const BorderSide(
+                  width: 1.0,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            dividerColor: AppColors.lightScaffoldColor,
             inputDecorationTheme: InputDecorationTheme(
               enabledBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(
