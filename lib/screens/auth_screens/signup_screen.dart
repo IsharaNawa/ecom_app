@@ -308,17 +308,16 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       const SizedBox(
                         height: 30,
                       ),
-                      Row(
+                      const Row(
                         children: [
                           Expanded(
                             child: Divider(
                               indent: 25,
                               endIndent: 10,
                               thickness: 0.5,
-                              color: isDarkmodeOn ? Colors.white : Colors.black,
                             ),
                           ),
-                          const Text(
+                          Text(
                             "OR",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -330,7 +329,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               indent: 10,
                               endIndent: 25,
                               thickness: 0.5,
-                              color: isDarkmodeOn ? Colors.white : Colors.black,
                             ),
                           ),
                         ],

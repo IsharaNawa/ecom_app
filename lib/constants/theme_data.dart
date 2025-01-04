@@ -33,6 +33,7 @@ class Styles {
                 ),
               ),
             ),
+            dividerColor: AppColors.lightScaffoldColor,
             inputDecorationTheme: InputDecorationTheme(
               enabledBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(
@@ -105,8 +106,8 @@ class Styles {
                 ),
               ),
             ),
+            dividerColor: AppColors.darkScaffoldColor,
             inputDecorationTheme: InputDecorationTheme(
-              // Error text color
               enabledBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(
                   Radius.circular(
