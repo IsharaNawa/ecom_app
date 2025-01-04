@@ -17,7 +17,7 @@ class ForgotPasswordScreen extends ConsumerStatefulWidget {
 
 class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  String? _email;
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +103,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                           nullValueErrorStringValidator:
                               "Please enter a valid Email!",
                           validatorErrorString: "Please enter a valid email!",
-                          onSavedFunction: (value) {
-                            _email = value;
-                          },
                           formFieldType: FormFieldType.email,
+                          controller: _emailController,
                         ),
                       ),
                       const SizedBox(
@@ -122,10 +120,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                             }
 
                             _formKey.currentState!.save();
-
-                            if (_email == null) {
-                              return;
-                            }
 
                             await Navigator.of(context).pushReplacement(
                               MaterialPageRoute(

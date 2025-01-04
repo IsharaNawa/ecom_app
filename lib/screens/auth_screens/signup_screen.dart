@@ -1,9 +1,5 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecom_app/constants/app_colors.dart';
-import 'package:ecom_app/services/app_functions.dart';
-import 'package:ecom_app/services/icon_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +13,9 @@ import 'package:ecom_app/screens/root_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/form_fields.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/profile_image_picker.dart';
+import 'package:ecom_app/constants/app_colors.dart';
+import 'package:ecom_app/services/app_functions.dart';
+import 'package:ecom_app/services/icon_manager.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -30,10 +29,12 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   bool isLoading = false;
 
-  String? _userName;
-  String? _email;
-  String? _password;
-  String? _confirmPassword;
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmedPasswordController =
+      TextEditingController();
+
   File? pickedImage;
 
   Future<void> _signIn(bool isDarkmodeOn) async {
@@ -61,21 +62,14 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
     _formKey.currentState!.save();
 
-    if (_userName == null ||
-        _email == null ||
-        _password == null ||
-        _confirmPassword == null) {
-      return;
-    }
-
     try {
       setState(() {
         isLoading = true;
       });
 
       await auth.createUserWithEmailAndPassword(
-        email: _email!.trim(),
-        password: _password!.trim(),
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
       );
 
       final User? user = auth.currentUser;
@@ -95,9 +89,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
       await FirebaseFirestore.instance.collection("users").doc(uid).set({
         "userId": uid,
-        "userName": _userName!.trim(),
+        "userName": _userNameController.text.trim(),
         "userImage": imageUrl,
-        "userEmail": _email!.trim(),
+        "userEmail": _emailController.text.trim(),
         "createdAt": Timestamp.now(),
         "userCart": [],
         "userWishList": [],
@@ -255,9 +249,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     "Please enter a valid Username!",
                                 validatorErrorString:
                                     "Please enter a valid Username!",
-                                onSavedFunction: (value) {
-                                  _userName = value;
-                                },
+                                controller: _userNameController,
                                 formFieldType: FormFieldType.username,
                               ),
                             ),
@@ -274,9 +266,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     "Please enter a valid Email!",
                                 validatorErrorString:
                                     "Please enter a valid email!",
-                                onSavedFunction: (value) {
-                                  _email = value;
-                                },
+                                controller: _emailController,
                                 formFieldType: FormFieldType.email,
                               ),
                             ),
@@ -293,9 +283,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     "Please enter a valid Password!",
                                 validatorErrorString:
                                     "Password should be at least 8 Characters!",
-                                onSavedFunction: (value) {
-                                  _password = value;
-                                },
+                                controller: _passwordController,
                               ),
                             ),
                             const SizedBox(
@@ -311,9 +299,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     "Please enter a valid Password!",
                                 validatorErrorString:
                                     "Password should be at least 8 Characters!",
-                                onSavedFunction: (value) {
-                                  _confirmPassword = value;
-                                },
+                                controller: _confirmedPasswordController,
                               ),
                             ),
                             const SizedBox(

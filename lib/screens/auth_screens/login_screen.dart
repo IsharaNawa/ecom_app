@@ -27,8 +27,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   bool isLoading = false;
 
-  String? _email;
-  String? _password;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _googleSignIn(BuildContext context, bool isDarkmodeOn) async {
     try {
@@ -127,18 +127,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     _formKey.currentState!.save();
 
-    if (_email == null || _password == null) {
-      return;
-    }
-
     try {
       setState(() {
         isLoading = true;
       });
 
       await auth.signInWithEmailAndPassword(
-        email: _email!.trim(),
-        password: _password!.trim(),
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
       );
 
       await Fluttertoast.showToast(
@@ -270,10 +266,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     "Please enter a valid Email!",
                                 validatorErrorString:
                                     "Please enter a valid email!",
-                                onSavedFunction: (value) {
-                                  _email = value;
-                                },
                                 formFieldType: FormFieldType.email,
+                                controller: _emailController,
                               ),
                             ),
                             const SizedBox(
@@ -289,9 +283,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     "Please enter a valid Password!",
                                 validatorErrorString:
                                     "Password should be at least 8 Characters!",
-                                onSavedFunction: (value) {
-                                  _password = value;
-                                },
+                                controller: _passwordController,
                               ),
                             ),
                             Padding(

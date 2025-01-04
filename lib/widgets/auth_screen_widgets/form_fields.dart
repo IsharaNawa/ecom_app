@@ -18,16 +18,16 @@ class CustomFormField extends StatelessWidget {
     required this.inputLabel,
     required this.nullValueErrorStringValidator,
     required this.validatorErrorString,
-    required this.onSavedFunction,
     required this.formFieldType,
+    required this.controller,
   });
 
   final OutlineInputBorder outlinedInputBorder;
   final String inputLabel;
   final String nullValueErrorStringValidator;
   final String validatorErrorString;
-  final void Function(String value) onSavedFunction;
   final FormFieldType formFieldType;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +51,7 @@ class CustomFormField extends StatelessWidget {
 
         return null;
       },
-      onSaved: (value) {
-        onSavedFunction(value!);
-      },
+      controller: controller,
       autocorrect: false,
       decoration: InputDecoration(
         enabledBorder: outlinedInputBorder,
@@ -84,14 +82,14 @@ class PasswordFormField extends StatefulWidget {
     required this.inputLabel,
     required this.nullValueErrorStringValidator,
     required this.validatorErrorString,
-    required this.onSavedFunction,
+    required this.controller,
   });
 
   final OutlineInputBorder outlinedInputBorder;
   final String inputLabel;
   final String nullValueErrorStringValidator;
   final String validatorErrorString;
-  final void Function(String value) onSavedFunction;
+  final TextEditingController controller;
 
   @override
   State<PasswordFormField> createState() => _PasswordFormFieldState();
@@ -113,9 +111,6 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
         }
 
         return null;
-      },
-      onSaved: (value) {
-        widget.onSavedFunction(value!);
       },
       autocorrect: false,
       obscureText: !_isPWVisible,

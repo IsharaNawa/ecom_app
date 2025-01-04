@@ -1,7 +1,3 @@
-import 'package:ecom_app/model/product.dart';
-import 'package:ecom_app/providers/product_provider.dart';
-import 'package:ecom_app/providers/theme_provider.dart';
-import 'package:ecom_app/services/app_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,6 +8,10 @@ import 'package:ecom_app/screens/home_screen.dart';
 import 'package:ecom_app/screens/profile_screen.dart';
 import 'package:ecom_app/screens/search_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
+import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/product_provider.dart';
+import 'package:ecom_app/providers/theme_provider.dart';
+import 'package:ecom_app/services/app_functions.dart';
 
 class RootScreen extends ConsumerStatefulWidget {
   const RootScreen({super.key});
