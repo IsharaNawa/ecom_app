@@ -27,7 +27,7 @@ class _RootScreenState extends ConsumerState<RootScreen> {
   List<Product>? products;
   bool isLoadingProd = true;
 
-  Future<void> fetchProducts(bool isDarkmodeOn) async {
+  Future<void> fetchProducts() async {
     try {
       Future.wait({ref.watch(productsProvider.notifier).fetchProducts()});
     } catch (error) {
@@ -64,8 +64,7 @@ class _RootScreenState extends ConsumerState<RootScreen> {
   @override
   void didChangeDependencies() {
     if (isLoadingProd) {
-      bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
-      fetchProducts(isDarkmodeOn);
+      fetchProducts();
     }
     super.didChangeDependencies();
   }

@@ -29,7 +29,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
   AppUser? appUser;
   String? imageUrl;
 
-  Future<void> _fetchUserInfo(bool isDarkmodeOn) async {
+  Future<void> _fetchUserInfo() async {
     try {
       appUser = await ref.watch(userProvider.notifier).fetchUserInfo();
 
@@ -61,8 +61,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
-    _fetchUserInfo(isDarkmodeOn);
+    _fetchUserInfo();
   }
 
   @override
