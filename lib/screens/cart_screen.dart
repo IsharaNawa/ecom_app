@@ -1,3 +1,4 @@
+import 'package:ecom_app/screens/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,7 +10,6 @@ import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/bottom_cart_widget.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/cart_widget.dart';
 import 'package:ecom_app/widgets/empty_bag.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({super.key});
@@ -76,28 +76,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         ref.watch(cartProvider.notifier).getCartSummary();
 
     if (isLoading) {
-      return Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Loading your cart...",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.oxygen(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 1.5,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              const CircularProgressIndicator()
-            ],
-          ),
-        ),
+      return const LoadingScreen(
+        loadingText: "Loading your cart...",
       );
     }
 

@@ -1,5 +1,6 @@
 import 'package:ecom_app/model/user.dart';
 import 'package:ecom_app/providers/user_provider.dart';
+import 'package:ecom_app/screens/loading_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
     super.build(context);
     bool isDarkmodeOn = ref.watch(darkModeThemeStatusProvider);
 
+    if (isLoading) {
+      return const LoadingScreen(
+        isIncludeAppTitle: false,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
@@ -82,179 +89,161 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
           fontSize: 24.0,
         ),
       ),
-      body: isLoading
-          ? const Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AppTitle(
-                    fontSize: 30.0,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Visibility(
+              visible: false,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                  vertical: 12,
+                ),
+                child: Text(
+                  "Please log in to gain full access",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  CircularProgressIndicator(),
-                ],
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            )
-          : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 8,
+              ),
+              child: Row(
                 children: [
-                  const Visibility(
-                    visible: false,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20.0,
-                        vertical: 12,
-                      ),
-                      child: Text(
-                        "Please log in to gain full access",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                  ClipOval(
+                    child: FancyShimmerImage(
+                      imageUrl: appUser?.userimage ??
+                          "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png",
+                      boxFit: BoxFit.cover,
+                      width: 60,
+                      height: 60,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 8,
-                    ),
-                    child: Row(
-                      children: [
-                        ClipOval(
-                          child: FancyShimmerImage(
-                            imageUrl: appUser?.userimage ??
-                                "https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_640.png",
-                            boxFit: BoxFit.cover,
-                            width: 60,
-                            height: 60,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              appUser?.userName ?? "Loading...",
-                              style: const TextStyle(
-                                fontSize: 20,
-                              ),
-                              textAlign: TextAlign.start,
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              appUser?.userEmail ?? "Loading...",
-                              style: const TextStyle(fontSize: 16),
-                              textAlign: TextAlign.start,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
+                  const SizedBox(
+                    width: 15,
                   ),
-                  const ProfileScreenGeneralSection(),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20, top: 20, right: 20),
-                    child: Text(
-                      "Settings",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  SwitchListTile(
-                    secondary: isDarkmodeOn
-                        ? Icon(IconManager.darkModeIcon)
-                        : Icon(IconManager.lightModeIcon),
-                    title: const Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Text("Dark Mode"),
-                    ),
-                    subtitle: const Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Text("Turn on/off dark mode"),
-                    ),
-                    value: isDarkmodeOn,
-                    onChanged: (value) {
-                      ref
-                          .read(darkModeThemeStatusProvider.notifier)
-                          .toggleDarkMode();
-                    },
-                  ),
-                  const Divider(
-                    indent: 10,
-                    endIndent: 10,
-                    thickness: 0.8,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20, top: 20, right: 20),
-                    child: Text(
-                      "Others",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Icon(IconManager.privacyPolicyIcon),
-                    title: const Text("Privacy Policy"),
-                    trailing: const Icon(Icons.arrow_right),
-                  ),
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15.0),
-                        child: TextButton.icon(
-                          onPressed: () async {
-                            await AppFunctions
-                                .showErrorOrWarningOrImagePickerDialog(
-                              context: context,
-                              isWarning: true,
-                              mainTitle: "Do you want to Log out?",
-                              icon: Icon(IconManager.generalLogoutIcon),
-                              action1Text: "No",
-                              action2Text: "Yes",
-                              action1Func: () {
-                                Navigator.of(context).pop();
-                              },
-                              action2Func: () async {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                auth.signOut();
-                                setState(() {
-                                  isLoading = false;
-                                });
-                                await Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
-                                  ),
-                                );
-                              },
-                              ref: ref,
-                            );
-                          },
-                          label: const Text("Log Out"),
-                          icon: Icon(IconManager.generalLogoutIcon),
+                      Text(
+                        appUser?.userName ?? "Loading...",
+                        style: const TextStyle(
+                          fontSize: 20,
                         ),
+                        textAlign: TextAlign.start,
                       ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        appUser?.userEmail ?? "Loading...",
+                        style: const TextStyle(fontSize: 16),
+                        textAlign: TextAlign.start,
+                      )
                     ],
-                  ),
+                  )
                 ],
               ),
             ),
+            const ProfileScreenGeneralSection(),
+            const Padding(
+              padding: EdgeInsets.only(left: 20, top: 20, right: 20),
+              child: Text(
+                "Settings",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            SwitchListTile(
+              secondary: isDarkmodeOn
+                  ? Icon(IconManager.darkModeIcon)
+                  : Icon(IconManager.lightModeIcon),
+              title: const Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Text("Dark Mode"),
+              ),
+              subtitle: const Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Text("Turn on/off dark mode"),
+              ),
+              value: isDarkmodeOn,
+              onChanged: (value) {
+                ref.read(darkModeThemeStatusProvider.notifier).toggleDarkMode();
+              },
+            ),
+            const Divider(
+              indent: 10,
+              endIndent: 10,
+              thickness: 0.8,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 20, top: 20, right: 20),
+              child: Text(
+                "Others",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(IconManager.privacyPolicyIcon),
+              title: const Text("Privacy Policy"),
+              trailing: const Icon(Icons.arrow_right),
+            ),
+            Row(
+              children: [
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: TextButton.icon(
+                    onPressed: () async {
+                      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+                        context: context,
+                        isWarning: true,
+                        mainTitle: "Do you want to Log out?",
+                        icon: Icon(IconManager.generalLogoutIcon),
+                        action1Text: "No",
+                        action2Text: "Yes",
+                        action1Func: () {
+                          Navigator.of(context).pop();
+                        },
+                        action2Func: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          auth.signOut();
+                          setState(() {
+                            isLoading = false;
+                          });
+                          await Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
+                        },
+                        ref: ref,
+                      );
+                    },
+                    label: const Text("Log Out"),
+                    icon: Icon(IconManager.generalLogoutIcon),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/dark_mode_toggler.dart';
-import 'package:ecom_app/widgets/loading_widget.dart';
+import 'package:ecom_app/screens/loading_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -143,7 +143,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     );
 
     if (isLoading) {
-      return const LoadingWidget();
+      return const LoadingScreen(
+        isIncludeAppTitle: true,
+      );
     }
 
     return GestureDetector(

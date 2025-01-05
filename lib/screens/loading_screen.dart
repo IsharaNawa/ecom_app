@@ -2,13 +2,26 @@ import 'package:ecom_app/widgets/app_title.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({super.key, this.loadingText});
+class LoadingScreen extends StatelessWidget {
+  const LoadingScreen({
+    super.key,
+    this.loadingText,
+    this.isIncludeAppTitle,
+  });
 
   final String? loadingText;
+  final bool? isIncludeAppTitle;
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> appTitleList = [];
+
+    if (isIncludeAppTitle != null && isIncludeAppTitle == true) {
+      appTitleList.add(
+        const AppTitle(fontSize: 30),
+      );
+    }
+
     List<Widget> content = loadingText != null
         ? [
             const SizedBox(
@@ -30,9 +43,7 @@ class LoadingWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const AppTitle(
-              fontSize: 30.0,
-            ),
+            ...appTitleList,
             ...content,
             const SizedBox(
               height: 30,
