@@ -1,7 +1,7 @@
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/dark_mode_toggler.dart';
-import 'package:ecom_app/screens/loading_screen.dart';
+import 'package:ecom_app/screens/generic_screens/loading_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ecom_app/providers/theme_provider.dart';
 import 'package:ecom_app/screens/auth_screens/forgot_password_screen.dart';
 import 'package:ecom_app/screens/auth_screens/signup_screen.dart';
-import 'package:ecom_app/screens/root_screen.dart';
+import 'package:ecom_app/screens/navigator_screens/root_screen.dart';
 import 'package:ecom_app/widgets/app_title.dart';
 import 'package:ecom_app/widgets/auth_screen_widgets/app_form_field.dart';
 import 'package:google_sign_in/google_sign_in.dart';

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecom_app/providers/product_provider.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -93,6 +94,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
 
   Future<Map<String, Cart>> fetchProducts(
       BuildContext context, WidgetRef ref) async {
+    Map<String, Cart> cartItemsMap = {};
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user == null) {
@@ -113,8 +115,6 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         return {};
       }
 
-      Map<String, Cart> cartItemsMap = {};
-
       await FirebaseFirestore.instance
           .collection("users")
           .doc(user.uid)
@@ -131,12 +131,8 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         for (final item in cartItems) {
           String prodId = item["productId"];
 
-          final prodDoc = await FirebaseFirestore.instance
-              .collection("products")
-              .doc(prodId)
-              .get();
-
-          final product_ = Product.fromFirebaseDocumentSnapshot(prodDoc);
+          Product product_ =
+              ref.read(productsProvider.notifier).findProductById(prodId);
 
           cartItemsMap[prodId] = Cart(
             cartId: item["cartId"],
@@ -150,8 +146,10 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
 
       return state;
     } on FirebaseException catch (error) {
+      print(error.message.toString());
       return {};
     } catch (error) {
+      print(error.toString());
       return {};
     }
   }

@@ -1,6 +1,6 @@
 import 'package:ecom_app/model/user.dart';
 import 'package:ecom_app/providers/user_provider.dart';
-import 'package:ecom_app/screens/loading_screen.dart';
+import 'package:ecom_app/screens/generic_screens/loading_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

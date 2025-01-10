@@ -35,3 +35,5 @@
 [23. Create a fixed loading screen]
 
 [23. Use ThemeData more often]
+
+[24. Creating scaffold inside scaffold. Please resolve this. EX : searchscreen and cartScreen]

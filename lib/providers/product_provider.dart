@@ -28,6 +28,12 @@ class ProductNotifier extends StateNotifier<List<Product>> {
     return searchedItems;
   }
 
+  Product findProductById(String productId) {
+    return state.firstWhere(
+      (item) => item.productId == productId,
+    );
+  }
+
   Future<List<Product>?> fetchProducts() async {
     try {
       final productDB = FirebaseFirestore.instance.collection("products");
