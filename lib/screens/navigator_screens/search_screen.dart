@@ -46,6 +46,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             )
             .snapshots(),
         builder: (context, snapshot) {
+          ref.watch(productsProvider.notifier).fetchProducts();
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const LoadingScreen(
               loadingText: "Loading products...",

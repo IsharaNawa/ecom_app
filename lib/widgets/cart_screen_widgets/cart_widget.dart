@@ -67,7 +67,8 @@ class CartWidget extends ConsumerWidget {
                               ref,
                               !ref
                                   .read(cartProvider.notifier)
-                                  .isItemAlreadyExistsInCart(cartItem.product),
+                                  .isProductAlreadyExistsInCart(
+                                      cartItem.product),
                               'This item is not in the cart!',
                               'Item is removed from the cart.',
                               "cartRemoval",

@@ -131,7 +131,7 @@ class _ProductGridWidgetState extends ConsumerState<ProductGridWidget> {
                       ref,
                       ref
                           .read(cartProvider.notifier)
-                          .isItemAlreadyExistsInCart(widget.product),
+                          .isProductAlreadyExistsInCart(widget.product),
                       'This item is already in the cart!',
                       'Item is added to the cart',
                       "cart",

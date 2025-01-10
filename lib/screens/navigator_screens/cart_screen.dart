@@ -45,6 +45,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             .doc(user.uid)
             .snapshots(),
         builder: (context, snapshot) {
+          ref.watch(cartProvider.notifier).fetchProducts(context, ref);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const LoadingScreen(
               loadingText: "Loading your cart...",
@@ -94,6 +95,20 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           }
 
           cartsList = cartItemsMap.values.toList().reversed.toList();
+
+          if (cartsList.isEmpty) {
+            return EmptyBagScreen(
+              mainImage: Icon(
+                IconManager.emptyCartIcon,
+                size: 200,
+              ),
+              mainTitle: "Nothing is in Your Cart!",
+              subTitle:
+                  "You have not added any items to the cart. Please add items to your cart and checkout when you are ready.",
+              buttonText: "Explore Products",
+              buttonFunction: () {},
+            );
+          }
 
           return Scaffold(
               appBar: AppBar(

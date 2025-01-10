@@ -94,6 +94,7 @@ class AppFunctions {
     int qty,
   ) async {
     if (isAlreayExists) {
+      print("in snackbar");
       ScaffoldMessenger.of(context)
         ..removeCurrentSnackBar()
         ..showSnackBar(

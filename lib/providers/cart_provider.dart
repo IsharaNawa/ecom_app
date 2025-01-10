@@ -13,7 +13,7 @@ import 'package:ecom_app/model/product.dart';
 class CartNotifier extends StateNotifier<Map<String, Cart>> {
   CartNotifier() : super({});
 
-  void addItemToCart(
+  Future<void> addItemToCart(
       Product product, BuildContext context, WidgetRef ref, int qty) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
@@ -34,7 +34,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
 
         return;
       }
-      if (isItemAlreadyExistsInCart(product)) {
+      if (isProductAlreadyExistsInCart(product)) {
         return;
       }
 
@@ -154,7 +154,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
     }
   }
 
-  void deleteItemFromCart(
+  Future<void> deleteItemFromCart(
       Product product, BuildContext context, WidgetRef ref) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
@@ -177,7 +177,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         return;
       }
 
-      if (!isItemAlreadyExistsInCart(product)) {
+      if (!isProductAlreadyExistsInCart(product)) {
         return;
       }
 
@@ -202,7 +202,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
 
       final updatedState = Map<String, Cart>.from(state);
 
-      if (isItemAlreadyExistsInCart(product)) {
+      if (isProductAlreadyExistsInCart(product)) {
         updatedState.remove(product.productId);
       }
 
@@ -298,11 +298,15 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
     }
   }
 
-  bool isItemAlreadyExistsInCart(Product product) {
+  bool isProductAlreadyExistsInCart(Product product) {
+    print("state" + state.toString());
     List<Cart> carts = state.values.toList();
+    print(state);
     List<Cart> foundCart = carts
         .where((cart) => cart.product.productId == product.productId)
         .toList();
+
+    print(foundCart.length);
     return foundCart.isNotEmpty;
   }
 

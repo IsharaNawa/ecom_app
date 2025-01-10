@@ -118,7 +118,7 @@ class LatestArrivalItem extends ConsumerWidget {
                                 ref,
                                 ref
                                     .read(cartProvider.notifier)
-                                    .isItemAlreadyExistsInCart(product),
+                                    .isProductAlreadyExistsInCart(product),
                                 'This item is already in the cart!',
                                 'Item is added to the cart',
                                 "cart",
