@@ -15,7 +15,7 @@ import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/bottom_cart_widget.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/cart_widget.dart';
-import 'package:ecom_app/widgets/empty_bag.dart';
+import 'package:ecom_app/screens/generic_screens/empty_bag_screen.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({super.key});
@@ -25,14 +25,6 @@ class CartScreen extends ConsumerStatefulWidget {
 }
 
 class _CartScreenState extends ConsumerState<CartScreen> {
-  bool isBottomModelSheetShow = true;
-
-  @override
-  void initState() {
-    isBottomModelSheetShow = true;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
@@ -53,25 +45,22 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             .doc(user.uid)
             .snapshots(),
         builder: (context, snapshot) {
-          if (snapshot.data == null || !snapshot.hasData) {
-            return Scaffold(
-              body: EmptyBag(
-                mainImage: Icon(
-                  IconManager.emptyCartIcon,
-                  size: 200,
-                ),
-                mainTitle: "Nothing is in Your Cart!",
-                subTitle:
-                    "You have not added any items to the cart. Please add items to your cart and checkout when you are ready.",
-                buttonText: "Explore Products",
-                buttonFunction: () {},
-              ),
-            );
-          }
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const LoadingScreen(
               loadingText: "Loading your cart...",
+            );
+          }
+          if (snapshot.data == null || !snapshot.hasData) {
+            return EmptyBagScreen(
+              mainImage: Icon(
+                IconManager.emptyCartIcon,
+                size: 200,
+              ),
+              mainTitle: "Nothing is in Your Cart!",
+              subTitle:
+                  "You have not added any items to the cart. Please add items to your cart and checkout when you are ready.",
+              buttonText: "Explore Products",
+              buttonFunction: () {},
             );
           }
 

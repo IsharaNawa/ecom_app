@@ -6,7 +6,7 @@ import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/category_product_provider.dart';
 import 'package:ecom_app/services/icon_manager.dart';
-import 'package:ecom_app/widgets/empty_bag.dart';
+import 'package:ecom_app/screens/generic_screens/empty_bag_screen.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
 
 class CategoryScreen extends ConsumerStatefulWidget {
@@ -45,8 +45,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
         .getCategoryProducts(widget.categoryName);
 
     return categoryAllProducts.isEmpty
-        ? Scaffold(
-            body: EmptyBag(
+        ? EmptyBagScreen(
             mainImage: Icon(
               IconManager.emptyOrdersListIcon,
               size: 200,
@@ -56,22 +55,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                 "There are no products in this category at the moment. Please check later for updates.",
             buttonText: "Explore Products",
             buttonFunction: () {},
-            backButton: TextButton.icon(
-              onPressed: () {
-                Navigator.of(context).canPop()
-                    ? Navigator.of(context).pop()
-                    : null;
-              },
-              icon: Icon(IconManager.screenMiddleBackButtonIcon),
-              label: Text(
-                "Go Back",
-                style: GoogleFonts.oxygen(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ))
+          )
         : Scaffold(
             appBar: AppBar(
               titleSpacing: 0,

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:ecom_app/screens/generic_screens/error_screen.dart';
+import 'package:ecom_app/screens/generic_screens/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -59,11 +61,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 )
                 .snapshots(),
             builder: (context, snapshot) {
-              ref.watch(productsProvider.notifier).fetchProducts();
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const LoadingScreen(
+                  loadingText: "Loading products...",
+                );
+              }
 
               List<Product> allProducts = [];
 
-              if (snapshot.data == null) {
+              if (snapshot.data == null || !snapshot.hasData) {
                 return const Scaffold(
                   body: Center(
                     child: Column(
@@ -80,32 +86,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               for (var element in snapshot.data!.docs) {
                 allProducts.add(Product.fromFirebaseDocumentSnapshot(element));
               }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Scaffold(
-                  body: Center(
-                    child: Column(
-                      children: [
-                        CircularProgressIndicator(
-                          color: Colors.amber,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }
 
               if (snapshot.hasError) {
-                return Scaffold(
-                  body: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          snapshot.error.toString(),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                return ErrorScreen(errorTitle: snapshot.error.toString());
               }
 
               return Column(
@@ -116,8 +99,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       controller: _textEditingController,
                       autocorrect: false,
                       onSubmitted: (value) {
-                        print(searchedProducts.length);
-
                         setState(() {
                           searchedProducts = ref
                               .watch(productsProvider.notifier)

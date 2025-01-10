@@ -7,7 +7,7 @@ import 'package:ecom_app/providers/recently_viewed_provider.dart';
 
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
-import 'package:ecom_app/widgets/empty_bag.dart';
+import 'package:ecom_app/screens/generic_screens/empty_bag_screen.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,13 +22,11 @@ class ViewedRecentlyScreen extends ConsumerStatefulWidget {
 class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
   @override
   Widget build(BuildContext context) {
-    
     List<Product> recentlyViewedProducts =
         ref.watch(recentlyViewedListProvider);
 
     return recentlyViewedProducts.isEmpty
-        ? Scaffold(
-            body: EmptyBag(
+        ? EmptyBagScreen(
             mainImage: Icon(
               IconManager.emptyRecentlyViewedIcon,
               size: 200,
@@ -38,22 +36,7 @@ class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
                 "You have not viewed any products. Please explore products and then they will appear here.",
             buttonText: "Explore Products",
             buttonFunction: () {},
-            backButton: TextButton.icon(
-              onPressed: () {
-                Navigator.of(context).canPop()
-                    ? Navigator.of(context).pop()
-                    : null;
-              },
-              icon: Icon(IconManager.screenMiddleBackButtonIcon),
-              label: Text(
-                "Go Back",
-                style: GoogleFonts.oxygen(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ))
+          )
         : Scaffold(
             appBar: AppBar(
               titleSpacing: 0,

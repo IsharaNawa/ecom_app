@@ -7,7 +7,7 @@ import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/wishlist_provider.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
-import 'package:ecom_app/widgets/empty_bag.dart';
+import 'package:ecom_app/screens/generic_screens/empty_bag_screen.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,12 +21,10 @@ class WishListScreen extends ConsumerStatefulWidget {
 class WishListScreenState extends ConsumerState<WishListScreen> {
   @override
   Widget build(BuildContext context) {
-
     List<Product> wishListProducts = ref.watch(wishListProvider);
 
     return wishListProducts.isEmpty
-        ? Scaffold(
-            body: EmptyBag(
+        ? EmptyBagScreen(
             mainImage: Icon(
               IconManager.emptyWishListIcon,
               size: 200,
@@ -36,22 +34,7 @@ class WishListScreenState extends ConsumerState<WishListScreen> {
                 "You have not added any items to the wishlist. Please add items to your wishlist and they will appear here.",
             buttonText: "Explore Products",
             buttonFunction: () {},
-            backButton: TextButton.icon(
-              onPressed: () {
-                Navigator.of(context).canPop()
-                    ? Navigator.of(context).pop()
-                    : null;
-              },
-              icon: Icon(IconManager.screenMiddleBackButtonIcon),
-              label: Text(
-                "Go Back",
-                style: GoogleFonts.oxygen(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ))
+          )
         : Scaffold(
             appBar: AppBar(
               titleSpacing: 0,

@@ -12,6 +12,24 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget backButton = const SizedBox.shrink();
+
+    if (Navigator.of(context).canPop()) {
+      backButton = TextButton.icon(
+        onPressed: () {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        icon: Icon(IconManager.screenMiddleBackButtonIcon),
+        label: Text(
+          "Go Back",
+          style: GoogleFonts.oxygen(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -36,21 +54,7 @@ class ErrorScreen extends StatelessWidget {
                 ),
               ),
             ),
-            TextButton.icon(
-              onPressed: () {
-                Navigator.of(context).canPop()
-                    ? Navigator.of(context).pop()
-                    : null;
-              },
-              icon: Icon(IconManager.screenMiddleBackButtonIcon),
-              label: Text(
-                "Go Back",
-                style: GoogleFonts.oxygen(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            backButton,
           ],
         ),
       ),

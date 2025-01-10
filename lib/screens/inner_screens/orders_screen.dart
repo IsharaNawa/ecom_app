@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:ecom_app/services/icon_manager.dart';
-import 'package:ecom_app/widgets/empty_bag.dart';
+import 'package:ecom_app/screens/generic_screens/empty_bag_screen.dart';
 import 'package:ecom_app/widgets/orders_screen_widgets/order_widget.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -12,36 +12,21 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  bool isOrdersListEmpty = false;
+  bool isOrdersListEmpty = true;
   @override
   Widget build(BuildContext context) {
     return isOrdersListEmpty
-        ? Scaffold(
-            appBar: AppBar(
-              titleSpacing: 0,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.canPop(context)
-                      ? Navigator.of(context).pop()
-                      : null;
-                },
-                icon: Icon(
-                  IconManager.backButtonIcon,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
+        ? EmptyBagScreen(
+            mainImage: Icon(
+              IconManager.emptyOrdersListIcon,
+              size: 200,
             ),
-            body: EmptyBag(
-              mainImage: Icon(
-                IconManager.emptyOrdersListIcon,
-                size: 200,
-              ),
-              mainTitle: "There are no ongoing orders!",
-              subTitle:
-                  "You dont have any ongoing orders. When you purchase some products, they will appear here.",
-              buttonText: "Explore Products",
-              buttonFunction: () {},
-            ))
+            mainTitle: "There are no ongoing orders!",
+            subTitle:
+                "You dont have any ongoing orders. When you purchase some products, they will appear here.",
+            buttonText: "Explore Products",
+            buttonFunction: () {},
+          )
         : Scaffold(
             appBar: AppBar(
               titleSpacing: 0,
