@@ -37,61 +37,62 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          titleSpacing: 0,
-          leading: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
-            child: Icon(
-              IconManager.appBarIcon,
-            ),
-          ),
-          title: const Text("Explore Products"),
-        ),
-        body: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("products")
-                .orderBy(
-                  "createdAt",
-                  descending: true,
-                )
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const LoadingScreen(
-                  loadingText: "Loading products...",
-                );
-              }
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("products")
+            .orderBy(
+              "createdAt",
+              descending: true,
+            )
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const LoadingScreen(
+              loadingText: "Loading products...",
+            );
+          }
 
-              List<Product> allProducts = [];
+          if (snapshot.hasError) {
+            return ErrorScreen(errorTitle: snapshot.error.toString());
+          }
 
-              if (snapshot.data == null || !snapshot.hasData) {
-                return const Scaffold(
-                  body: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          "No product in the catelog!",
-                        ),
-                      ],
+          if (snapshot.data == null || !snapshot.hasData) {
+            return const Scaffold(
+              body: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "No product in the catelog!",
                     ),
+                  ],
+                ),
+              ),
+            );
+          }
+
+          List<Product> allProducts = [];
+
+          for (var element in snapshot.data!.docs) {
+            allProducts.add(Product.fromFirebaseDocumentSnapshot(element));
+          }
+
+          return GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                titleSpacing: 0,
+                leading: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0, vertical: 10),
+                  child: Icon(
+                    IconManager.appBarIcon,
                   ),
-                );
-              }
-
-              for (var element in snapshot.data!.docs) {
-                allProducts.add(Product.fromFirebaseDocumentSnapshot(element));
-              }
-
-              if (snapshot.hasError) {
-                return ErrorScreen(errorTitle: snapshot.error.toString());
-              }
-
-              return Column(
+                ),
+                title: const Text("Explore Products"),
+              ),
+              body: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -161,11 +162,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                   mainAxisSpacing: 12,
                                   crossAxisSpacing: 12,
                                 ),
-                        )
+                        ),
                 ],
-              );
-            }),
-      ),
-    );
+              ),
+            ),
+          );
+        });
   }
 }

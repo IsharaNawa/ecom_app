@@ -50,6 +50,11 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               loadingText: "Loading your cart...",
             );
           }
+
+          if (snapshot.hasError) {
+            return ErrorScreen(errorTitle: snapshot.error.toString());
+          }
+
           if (snapshot.data == null || !snapshot.hasData) {
             return EmptyBagScreen(
               mainImage: Icon(
