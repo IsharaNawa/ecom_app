@@ -36,9 +36,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       );
     }
 
-    Map<String, dynamic> cartsSummaryMap =
-        ref.watch(cartProvider.notifier).getCartSummary();
-
     return StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("users")
@@ -98,6 +95,25 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           cartsList.sort((a, b) {
             return b.createdAt.compareTo(a.createdAt);
           });
+
+          Map<String, dynamic> cartsSummaryMap = {};
+
+          double totalPrice = 0.0;
+          int items = 0;
+
+          for (Cart cart in cartsList) {
+            totalPrice +=
+                cart.quantity * double.parse(cart.product.productPrice);
+            items += cart.quantity;
+          }
+
+          int products = cartsList.length;
+
+          cartsSummaryMap = {
+            "totalPrice": totalPrice,
+            "products": products,
+            "items": items
+          };
 
           if (cartsList.isEmpty) {
             return EmptyBagScreen(

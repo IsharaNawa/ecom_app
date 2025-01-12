@@ -300,21 +300,6 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
     return foundCart.isNotEmpty;
   }
 
-  Map<String, dynamic> getCartSummary() {
-    List<Cart> carts = state.values.toList();
-    double totalPrice = 0.0;
-    int items = 0;
-
-    for (Cart cart in carts) {
-      totalPrice += cart.quantity * double.parse(cart.product.productPrice);
-      items += cart.quantity;
-    }
-
-    int products = carts.length;
-
-    return {"totalPrice": totalPrice, "products": products, "items": items};
-  }
-
   Future<void> updateQuatityOfItemInCart(
       Cart cart, int qty, BuildContext context, WidgetRef ref) async {
     try {
