@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AppUser {
   String? userId, userName, userimage, userEmail;
   Timestamp? createdAt;
-  List? userCart, userWish;
+  Map? userCart, userWish;
 
   AppUser();
 

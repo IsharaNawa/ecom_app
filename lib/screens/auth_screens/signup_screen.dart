@@ -94,7 +94,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         "userEmail": _emailController.text.trim(),
         "createdAt": Timestamp.now(),
         "userCart": {},
-        "userWishList": [],
+        "userWishList": {},
       });
 
       await AppFunctions.triggerToast("Your account is created!", ref);

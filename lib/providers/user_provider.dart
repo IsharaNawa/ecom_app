@@ -20,6 +20,7 @@ class UserNotifier extends StateNotifier<AppUser> {
           await FirebaseFirestore.instance.collection("users").doc(uid).get();
 
       final userMap = userDoc.data() as Map<String, dynamic>;
+
       state = AppUser.initAllFields(
         userId: userMap["userId"],
         userName: userMap["userName"],
@@ -32,8 +33,10 @@ class UserNotifier extends StateNotifier<AppUser> {
 
       return state;
     } on FirebaseException catch (error) {
+      print(error);
       return null;
     } catch (error) {
+      print(error);
       return null;
     }
   }

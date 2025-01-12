@@ -34,6 +34,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
     try {
       appUser = await ref.watch(userProvider.notifier).fetchUserInfo();
 
+      
+
       setState(() {
         isLoading = true;
       });
