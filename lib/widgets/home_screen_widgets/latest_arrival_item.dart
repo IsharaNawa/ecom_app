@@ -26,7 +26,7 @@ class LatestArrivalItem extends ConsumerWidget {
             .isProductExitsInRecentlyViewedList(product)) {
           ref
               .read(recentlyViewedListProvider.notifier)
-              .addToRecentlyViewedList(product);
+              .addToRecentlyViewedList(product, context, ref);
         }
 
         await Navigator.of(context).push(

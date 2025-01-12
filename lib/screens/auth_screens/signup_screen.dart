@@ -95,6 +95,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         "createdAt": Timestamp.now(),
         "userCart": {},
         "userWishList": [],
+        "recentlyViewed": [],
       });
 
       await AppFunctions.triggerToast("Your account is created!", ref);

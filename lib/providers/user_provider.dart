@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecom_app/model/user.dart';
+import 'package:ecom_app/model/app_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,6 +7,7 @@ class UserNotifier extends StateNotifier<AppUser> {
   UserNotifier() : super(AppUser());
 
   Future<AppUser?> fetchUserInfo() async {
+    print("fetching");
     final auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
 
@@ -29,13 +30,15 @@ class UserNotifier extends StateNotifier<AppUser> {
         createdAt: userMap["createdAt"],
         userCart: userMap["userCart"],
         userWish: userMap["useruserWishListId"],
+        recentlyViewedProducts: userMap["recentlyViewed"],
       );
 
       return state;
     } on FirebaseException catch (error) {
-      print(error);
+      print("error");
       return null;
     } catch (error) {
+      print("error");
       print(error);
       return null;
     }

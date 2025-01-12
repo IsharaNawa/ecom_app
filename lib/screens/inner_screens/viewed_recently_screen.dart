@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:ecom_app/providers/product_provider.dart';
+import 'package:ecom_app/screens/generic_screens/error_screen.dart';
+import 'package:ecom_app/screens/generic_screens/loading_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,22 +27,79 @@ class ViewedRecentlyScreen extends ConsumerStatefulWidget {
 class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
   @override
   Widget build(BuildContext context) {
-    List<Product> recentlyViewedProducts =
-        ref.watch(recentlyViewedListProvider);
+    User? user = FirebaseAuth.instance.currentUser;
+    List<Product> recentlyViewedItemsList = [];
 
-    return recentlyViewedProducts.isEmpty
-        ? EmptyBagScreen(
-            mainImage: Icon(
-              IconManager.emptyRecentlyViewedIcon,
-              size: 200,
-            ),
-            mainTitle: "You haven't viewed any products yet!",
-            subTitle:
-                "You have not viewed any products. Please explore products and then they will appear here.",
-            buttonText: "Explore Products",
-            buttonFunction: () {},
-          )
-        : Scaffold(
+    if (user == null) {
+      return const ErrorScreen(
+        errorTitle: "No Authenticated User Found!",
+      );
+    }
+
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("users")
+            .doc(user.uid)
+            .snapshots(),
+        builder: (context, snapshot) {
+          ref
+              .watch(recentlyViewedListProvider.notifier)
+              .fetchProductsForRecentlyViewedList(context, ref);
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const LoadingScreen(
+              loadingText: "Loading your wishlist...",
+            );
+          }
+
+          if (snapshot.hasError) {
+            return ErrorScreen(errorTitle: snapshot.error.toString());
+          }
+
+          if (snapshot.data == null || !snapshot.hasData) {
+            return EmptyBagScreen(
+              mainImage: Icon(
+                IconManager.emptyRecentlyViewedIcon,
+                size: 200,
+              ),
+              mainTitle: "You haven't viewed any products yet!",
+              subTitle:
+                  "You have not viewed any products. Please explore products and then they will appear here.",
+              buttonText: "Explore Products",
+              buttonFunction: () {},
+            );
+          }
+
+          final userMap = snapshot.data!.data() as Map<String, dynamic>;
+
+          if (!userMap.containsKey("recentlyViewed")) {
+            return const ErrorScreen(
+                errorTitle: "recentlyViewed key not in this user");
+          }
+
+          final recentlyViewedItemsListFromFirebase = userMap["recentlyViewed"];
+
+          for (final prodId in recentlyViewedItemsListFromFirebase) {
+            Product product_ =
+                ref.read(productsProvider.notifier).findProductById(prodId);
+
+            recentlyViewedItemsList.add(product_);
+          }
+
+          if (recentlyViewedItemsList.isEmpty) {
+            return EmptyBagScreen(
+              mainImage: Icon(
+                IconManager.emptyCartIcon,
+                size: 200,
+              ),
+              mainTitle: "Nothing is in Your Cart!",
+              subTitle:
+                  "You have not added any items to the cart. Please add items to your cart and checkout when you are ready.",
+              buttonText: "Explore Products",
+              buttonFunction: () {},
+            );
+          }
+
+          return Scaffold(
             appBar: AppBar(
               titleSpacing: 0,
               leading: Padding(
@@ -56,7 +118,7 @@ class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
                 ),
               ),
               title: Text(
-                  "Recently Viewed Items(${recentlyViewedProducts.length})"),
+                  "Recently Viewed Items(${recentlyViewedItemsList.length})"),
               actions: [
                 TextButton.icon(
                   onPressed: () async {
@@ -74,7 +136,7 @@ class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
                         setState(() {
                           ref
                               .read(recentlyViewedListProvider.notifier)
-                              .clearRecentlyViewedList();
+                              .clearRecentlyViewedList(context, ref);
                         });
                         Navigator.of(context).pop();
                       },
@@ -89,13 +151,14 @@ class ViewedRecentlyScreenState extends ConsumerState<ViewedRecentlyScreen> {
             body: DynamicHeightGridView(
               builder: (context, index) {
                 return ProductGridWidget(
-                    product: recentlyViewedProducts[index]);
+                    product: recentlyViewedItemsList[index]);
               },
-              itemCount: recentlyViewedProducts.length,
+              itemCount: recentlyViewedItemsList.length,
               crossAxisCount: 2,
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,
             ),
           );
+        });
   }
 }

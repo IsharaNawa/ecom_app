@@ -32,7 +32,7 @@ class _ProductGridWidgetState extends ConsumerState<ProductGridWidget> {
             .isProductExitsInRecentlyViewedList(widget.product)) {
           ref
               .read(recentlyViewedListProvider.notifier)
-              .addToRecentlyViewedList(widget.product);
+              .addToRecentlyViewedList(widget.product, context, ref);
         }
 
         await Navigator.of(context).push(
