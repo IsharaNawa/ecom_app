@@ -81,17 +81,15 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
           Map<String, Cart> cartItemsMap = {};
 
-          for (final item in cartItems) {
-            String prodId = item["productId"];
-
+          for (final prodId in cartItems.keys) {
             Product product_ =
                 ref.read(productsProvider.notifier).findProductById(prodId);
 
             cartItemsMap[prodId] = Cart(
-              cartId: item["cartId"],
+              cartId: cartItems[prodId]["cartId"],
               product: product_,
-              quantity: item["quatity"],
-              createdAt: item["createdAt"],
+              quantity: cartItems[prodId]["quatity"],
+              createdAt: cartItems[prodId]["createdAt"],
             );
           }
 

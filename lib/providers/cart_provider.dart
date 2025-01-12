@@ -45,19 +45,16 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
           .collection("users")
           .doc(user.uid)
           .update({
-        "userCart": FieldValue.arrayUnion([
-          {
-            "cartId": cartId,
-            "productId": product.productId,
-            "quatity": qty,
-            "createdAt": createdAt,
-          }
-        ])
+        "userCart.${product.productId}": {
+          "cartId": cartId,
+          "quatity": qty,
+          "createdAt": createdAt,
+        },
       });
 
       state = {
         product.productId: Cart(
-          cartId: const Uuid().v4(),
+          cartId: cartId,
           product: product,
           quantity: 1,
           createdAt: createdAt,
@@ -131,17 +128,15 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
 
         final cartItems = userMap["userCart"];
 
-        for (final item in cartItems) {
-          String prodId = item["productId"];
-
+        for (final prodId in cartItems.keys) {
           Product product_ =
               ref.read(productsProvider.notifier).findProductById(prodId);
 
           cartItemsMap[prodId] = Cart(
-              cartId: item["cartId"],
+              cartId: cartItems[prodId]["cartId"],
               product: product_,
-              quantity: item["quatity"],
-              createdAt: item["createdAt"]);
+              quantity: cartItems[prodId]["quatity"],
+              createdAt: cartItems[prodId]["createdAt"]);
         }
       });
 
@@ -190,19 +185,12 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         return;
       }
 
+      print(cartItem.toString());
+
       await FirebaseFirestore.instance
           .collection("users")
           .doc(user.uid)
-          .update({
-        "userCart": FieldValue.arrayRemove([
-          {
-            "cartId": cartItem.cartId,
-            "productId": product.productId,
-            "quatity": cartItem.quantity,
-            "createdAt": cartItem.createdAt,
-          }
-        ])
-      });
+          .update({"userCart.${product.productId}": FieldValue.delete()});
 
       final updatedState = Map<String, Cart>.from(state);
 
@@ -268,7 +256,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
       await FirebaseFirestore.instance
           .collection("users")
           .doc(user.uid)
-          .update({"userCart": []});
+          .update({"userCart": {}});
 
       state = {};
     } on FirebaseException catch (error) {
@@ -303,14 +291,12 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
   }
 
   bool isProductAlreadyExistsInCart(Product product) {
-    print("state" + state.toString());
     List<Cart> carts = state.values.toList();
-    print(state);
+
     List<Cart> foundCart = carts
         .where((cart) => cart.product.productId == product.productId)
         .toList();
 
-    print(foundCart.length);
     return foundCart.isNotEmpty;
   }
 
@@ -329,29 +315,82 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
     return {"totalPrice": totalPrice, "products": products, "items": items};
   }
 
-  void updateQuatityOfItemInCart(Cart cart, int qty) {
-    String correctProductId = "";
-    for (Cart currCart in state.values.toList()) {
-      if (currCart.product.productId == cart.product.productId) {
-        correctProductId = currCart.product.productId;
+  Future<void> updateQuatityOfItemInCart(
+      Cart cart, int qty, BuildContext context, WidgetRef ref) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+          context: context,
+          isWarning: false,
+          mainTitle: "You are not authenticated. Please login First!",
+          icon: Icon(IconManager.accountErrorIcon),
+          action1Text: "OK",
+          action2Text: "",
+          action1Func: () async {
+            Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+          },
+          action2Func: () {},
+          ref: ref,
+        );
+
+        return;
       }
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid)
+          .update({
+        "userCart.${cart.product.productId}": {
+          "cartId": cart.cartId,
+          "quatity": qty,
+          "createdAt": cart.createdAt,
+        }
+      });
+
+      final updatedState = Map<String, Cart>.from(state);
+
+      updatedState.update(
+        cart.product.productId,
+        (cartItem) => Cart(
+          cartId: cart.cartId,
+          product: state[cart.product.productId]!.product,
+          quantity: qty,
+          createdAt: cart.createdAt,
+        ),
+      );
+
+      state = updatedState;
+    } on FirebaseException catch (error) {
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.message.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
+    } catch (error) {
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
     }
-
-    if (correctProductId == "") return;
-
-    final updatedState = Map<String, Cart>.from(state);
-
-    updatedState.update(
-      correctProductId,
-      (cartItem) => Cart(
-        cartId: correctProductId,
-        product: state[correctProductId]!.product,
-        quantity: qty,
-        createdAt: state[correctProductId]!.createdAt,
-      ),
-    );
-
-    state = updatedState;
   }
 }
 

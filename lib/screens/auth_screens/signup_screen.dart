@@ -93,7 +93,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         "userImage": imageUrl,
         "userEmail": _emailController.text.trim(),
         "createdAt": Timestamp.now(),
-        "userCart": [],
+        "userCart": {},
         "userWishList": [],
       });
 
