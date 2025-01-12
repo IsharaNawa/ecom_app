@@ -91,10 +91,15 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               cartId: item["cartId"],
               product: product_,
               quantity: item["quatity"],
+              createdAt: item["createdAt"],
             );
           }
 
-          cartsList = cartItemsMap.values.toList().reversed.toList();
+          cartsList = cartItemsMap.values.toList();
+
+          cartsList.sort((a, b) {
+            return b.createdAt.compareTo(a.createdAt);
+          });
 
           if (cartsList.isEmpty) {
             return EmptyBagScreen(

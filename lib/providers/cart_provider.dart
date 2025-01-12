@@ -39,6 +39,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
       }
 
       String cartId = const Uuid().v4();
+      Timestamp createdAt = Timestamp.now();
 
       await FirebaseFirestore.instance
           .collection("users")
@@ -49,6 +50,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
             "cartId": cartId,
             "productId": product.productId,
             "quatity": qty,
+            "createdAt": createdAt,
           }
         ])
       });
@@ -58,6 +60,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
           cartId: const Uuid().v4(),
           product: product,
           quantity: 1,
+          createdAt: createdAt,
         ),
         ...state
       };
@@ -135,10 +138,10 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
               ref.read(productsProvider.notifier).findProductById(prodId);
 
           cartItemsMap[prodId] = Cart(
-            cartId: item["cartId"],
-            product: product_,
-            quantity: item["quatity"],
-          );
+              cartId: item["cartId"],
+              product: product_,
+              quantity: item["quatity"],
+              createdAt: item["createdAt"]);
         }
       });
 
@@ -196,6 +199,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
             "cartId": cartItem.cartId,
             "productId": product.productId,
             "quatity": cartItem.quantity,
+            "createdAt": cartItem.createdAt,
           }
         ])
       });
@@ -343,6 +347,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         cartId: correctProductId,
         product: state[correctProductId]!.product,
         quantity: qty,
+        createdAt: state[correctProductId]!.createdAt,
       ),
     );
 
