@@ -119,7 +119,9 @@ class AppFunctions {
               qty,
             );
       } else if (type == "wishlist") {
-        ref.read(wishListProvider.notifier).addToWishList(product);
+        ref
+            .read(wishListProvider.notifier)
+            .addToWishList(product, context, ref);
       } else if (type == "recently_viewd") {
       } else if (type == "cartRemoval") {
         ref

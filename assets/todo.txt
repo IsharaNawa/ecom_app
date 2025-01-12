@@ -37,3 +37,5 @@
 [23. Use ThemeData more often]
 
 [24. Creating scaffold inside scaffold. Please resolve this. EX : searchscreen and cartScreen]
+
+[25. Fetch cartItems and wishlist items before loading the app so the badge label is correctly displayed.]
