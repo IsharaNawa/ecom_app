@@ -39,3 +39,7 @@
 [24. Creating scaffold inside scaffold. Please resolve this. EX : searchscreen and cartScreen]
 
 [25. Fetch cartItems and wishlist items before loading the app so the badge label is correctly displayed.]
+
+[26. Resolve coming to root screen when switching off night mode]
+
+[27. Resolve showing screen based on authentication in main. Use FutureBuilder for this]
