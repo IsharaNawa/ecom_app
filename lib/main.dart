@@ -1,7 +1,3 @@
-import 'package:ecom_app/providers/cart_provider.dart';
-import 'package:ecom_app/providers/wishlist_provider.dart';
-import 'package:ecom_app/screens/auth_screens/login_screen.dart';
-import 'package:ecom_app/screens/auth_screens/signup_screen.dart';
 import 'package:ecom_app/screens/navigator_screens/root_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

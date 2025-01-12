@@ -56,6 +56,7 @@ class ProductNotifier extends StateNotifier<List<Product>> {
 
       return state;
     } on FirebaseException catch (error) {
+      print(error);
       return null;
     } catch (error) {
       return null;

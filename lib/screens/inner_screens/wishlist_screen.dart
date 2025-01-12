@@ -23,6 +23,7 @@ class WishListScreen extends ConsumerStatefulWidget {
 }
 
 class WishListScreenState extends ConsumerState<WishListScreen> {
+  @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
     List<Product> wishListItemList = [];

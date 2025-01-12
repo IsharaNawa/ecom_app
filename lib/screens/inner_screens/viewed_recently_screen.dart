@@ -14,7 +14,6 @@ import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/screens/generic_screens/empty_bag_screen.dart';
 import 'package:ecom_app/widgets/search_screen_widgets/product_grid_widget.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ViewedRecentlyScreen extends ConsumerStatefulWidget {
   const ViewedRecentlyScreen({super.key});

@@ -36,6 +36,7 @@ class UserNotifier extends StateNotifier<AppUser> {
       return state;
     } on FirebaseException catch (error) {
       print("error");
+      print(error);
       return null;
     } catch (error) {
       print("error");

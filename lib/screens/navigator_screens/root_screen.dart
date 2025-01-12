@@ -10,7 +10,7 @@ import 'package:ecom_app/screens/navigator_screens/search_screen.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/product_provider.dart';
-import 'package:ecom_app/providers/theme_provider.dart';
+
 import 'package:ecom_app/services/app_functions.dart';
 
 class RootScreen extends ConsumerStatefulWidget {
