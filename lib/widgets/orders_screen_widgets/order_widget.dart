@@ -1,3 +1,4 @@
+import 'package:ecom_app/model/order.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,7 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 
 class OrderWidget extends StatelessWidget {
-  const OrderWidget({super.key});
+  const OrderWidget({super.key, required this.orderProduct});
+
+  final OrderProduct orderProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +21,7 @@ class OrderWidget extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: FancyShimmerImage(
-              imageUrl:
-                  "https://cdn.pixabay.com/photo/2014/01/22/19/38/boot-250012_1280.jpg",
+              imageUrl: orderProduct.imageUrl,
               height: 100,
               width: 100,
             ),
@@ -38,7 +40,7 @@ class OrderWidget extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        "Apple IPhone 16 Pro Max Japan Edition" * 10,
+                        orderProduct.productTitle,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.lato(
@@ -59,7 +61,7 @@ class OrderWidget extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "\$200.00",
+                  "\$${orderProduct.price}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.lato(
@@ -72,7 +74,7 @@ class OrderWidget extends StatelessWidget {
                   children: [
                     const Text("Qty: "),
                     Text(
-                      "10",
+                      "${orderProduct.quantity}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.lato(
