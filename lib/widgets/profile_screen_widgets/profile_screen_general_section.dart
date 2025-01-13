@@ -1,3 +1,5 @@
+import 'package:ecom_app/model/order.dart';
+import 'package:ecom_app/providers/order_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,8 +19,14 @@ class ProfileScreenGeneralSection extends ConsumerWidget {
     List<Product> recentlyViewedProducts =
         ref.watch(recentlyViewedListProvider);
     List<Product> wishListProducts = ref.watch(wishListProvider);
+    List<OrderProduct> orders = ref.watch(orderProvider);
     List<dynamic> leadingIcons = [
-      Icon(IconManager.ordersIcon),
+      orders.isNotEmpty
+          ? Badge(
+              label: Text(orders.length.toString()),
+              child: Icon(IconManager.ordersIcon),
+            )
+          : Icon(IconManager.ordersIcon),
       wishListProducts.isNotEmpty
           ? Badge(
               label: Text(wishListProducts.length.toString()),

@@ -163,7 +163,7 @@ class OrderNotifier extends StateNotifier<List<OrderProduct>> {
             userName: orderData["userName"],
             price: orderData["price"].toString(),
             imageUrl: orderData["imageUrl"],
-            quantity: orderData["quantity"],
+            quantity: orderData["quantity"].toString(),
             orderDate: orderData["orderDate"],
           );
 
@@ -178,9 +178,89 @@ class OrderNotifier extends StateNotifier<List<OrderProduct>> {
       print(error.message.toString());
       return [];
     } catch (error) {
+      print("error");
       print(error.toString());
       return [];
     }
+  }
+
+  Future<void> deleteOrder(
+      OrderProduct order, BuildContext context, WidgetRef ref) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+          context: context,
+          isWarning: false,
+          mainTitle: "You are not authenticated. Please login First!",
+          icon: Icon(IconManager.accountErrorIcon),
+          action1Text: "OK",
+          action2Text: "",
+          action1Func: () async {
+            Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+          },
+          action2Func: () {},
+          ref: ref,
+        );
+
+        return;
+      }
+
+      if (!isOrderAlreadyExists(order)) {
+        return;
+      }
+
+      await FirebaseFirestore.instance
+          .collection("orders")
+          .doc(order.orderId)
+          .delete();
+
+      final updatedState = List<OrderProduct>.from(state);
+
+      if (isOrderAlreadyExists(order)) {
+        updatedState.remove(order);
+      }
+
+      state = updatedState;
+    } on FirebaseException catch (error) {
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.message.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
+    } catch (error) {
+      await AppFunctions.showErrorOrWarningOrImagePickerDialog(
+        context: context,
+        isWarning: false,
+        mainTitle: error.toString(),
+        icon: Icon(IconManager.accountErrorIcon),
+        action1Text: "OK",
+        action2Text: "",
+        action1Func: () async {
+          Navigator.of(context).canPop() ? Navigator.of(context).pop() : null;
+        },
+        action2Func: () {},
+        ref: ref,
+      );
+    }
+  }
+
+  bool isOrderAlreadyExists(OrderProduct order) {
+    List<OrderProduct> ordersList = state;
+
+    List<OrderProduct> foundOrder =
+        ordersList.where((order_) => order_.orderId == order.orderId).toList();
+
+    return foundOrder.isNotEmpty;
   }
 }
 

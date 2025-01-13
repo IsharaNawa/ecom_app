@@ -33,6 +33,8 @@ class _OrdersScreenState extends ConsumerState<OrdersScreen> {
         stream: FirebaseFirestore.instance.collection("orders").snapshots(),
         builder: (context, snapshot) {
           List<OrderProduct> ordersList = [];
+          print("len");
+          print(ref.read(orderProvider).length);
           ref.watch(orderProvider.notifier).fetchOrders(context, ref);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const LoadingScreen(
@@ -112,7 +114,7 @@ class _OrdersScreenState extends ConsumerState<OrdersScreen> {
                   ),
                 ),
               ),
-              title: Text("Orders(${ordersList.length})"),
+              title: Text("Orders(${ordersList.length.toString()})"),
             ),
             body: ListView.builder(
               itemBuilder: (context, index) {

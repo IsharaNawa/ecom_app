@@ -1,17 +1,19 @@
 import 'package:ecom_app/model/order.dart';
+import 'package:ecom_app/providers/order_provider.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:ecom_app/services/icon_manager.dart';
 
-class OrderWidget extends StatelessWidget {
+class OrderWidget extends ConsumerWidget {
   const OrderWidget({super.key, required this.orderProduct});
 
   final OrderProduct orderProduct;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
 
     return Row(
@@ -54,14 +56,18 @@ class OrderWidget extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        {}
+                        {
+                          ref
+                              .watch(orderProvider.notifier)
+                              .deleteOrder(orderProduct, context, ref);
+                        }
                       },
                       icon: Icon(IconManager.removeItemFromCartIcon),
                     ),
                   ],
                 ),
                 Text(
-                  "\$${orderProduct.price}",
+                  "\$${orderProduct.price.toString()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.lato(
@@ -74,7 +80,7 @@ class OrderWidget extends StatelessWidget {
                   children: [
                     const Text("Qty: "),
                     Text(
-                      "${orderProduct.quantity}",
+                      orderProduct.quantity.toString(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.lato(
