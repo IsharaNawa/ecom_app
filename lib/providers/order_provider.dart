@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
+
 import 'package:ecom_app/model/cart.dart';
 import 'package:ecom_app/model/order.dart';
 import 'package:ecom_app/providers/cart_provider.dart';
@@ -6,12 +11,7 @@ import 'package:ecom_app/providers/product_provider.dart';
 import 'package:ecom_app/providers/user_provider.dart';
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:ecom_app/model/product.dart';
-import 'package:uuid/uuid.dart';
 
 class OrderNotifier extends StateNotifier<List<OrderProduct>> {
   OrderNotifier() : super([]);
@@ -81,10 +81,11 @@ class OrderNotifier extends StateNotifier<List<OrderProduct>> {
         );
 
         state = [orderProduct_, ...state];
-
+        if (!context.mounted) return;
         ref.read(cartProvider.notifier).clearItemFromCart(context, ref);
       }
     } on FirebaseException catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -99,6 +100,7 @@ class OrderNotifier extends StateNotifier<List<OrderProduct>> {
         ref: ref,
       );
     } catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -224,6 +226,7 @@ class OrderNotifier extends StateNotifier<List<OrderProduct>> {
 
       state = updatedState;
     } on FirebaseException catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -238,6 +241,7 @@ class OrderNotifier extends StateNotifier<List<OrderProduct>> {
         ref: ref,
       );
     } catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,

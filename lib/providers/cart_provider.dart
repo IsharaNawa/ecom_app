@@ -62,6 +62,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         ...state
       };
     } on FirebaseException catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -76,6 +77,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         ref: ref,
       );
     } catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -200,6 +202,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
 
       state = updatedState;
     } on FirebaseException catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -214,6 +217,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         ref: ref,
       );
     } catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -260,6 +264,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
 
       state = {};
     } on FirebaseException catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -274,6 +279,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         ref: ref,
       );
     } catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -348,6 +354,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
 
       state = updatedState;
     } on FirebaseException catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -362,6 +369,7 @@ class CartNotifier extends StateNotifier<Map<String, Cart>> {
         ref: ref,
       );
     } catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,

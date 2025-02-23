@@ -1,11 +1,11 @@
 import 'package:ecom_app/model/order.dart';
 import 'package:ecom_app/providers/order_provider.dart';
+import 'package:ecom_app/services/icon_manager.dart';
+
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:ecom_app/services/icon_manager.dart';
 
 class OrderWidget extends ConsumerWidget {
   const OrderWidget({super.key, required this.orderProduct});

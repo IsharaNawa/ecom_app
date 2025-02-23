@@ -1,8 +1,8 @@
-import 'package:ecom_app/model/order.dart';
-import 'package:ecom_app/providers/order_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:ecom_app/providers/order_provider.dart';
+import 'package:ecom_app/model/order.dart';
 import 'package:ecom_app/model/product.dart';
 import 'package:ecom_app/providers/recently_viewed_provider.dart';
 import 'package:ecom_app/providers/wishlist_provider.dart';

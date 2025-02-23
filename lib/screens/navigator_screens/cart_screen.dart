@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecom_app/model/product.dart';
-import 'package:ecom_app/providers/product_provider.dart';
-import 'package:ecom_app/screens/generic_screens/error_screen.dart';
-
-import 'package:ecom_app/screens/generic_screens/loading_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:ecom_app/model/product.dart';
+import 'package:ecom_app/providers/product_provider.dart';
+import 'package:ecom_app/screens/generic_screens/error_screen.dart';
+import 'package:ecom_app/screens/generic_screens/loading_screen.dart';
 import 'package:ecom_app/model/cart.dart';
 import 'package:ecom_app/providers/cart_provider.dart';
-
 import 'package:ecom_app/services/app_functions.dart';
 import 'package:ecom_app/services/icon_manager.dart';
 import 'package:ecom_app/widgets/cart_screen_widgets/bottom_cart_widget.dart';
@@ -156,10 +154,10 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         action2Func: () {
                           setState(
                             () {
-                              ref.read(cartProvider.notifier).clearItemFromCart(
-                                    context,
-                                    ref,
-                                  );
+                              // ref.read(cartProvider.notifier).clearItemFromCart(
+                              //       context,
+                              //       ref,
+                              //     );
                             },
                           );
 

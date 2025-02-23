@@ -49,11 +49,15 @@ class _ProfileImagePickerState extends ConsumerState<ProfileImagePicker> {
       action2Text: "Gallery",
       action1Func: () async {
         await getImage(ImageSource.camera);
-        Navigator.of(context).pop();
+        if (mounted) {
+          Navigator.of(context).pop();
+        }
       },
       action2Func: () async {
         await getImage(ImageSource.gallery);
-        Navigator.of(context).pop();
+        if (mounted) {
+          Navigator.of(context).pop();
+        }
       },
       ref: ref,
     );

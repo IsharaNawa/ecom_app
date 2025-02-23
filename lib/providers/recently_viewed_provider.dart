@@ -48,6 +48,7 @@ class RecentlyViewedNotifier extends StateNotifier<List<Product>> {
 
       state = [product, ...state];
     } on FirebaseException catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -62,6 +63,7 @@ class RecentlyViewedNotifier extends StateNotifier<List<Product>> {
         ref: ref,
       );
     } catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -166,6 +168,7 @@ class RecentlyViewedNotifier extends StateNotifier<List<Product>> {
 
       state = [];
     } on FirebaseException catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
@@ -180,6 +183,7 @@ class RecentlyViewedNotifier extends StateNotifier<List<Product>> {
         ref: ref,
       );
     } catch (error) {
+      if (!context.mounted) return;
       await AppFunctions.showErrorOrWarningOrImagePickerDialog(
         context: context,
         isWarning: false,
